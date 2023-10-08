@@ -30,13 +30,13 @@ class HomeMenuController:
 
 class ClassementMenuController:
     def __call__(self, *args, **kwargs):
-        print("dans le controleur de classement ")
+        print("dans le controleur de classement")
 
 
 class NewTournamentController:
-    def __init__(self):
-        pass
-
+    def __call__(self, *args, **kwargs):
+        print("dans le controleur de tournois")
 
 class QuitController:
-    pass
+    def __call__(self, *args, **kwargs):
+        print("dans le controleur de fin")
