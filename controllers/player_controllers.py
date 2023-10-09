@@ -15,8 +15,10 @@ class PlayerController:
         self.model.save_to_json(filename)
 
     def display_players(self):
-        players = self.model._get_players()
+        players = self.model.get_players()
         self.view.display_players(players)
+
+
 
 
 if __name__ == "__main__":
