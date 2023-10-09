@@ -1,24 +1,28 @@
 from views.player_view import PlayerView
-from models.player import Player, NewPlayer
+from models.player import Player
 from datetime import date
+import json
 
 
-class PlayerController:
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
+class PlayerHandlerController:
+    def __init__(self):
+        self._players = []
 
     def add_player(self, player):
-        self.model.add_player(player)
+        self._players.append(player)
 
-    def save_players_to_json(self, filename):
-        self.model.save_to_json(filename)
+    def get_players(self):
+        return self._players
+
+    def save_to_json(self, filename):
+        players_date = [player.dictionnary_player() for player in self._players]  # modifier avec contain
+        with open(filename, "w") as json_file:
+            json.dump(players_date, json_file, indent=4)
 
     def display_players(self):
-        players = self.model.get_players()
-        self.view.display_players(players)
-
-
+        players = self.get_players()
+        view = PlayerView()
+        view.display_players(players)
 
 
 if __name__ == "__main__":
@@ -30,21 +34,9 @@ if __name__ == "__main__":
     player5 = Player("Dalco", "Lucien", date(1995, 8, 12), 500)
     player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
 
-    # Créer le modèle, la vue et le contrôleur
-    model = NewPlayer()
-    view = PlayerView()
-    controller = PlayerController(model, view)
+    handler = PlayerHandlerController()
+    handler.add_player(player1)
+    handler.add_player(player2)
 
-    # Ajouter les joueurs au modèle
-    controller.add_player(player1)
-    controller.add_player(player2)
-    controller.add_player(player3)
-    controller.add_player(player4)
-    controller.add_player(player5)
-    controller.add_player(player6)
-
-    # Enregistrer les joueurs dans un fichier JSON
-    controller.save_players_to_json("joueurs.json")
-
-    # Afficher les joueurs
-    controller.display_players()
+    handler.display_players()
+    handler.save_to_json("joueurs.json")
