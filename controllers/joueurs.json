@@ -12,5 +12,19 @@
         "birtday": "1992-02-01",
         "score": 500,
         "id_chess": "AB12345"
+    },
+    {
+        "name": "Kagon",
+        "surname": "Nino",
+        "birtday": "1988-11-04",
+        "score": 350,
+        "id_chess": "AB12345"
+    },
+    {
+        "name": "Guyot",
+        "surname": "Maxime",
+        "birtday": "1998-03-27",
+        "score": 400,
+        "id_chess": "AB12345"
     }
 ]

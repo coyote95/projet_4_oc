@@ -17,6 +17,15 @@ class PlayerHandlerController:
     def __iter__(self):
         return iter(self._players)
 
+    def __getitem__(self, key):
+        players=[]
+        for player in self._players:
+            if player.name.lower().startswith(key.lower()):
+                players.append(player)
+        return players
+
+    def list_player_alphabethique(self):
+        self._players.sort(key=lambda x: f"{x._name} {x._surname}")
 
 
     def get_players(self):
@@ -44,15 +53,21 @@ if __name__ == "__main__":
     handler = PlayerHandlerController()
     handler.add_player(player1)
     handler.add_player(player2)
+    handler.add_player(player3)
+    handler.add_player(player4)
 
     handler.display_players()
     handler.save_to_json("joueurs.json")
 
-    print("test fonction contains:")
-    if player1 in handler:
-        print("true")
-    else:
-        print("false")
-
-
-    print ("OK")
+    # print("test fonction contains:")
+    # if player1 in handler:
+    #     print("true")
+    # else:
+    #     print("false")
+    #
+    # print ("test recherche key de player")
+    # for player in handler["dup"]:
+    #     print(player)
+    print("Trie des joueurs")
+    handler.list_player_alphabethique()
+    handler.display_players()
