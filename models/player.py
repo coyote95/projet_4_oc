@@ -13,7 +13,6 @@ class Player:
     def name(self):
         return self._name
 
-
     def __str__(self):
         return f"Nom:{self._name} Prenom:{self._surname} Naissance:{self._birthday} Score:{self.score} ID:{self.id_chess}"
 
@@ -35,7 +34,7 @@ if __name__ == "__main__":
     player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
     player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 
-    if (player1==player7):
+    if (player1 == player7):
         print(True)
     else:
         print(False)
