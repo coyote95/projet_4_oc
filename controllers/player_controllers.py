@@ -28,9 +28,8 @@ class PlayerHandlerController:
             json.dump(players_date, json_file, indent=4)
 
     def display_players(self):
-        players = self.get_players()
-        view = PlayerView()
-        view.display_players(players)
+        view = PlayerView(self._players)
+        view.display_players()
 
 
 if __name__ == "__main__":
@@ -48,10 +47,12 @@ if __name__ == "__main__":
 
     handler.display_players()
     handler.save_to_json("joueurs.json")
+
+    print("test fonction contains:")
     if player1 in handler:
         print("true")
     else:
         print("false")
 
-    for player in handler:
-        print(player)
+
+    print ("OK")

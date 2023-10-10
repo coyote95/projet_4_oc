@@ -9,6 +9,7 @@ class Player:
         self.id_chess = id_chess
         self.score = score
 
+
     def __str__(self):
         return f"Nom:{self._name} Prenom:{self._surname} Naissance:{self._birthday} Score:{self.score} ID:{self.id_chess}"
 
