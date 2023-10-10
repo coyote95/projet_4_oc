@@ -11,6 +11,14 @@ class PlayerHandlerController:
     def add_player(self, player):
         self._players.append(player)
 
+    def __contains__(self, player):
+        return player in self._players
+
+    def __iter__(self):
+        return iter(self._players)
+
+
+
     def get_players(self):
         return self._players
 
@@ -40,3 +48,10 @@ if __name__ == "__main__":
 
     handler.display_players()
     handler.save_to_json("joueurs.json")
+    if player1 in handler:
+        print("true")
+    else:
+        print("false")
+
+    for player in handler:
+        print(player)

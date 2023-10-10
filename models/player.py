@@ -12,6 +12,9 @@ class Player:
     def __str__(self):
         return f"Nom:{self._name} Prenom:{self._surname} Naissance:{self._birthday} Score:{self.score} ID:{self.id_chess}"
 
+    def __eq__(self, other):
+        return self._name == other._name and self._surname == other._surname
+
     def dictionnary_player(self):
         return {"name": self._name, "surname": self._surname, "birtday": self._birthday.isoformat(),
                 "score": self.score,
@@ -25,3 +28,9 @@ if __name__ == "__main__":
     player4 = Player("Guyot", "Maxime", date(1998, 3, 27), 400)
     player5 = Player("Dalco", "Lucien", date(1995, 8, 12), 500)
     player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
+    player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
+
+    if (player1==player7):
+        print(True)
+    else:
+        print(False)
