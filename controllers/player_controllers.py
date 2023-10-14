@@ -1,40 +1,42 @@
 from views.player_view import PlayerView
 from models.player import Player
 from datetime import date
-import json
 
 
-class PlayerHandlerController:
-    def __init__(self):
-        self._players = []
-
-    def add_player(self, player):
-        self._players.append(player)
-
-    def __contains__(self, player):
-        return player in self._players
-
-    def __iter__(self):
-        return iter(self._players)
-
-    def __getitem__(self, key):
-        players=[]
-        for player in self._players:
-            if player.name.lower().startswith(key.lower()):
-                players.append(player)
-        return players
-
-    def list_player_alphabethique(self):
-        self._players.sort(key=lambda x: f"{x._name} {x._surname}")
-
-
-    def get_players(self):
-        return self._players
-
-    def save_to_json(self, filename):
-        players_date = [player.dictionnary_player() for player in self._players]  # modifier avec contain
-        with open(filename, "w") as json_file:
-            json.dump(players_date, json_file, indent=4)
+#
+# class PlayerHandlerController:
+#     def __init__(self):
+#         self._players = []
+#
+#     def add_player(self, player):
+#         self._players.append(player)
+#
+#     def __contains__(self, player):
+#         return player in self._players
+#
+#     def __iter__(self):
+#         return iter(self._players)
+#
+#     def __getitem__(self, key):
+#         players=[]
+#         for player in self._players:
+#             if player.name.lower().startswith(key.lower()):
+#                 players.append(player)
+#         return players
+#
+#     def list_player_alphabethique(self):
+#         self._players.sort(key=lambda x: f"{x._name} {x._surname}")
+#
+#
+#     def get_players(self):
+#         return self._players
+#
+#
+#
+#     def save_to_json(self, filename):   #dans la methode player
+#         players_date = [player.dictionnary_player() for player in self._players]  # modifier avec contain
+#         with open(filename, "w") as json_file:
+#             json.dump(players_date, json_file, indent=4)
 
     def display_players(self):
         view = PlayerView(self._players)

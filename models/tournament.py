@@ -9,7 +9,9 @@ class Tournament:
         self.actual_round = 1
         self.list_round = []
         self.saving_players = []
+        liçste dictionnaire
         self.description = []
+
 
     def __str__(self):
         return (

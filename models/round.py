@@ -1,7 +1,9 @@
 class Round:
-    def __init__(self, number_round):
-        self.number_round = number_round
+    def __init__(self, numero_round):
+        self.numero_round = numero_round
         self.matchs = []
 
 
+methode
 
+creation 6 round
