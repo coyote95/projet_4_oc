@@ -2,6 +2,15 @@ from datetime import date
 from tinydb import TinyDB, Query
 
 
+class PlayerController:
+    def __init__(self, player, view):
+        self.player = player
+        self.view = view
+
+    def add_player_controller(self, filename, player):
+        self.player.add_player(filename, player)
+
+
 class Player:
     def __init__(self, name, surname, birthday, id_chess="AB12345"):
         self._name = name
@@ -9,13 +18,9 @@ class Player:
         self._birthday = birthday
         self.id_chess = id_chess
 
-    def add_player(self,filename,player):
-        players_data = [player.dictionnary_player() for player in self._players]
+    def add_player(self, filename, player):
         db = TinyDB(filename)
-        db.insert(player._name,player._surname)
-
-
-
+        db.insert(player.dictionnary_player())
 
     @property
     def name(self):
@@ -29,7 +34,6 @@ class Player:
 
     def dictionnary_player(self):
         return {"name": self._name, "surname": self._surname, "birtday": self._birthday.isoformat(),
-                "score": self.score,
                 "id_chess": self.id_chess}
 
 
@@ -42,5 +46,10 @@ if __name__ == "__main__":
     player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
     player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 
-
-    Player.add_player(players.json,player1)
+    if player1 == player7:
+        print(True)
+    else:
+        print(False)
+    controller = PlayerController()
+    controller.add_player_controller("players.json", player1)
+   # controller.model.add_player_controller("players.json", player1)
