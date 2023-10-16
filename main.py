@@ -1,26 +1,29 @@
 from models.player import Player
 from models.tournament import Tournament
-from models.menu import MenuEntry,Menu
+from models.menu import MenuEntry, Menu
 from views.player_view import PlayerView
 from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
 from controllers.player_controllers import PlayerController
 from controllers.tournamenent_controllers import TournamentController
-from controllers.menu_controllers import ApplicationController,HomeMenuController,MenuNewTournamentController
+from controllers.menu_controllers import ApplicationController, HomeMenuController, MenuNewTournamentController
 
 from datetime import date, timedelta
 from tinydb import TinyDB, Query
 
 ########Menu
-app= ApplicationController()
+app = ApplicationController()
 app.start()
 menu = Menu()
 
 
-# print(menu._entries)
+newtournament = Tournament(None,None,None,None)
 
 
-
+model = newtournament
+view = TournamentView(model)  # appeler la vue du model
+controller = TournamentController(model, view)
+controller.dialogue()
 
 
 
@@ -57,21 +60,16 @@ controller.display_player_controller()
 
 controller.display_db("Players.json")
 
-
-
 #######TOURNOI###
 date_start = date(2023, 10, 14)
 date_end = date_start + timedelta(4)
 Championnat = Tournament("championnat académique", "Cergy", date_start, date_end)
 print(Championnat)
 
-model=Championnat
-view = TournamentView(model)#appeler la vue du model
+model = Championnat
+view = TournamentView(model)  # appeler la vue du model
 controller = TournamentController(model, view)
 controller.add_tournament_player_controller(player1)
 controller.add_tournament_player_controller(player2)
 
 controller.display_player_controller()
-
-
-

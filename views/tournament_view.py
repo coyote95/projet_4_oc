@@ -7,7 +7,5 @@ class TournamentView:
         for player in self.tournament.get_tournament_players():
             print(player)
 
-    def dialogue(self):
-        print("Dialogue")
-        self.tournament.name = input("Entrer le nom du championnat:")
+
 

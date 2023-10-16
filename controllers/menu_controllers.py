@@ -31,7 +31,7 @@ class HomeMenuController:
 
 class MenuNewTournamentController:
     def __call__(self, *args, **kwargs):
-        print("Entrer le nom du championnat")
+        print("Appleler dialogue ")
 
 
 class MenuResultTournamentController:

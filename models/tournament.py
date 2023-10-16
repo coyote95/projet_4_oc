@@ -28,3 +28,6 @@ class Tournament:
 
     def add_tournament_player(self, player):
         self.tournament_players.append(player)
+
+    def new_name(self, name):
+        self.name = name
