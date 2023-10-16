@@ -7,10 +7,9 @@ class Player:
         self._surname = surname
         self._birthday = birthday
         self.id_chess = id_chess
-        self.filename = "test.json"
 
-    def save_player_to_json(self):
-        db = TinyDB(self.filename)
+    def save_player_to_json(self, filename):
+        db = TinyDB(filename)
         db.insert(self.dictionnary_player())
 
     def get_filename(self):
