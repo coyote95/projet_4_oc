@@ -1,7 +1,11 @@
 from models.player import Player
+from models.tournament import Tournament
 from views.player_view import PlayerView
+from views.tournament_view import TournamentView
 from controllers.player_controllers import PlayerController
-from datetime import date
+from controllers.tournamenent_controllers import TournamentController
+
+from datetime import date, timedelta
 from tinydb import TinyDB, Query
 
 
@@ -35,4 +39,27 @@ controller.save_player_controller("Players.json")
 controller.display_player_controller()
 
 controller.display_db("Players.json")
+
+
+
+#######TOURNOI###
+date_start = date(2023, 10, 14)
+date_end = date_start + timedelta(4)
+Championnat = Tournament("championnat académique", "Cergy", date_start, date_end)
+print(Championnat)
+
+model=Championnat
+view = TournamentView()
+controller = TournamentController(model, view)
+controller.add_tournament_player_controller(player1)
+controller.add_tournament_player_controller(player2)
+
+controller.display_player_controller()
+
+    # controller_tournoi.add_tournament_player(player1)
+    # controller_tournoi.add_tournament_player(player2)
+    # controller_tournoi.add_tournament_player(player3)
+    # controller_tournoi.add_tournament_player(player4)
+    #
+    # controller_tournoi.display_player_controller()
 

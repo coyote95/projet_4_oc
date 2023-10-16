@@ -8,6 +8,13 @@ class Player:
         self._birthday = birthday
         self.id_chess = id_chess
 
+    def __str__(self):
+        return (
+            f"*********Player*******\n"
+            f" Nom: {self._name}: \n"
+            f" Surname: {self._surname}\n"
+          )
+
     def save_player_to_json(self, filename):
         db = TinyDB(filename)
         db.insert(self.dictionnary_player())
