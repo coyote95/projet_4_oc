@@ -6,7 +6,7 @@ from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
 from controllers.player_controllers import PlayerController
 from controllers.tournamenent_controllers import TournamentController
-from controllers.menu_controllers import ApplicationController,HomeMenuController,ClassementMenuController
+from controllers.menu_controllers import ApplicationController,HomeMenuController,MenuNewTournamentController
 
 from datetime import date, timedelta
 from tinydb import TinyDB, Query
@@ -15,12 +15,9 @@ from tinydb import TinyDB, Query
 app= ApplicationController()
 app.start()
 menu = Menu()
-menu.add("auto", "Création nouveau tournoi", ClassementMenuController)
-menu.add("auto", "Résultat ancien tournoi", lambda: None)
-menu.add("auto", "liste des joueurs", lambda: None)
-menu.add("q", "quitter", lambda: None)
 
-print(menu._entries)
+
+# print(menu._entries)
 
 
 
@@ -69,7 +66,7 @@ Championnat = Tournament("championnat académique", "Cergy", date_start, date_en
 print(Championnat)
 
 model=Championnat
-view = TournamentView()
+view = TournamentView(model)#appeler la vue du model
 controller = TournamentController(model, view)
 controller.add_tournament_player_controller(player1)
 controller.add_tournament_player_controller(player2)

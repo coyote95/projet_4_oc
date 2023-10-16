@@ -6,7 +6,7 @@ class TournamentController:
 
     def display_player_controller(self):
         print("Liste des participants au tournoi:")
-        self.view.display_players_tournament(self.model)
+        self.view.display_players_tournament()
 
 
     def add_tournament_player_controller(self, player):

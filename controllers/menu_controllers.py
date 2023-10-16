@@ -19,9 +19,9 @@ class HomeMenuController:
 
     def __call__(self, *args, **kwargs):
         # 1.construire un menu
-        self.menu.add("auto", " Création nouveau tournoi", ClassementMenuController())
-        self.menu.add("auto", "Résultat ancien tournoi", NewTournamentController())
-        self.menu.add("auto", "liste des joueurs", NewTournamentController())
+        self.menu.add("auto", " Création nouveau tournoi", MenuNewTournamentController())
+        self.menu.add("auto", "Résultat ancien tournoi", MenuResultTournamentController())
+        self.menu.add("auto", "liste des joueurs", MenuListPlayersController())
         self.menu.add("q", "quitter", QuitController())
         # 2. Demander à la vue d'afficher le menu et de collecter la réponse de l'utilisateur
         user_choice = self.view.get_user_choice()
@@ -29,14 +29,19 @@ class HomeMenuController:
         return user_choice.handler
 
 
-class ClassementMenuController:
+class MenuNewTournamentController:
     def __call__(self, *args, **kwargs):
-        print("dans le controleur de classement")
+        print("Entrer le nom du championnat")
 
 
-class NewTournamentController:
+class MenuResultTournamentController:
     def __call__(self, *args, **kwargs):
-        print("dans le controleur de tournois")
+        print("dans le controleur de RESULTAT ANCIEN TOURNOI")
+
+
+class MenuListPlayersController:
+    def __call__(self, *args, **kwargs):
+        print("dans le controleur de LISTE DES JOUEURS")
 
 
 class QuitController:

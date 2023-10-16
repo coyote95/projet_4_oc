@@ -17,3 +17,7 @@ class HomeMenuView:
             if choice in self.menu:
                 # retourner le choix de l'utilisateur
                 return self.menu[choice]
+
+
+
+
