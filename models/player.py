@@ -35,6 +35,22 @@ class Player:
         return {"name": self._name, "surname": self._surname, "birthday": self._birthday.isoformat(),
                 "id_chess": self.id_chess}
 
+
+    def new_name(self,name):
+        self._name=name
+
+    def new_surname(self,surname):
+        self._surname=surname
+
+    def new_birthday(self,birthday):
+        self._birthday=birthday
+
+    def new_id(self,id_chess):
+        self.id_chess=id_chess
+
+
+
+
 # if __name__ == "__main__":
 #     from datetime import date
 #     from tinydb import TinyDB, Query

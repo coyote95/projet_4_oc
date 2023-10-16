@@ -29,5 +29,17 @@ class Tournament:
     def add_tournament_player(self, player):
         self.tournament_players.append(player)
 
+    def new_date_start(self, date_start):
+        self.date_start = date_start
+
+    def new_date_end(self, date_end):
+        self.date_end = date_end
+
+    def new_numbers_round(self,numbers_round):
+        self.numbers_round=numbers_round
+
     def new_name(self, name):
         self.name = name
+
+    def new_place(self, place):
+        self.place = place

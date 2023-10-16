@@ -13,6 +13,23 @@ class PlayerController:
         print("Player:")
         self.view.display_player(self.model)
 
+    def creation_player(self):
+        print("Nom du joueur:")
+        name = input(">>")
+        self.model.new_name(name)
+        print("Prenom du joueur:")
+        surname = input(">>")
+        self.model.new_surname(surname)
+        print("Date d'anniversaire:")
+        birthday = input(">>")
+        self.model.new_birthday(birthday)
+        print("Numero ID:")
+        identie = input(">>")
+        self.model.new_id(identie)
+
+
+
+
 if __name__ == "__main__":
     from views.player_view import PlayerView
     from models.player import Player
