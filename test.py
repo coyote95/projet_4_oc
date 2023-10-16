@@ -1,7 +1,5 @@
 player.py
 
-from tinydb import TinyDB, Query
-
 
 class Player:
     def __init__(self, name, surname, birthday, id_chess="AB12345"):
@@ -9,10 +7,9 @@ class Player:
         self._surname = surname
         self._birthday = birthday
         self.id_chess = id_chess
-        self.filename = "test.json"
 
-    def save_player_to_json(self):
-        db = TinyDB(self.filename)
+    def save_player_to_json(self, filename):
+        db = TinyDB(filename)
         db.insert(self.dictionnary_player())
 
     def get_filename(self):
@@ -24,24 +21,45 @@ class Player:
 
 player_view.py
 
-
 class PlayerView:
+    def __init__(self):
+        self.player=player
 
-    def __init__(self,player=None):
-        self.player = player
-
-    def view_player_bd(self):
-        db = TinyDB(self.filename)
+    def view_player_bd(self,filename):
+        db = TinyDB(filename)
         all_items = db.all()
         for item in all_items:
             print(item)
 
+    def display_player(self):
+        print (self.player.dictionnary_player())
+
+player_controllers.py
+
+class PlayerController:
+    def __init__(self, model, view):
+        self.model = model
+        self.view = view
+
+    def save_player_controller(self, filename):
+        self.model.save_player_to_json(filename)
+
+    def display_db(self,filename):
+        self.view.view_player_bd(filename)
+
+    def display_player_controller(self):
+        self.view.display_player(self)
 
 if __name__ == "__main__":
-    from datetime import date
+    from views.player_view import PlayerView
     from models.player import Player
-    from tinydb import TinyDB, Query
+    from datetime import date
 
     player1 = Player("Guillot", "Aurore", date(1990, 5, 15), 50)
-    player1.save_player_to_json()
-    PlayerView.view_player_bd()
+    model = player1
+    view = PlayerView()
+    controller= PlayerController(model, view)
+    controller.save_player_controller("test2.json")
+    controller.display_db("test2.json")
+    print("attention")
+    controller.save_player_controller()
