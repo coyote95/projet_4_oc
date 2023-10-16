@@ -25,7 +25,7 @@ controller_tournoi.creation_tournoi()
 print(model)
 
 
-for tentaive in range(4):
+for tentaive in range(2):
     newplayer=Player(None,None,None,None)
     model=newplayer
     view=PlayerView()
