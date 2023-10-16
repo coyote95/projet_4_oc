@@ -1,14 +1,34 @@
 from models.player import Player
 from models.tournament import Tournament
+from models.menu import MenuEntry,Menu
 from views.player_view import PlayerView
 from views.tournament_view import TournamentView
+from views.menu_view import HomeMenuView
 from controllers.player_controllers import PlayerController
 from controllers.tournamenent_controllers import TournamentController
+from controllers.menu_controllers import ApplicationController,HomeMenuController,ClassementMenuController
 
 from datetime import date, timedelta
 from tinydb import TinyDB, Query
 
+########Menu
+app= ApplicationController()
+app.start()
+menu = Menu()
+menu.add("auto", "Création nouveau tournoi", ClassementMenuController)
+menu.add("auto", "Résultat ancien tournoi", lambda: None)
+menu.add("auto", "liste des joueurs", lambda: None)
+menu.add("q", "quitter", lambda: None)
 
+print(menu._entries)
+
+
+
+
+
+
+
+####player
 player1 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 player2 = Player("Moline", "Séverine", date(1992, 2, 1), 500)
 player3 = Player("Kagon", "Nino", date(1988, 11, 4), 350)
@@ -56,10 +76,5 @@ controller.add_tournament_player_controller(player2)
 
 controller.display_player_controller()
 
-    # controller_tournoi.add_tournament_player(player1)
-    # controller_tournoi.add_tournament_player(player2)
-    # controller_tournoi.add_tournament_player(player3)
-    # controller_tournoi.add_tournament_player(player4)
-    #
-    # controller_tournoi.display_player_controller()
+
 

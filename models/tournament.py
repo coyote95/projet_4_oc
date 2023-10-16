@@ -26,16 +26,5 @@ class Tournament:
     def get_tournament_players(self):
         return self.tournament_players
 
-
-    # def display_player_controller(self):
-    #     view = TournamentView(self.tournament)
-    #     view.display_players_tournament()
-
     def add_tournament_player(self, player):
         self.tournament_players.append(player)
-
-    # def get_players(self):
-    #     return self.tournament.saving_players
-    #
-    # def add_tournament_controllers(self, tournament):
-    #     self.tournament.append(tournament)

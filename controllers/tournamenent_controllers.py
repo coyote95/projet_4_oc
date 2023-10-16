@@ -12,8 +12,4 @@ class TournamentController:
     def add_tournament_player_controller(self, player):
         self.model.add_tournament_player(player)
 
-    # def get_players(self):
-    #     return self.tournament.saving_players
-    #
-    # def add_tournament_controllers(self, tournament):
-    #     self.tournament.append(tournament)
+

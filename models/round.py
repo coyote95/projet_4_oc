@@ -4,6 +4,8 @@ class Round:
         self.matchs = []
 
 
-methode
+    def add_match(self,match):
+        self.matchs.append(match)
 
-creation 6 round
+
+

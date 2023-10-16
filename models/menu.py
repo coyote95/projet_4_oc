@@ -4,7 +4,7 @@ class MenuEntry:
         self.handler = handler
 
     def __repr__(self):
-        return f"MenuEntry{self.option}, {self.handler})"
+        return f"MenuEntry: {self.option}, {self.handler})"
 
     def __str__(self):
         return str(self.option)
@@ -32,8 +32,3 @@ class Menu:
         return self._entries[choice]
 
 
-if __name__ == "__main__":
-    menu = Menu()
-    menu.add("auto", "premiere option du menu", lambda: None)
-    menu.add("auto", "Deuxieme option du menu", lambda: None)
-    print(menu._entries)
