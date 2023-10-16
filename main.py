@@ -20,16 +20,21 @@ menu = Menu()
 newtournament = Tournament(None,None,None,None)
 model = newtournament
 view = TournamentView(model)  # appeler la vue du model
-controller = TournamentController(model, view)
-controller.creation_tournoi()
+controller_tournoi = TournamentController(model, view)
+controller_tournoi.creation_tournoi()
 print(model)
 
-newplayer=Player(None,None,None,None)
-model=newplayer
-view=PlayerView()
-controller=PlayerController(model,view)
-controller.creation_player()
-print(model)
+
+for tentaive in range(4):
+    newplayer=Player(None,None,None,None)
+    model=newplayer
+    view=PlayerView()
+    controller_player=PlayerController(model,view)
+    controller_player.creation_player()
+    print(model)
+    controller_tournoi.add_tournament_player_controller(model)
+
+controller_tournoi.display_player_tournament_controler()
 
 
 
@@ -82,4 +87,4 @@ print(model)
 # controller.add_tournament_player_controller(player1)
 # controller.add_tournament_player_controller(player2)
 #
-# controller.display_player_controller()
+# controller.display_player_tournament_controller()
