@@ -4,8 +4,8 @@ from datetime import date
 
 
 class PlayerController:
-    def __init__(self, player):
-        self.player = player
+    def __init__(self):
+        pass
 
-    def save_player_controller(self):
-        self.player.save_player_to_json(self.player)
+    def save_player_controller(self, player):
+        Player.save_player_to_json()

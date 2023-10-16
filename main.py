@@ -10,5 +10,6 @@ player5 = Player("Dalco", "Lucien", date(1995, 8, 12), 500)
 player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
 player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 
-controller_joueur = PlayerController(player3).save_player_controller()
+controller_joueur = PlayerController.save_player_controller(player4)
+
 
