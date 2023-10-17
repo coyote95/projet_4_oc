@@ -10,8 +10,11 @@ class TournamentController:
     def add_tournament_player_controller(self, player):
         self.model.add_tournament_player(player)
 
-    def add_tournament_round_controller(self, round):
-        self.model.add_tournament_round(round)
+    def add_list_tournament_round_controller(self, round):
+        self.model.add_list_tournament_round(round)
+
+    def increment_actual_round_controller(self):
+        self.model.increment_numbers_round()
 
     def creation_tournoi(self):
         print("Nom du tournoi:")

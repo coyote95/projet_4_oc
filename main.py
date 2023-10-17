@@ -110,20 +110,35 @@ model_match= new_match
 print()
 
 list_player=Championnat.get_tournament_players()
+print(f"Nombre de tour total:{Championnat.get_numbers_round()}")
 for tour in range(Championnat.get_numbers_round()):
-    print(f"Nombre de tour total:{Championnat.get_numbers_round()}")
+    Championnat.increment_actual_round()
+
     print(f"Round {tour+1}:")
-    player1=Championnat[0][0]
+
+    player1=Championnat[0][0]  #matrice tableau dans un tableau
     score1=Championnat[0][1]
+
     player2=Championnat[1][0]
     score2 = Championnat[1][1]
-    print(Championnat[0][1])#matrice tableau dans un tableau
-    print(player1)
-    print(score1)
-    print(player2)
-    print(score2)
+
+    player3 = Championnat[2][0]
+    score3 = Championnat[2][1]
+
+    player4 = Championnat[3][0]
+    score4 = Championnat[3][1]
+
+    print("creation des matchs")
     match1=Match(player1,score1,player2,score2)
     print(match1)
+    match2=Match(player3,score3,player4,score4)
+    print(match2)
+
+    print("Résulat des matchs")
+    match1.random_gagnant()
+    match2.random_gagnant()
+
+
 
 
 
