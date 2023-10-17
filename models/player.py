@@ -10,9 +10,8 @@ class Player:
 
     def __str__(self):
         return (
-            f"*********Player*******\n"
-            f" Nom: {self._name}: \n"
-            f" Surname: {self._surname}\n"
+            f"Nom: {self._name} "
+            f"Surname: {self._surname}"
           )
 
     def save_player_to_json(self, filename):

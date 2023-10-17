@@ -19,10 +19,10 @@ class HomeMenuController:
 
     def __call__(self, *args, **kwargs):
         # 1.construire un menu
-        self.menu.add("auto", " Création nouveau tournoi", MenuNewTournamentController())
+        self.menu.add("auto", "Création nouveau tournoi", MenuNewTournamentController())
         self.menu.add("auto", "Résultat ancien tournoi", MenuResultTournamentController())
-        self.menu.add("auto", "liste des joueurs", MenuListPlayersController())
-        self.menu.add("q", "quitter", QuitController())
+        self.menu.add("auto", "Liste des joueurs", MenuListPlayersController())
+        self.menu.add("q", "Quitter", QuitController())
         # 2. Demander à la vue d'afficher le menu et de collecter la réponse de l'utilisateur
         user_choice = self.view.get_user_choice()
         # 3. retourner le controller associé au choix de l'utilisateur au controller principal
@@ -31,7 +31,8 @@ class HomeMenuController:
 
 class MenuNewTournamentController:
     def __call__(self, *args, **kwargs):
-        print("Appleler dialogue ")
+        print()
+        print("Appleler creation d'un tournoi ")
 
 
 class MenuResultTournamentController:

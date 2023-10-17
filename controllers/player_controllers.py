@@ -10,7 +10,6 @@ class PlayerController:
         self.view.view_player_bd(filename)
 
     def display_player_controller(self):
-        print("Player:")
         self.view.display_player(self.model)
 
     def creation_player(self):

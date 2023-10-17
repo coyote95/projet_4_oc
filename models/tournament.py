@@ -26,8 +26,11 @@ class Tournament:
     def get_tournament_players(self):
         return self.tournament_players
 
+    def get_numbers_round(self):
+        return self.numbers_round
+
     def add_tournament_player(self, player, score=0):
-        self.tournament_players.append({"player": player, "score": score})
+        self.tournament_players.append({"Player": player, "Score": score})
 
     def new_date_start(self, date_start):
         self.date_start = date_start
