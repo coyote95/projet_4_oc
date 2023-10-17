@@ -37,6 +37,10 @@ class Tournament:
         self.tournament_players.append(list)
         #self.tournament_players.append({"Player": player, "Score": score})
 
+    def update_tournament_player(self,player,score):
+        self.get_tournament_players()
+
+
     def add_list_tournament_round(self, round):
         self.list_round.append(round)
 

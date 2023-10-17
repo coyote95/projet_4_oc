@@ -13,6 +13,12 @@ class Round:
             f"matchs: {self.matchs}"
         )
 
+    def __repr__(self):
+        return (
+            f"Numero du round: {self.numero_round} "
+            f"matchs: {self.matchs}"
+        )
+
     def add_match(self, match):
         self.matchs.append(match)
 
@@ -32,6 +38,11 @@ class Match:
             f"Match: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})  "
         )
 
+    def __repr__(self):
+        return (
+            f"Match: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})  "
+        )
+
     def player1_gagnant(self):
         self.score1 += 1
 
@@ -45,8 +56,10 @@ class Match:
     def random_gagnant(self):
         choix_gagnant=random.choice([self.player1, self.player2,"execo"])
         if choix_gagnant == self.player1:
+            self.score1 +=1
             print(f"le joueur gagant est:{choix_gagnant}")
-            self.player1_gagnant()
+           # self.player1_gagnant()
+
         elif choix_gagnant == self.player2:
             print(f"le joueur gagant est:{choix_gagnant}")
             self.player2_gagnant()
