@@ -5,9 +5,9 @@ class TournamentView:
     def display_players_tournament(self):
         print("******** Affichage des participants au tournoi ******  ")
         for item in self.tournament.get_tournament_players():
-            print()
-            for key, value in item.items():
-                print(f'{key}:\t{value}')
+            print(item)
+            # for key, value in item.items():
+            #     print(f'{key}:\t{value}')
 
 
 

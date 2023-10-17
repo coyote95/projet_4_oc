@@ -23,6 +23,9 @@ class Tournament:
     def __repr__(self):
         return str(self)
 
+    def __getitem__(self, choice): #tournament[0]
+        return self.tournament_players[choice]
+
     def get_tournament_players(self):
         return self.tournament_players
 
@@ -30,7 +33,12 @@ class Tournament:
         return self.numbers_round
 
     def add_tournament_player(self, player, score=0):
-        self.tournament_players.append({"Player": player, "Score": score})
+        list=[player,score]
+        self.tournament_players.append(list)
+        #self.tournament_players.append({"Player": player, "Score": score})
+
+    def add_tournament_round(self, round):
+        self.list_round.append(round)
 
     def new_date_start(self, date_start):
         self.date_start = date_start

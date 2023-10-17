@@ -113,8 +113,17 @@ list_player=Championnat.get_tournament_players()
 for tour in range(Championnat.get_numbers_round()):
     print(f"Nombre de tour total:{Championnat.get_numbers_round()}")
     print(f"Round {tour+1}:")
-
-    print(list_player[0])
+    player1=Championnat[0][0]
+    score1=Championnat[0][1]
+    player2=Championnat[1][0]
+    score2 = Championnat[1][1]
+    print(Championnat[0][1])#matrice tableau dans un tableau
+    print(player1)
+    print(score1)
+    print(player2)
+    print(score2)
+    match1=Match(player1,score1,player2,score2)
+    print(match1)
 
 
 

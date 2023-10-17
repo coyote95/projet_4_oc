@@ -14,6 +14,12 @@ class Player:
             f"Surname: {self._surname}"
           )
 
+    def __repr__(self):
+        return (
+            f"Nom: {self._name} "
+            f"Surname: {self._surname}"
+        )
+
     def save_player_to_json(self, filename):
         db = TinyDB(filename)
         db.insert(self.dictionnary_player())
@@ -50,11 +56,3 @@ class Player:
 
 
 
-# if __name__ == "__main__":
-#     from datetime import date
-#     from tinydb import TinyDB, Query
-#     from views import player_view
-#
-#     player1 = Player("Guillot", "Aurore", date(1990, 5, 15), 50)
-#     player1.save_player_to_json()
-#     Player.view_player_bd()

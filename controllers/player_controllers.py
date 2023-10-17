@@ -29,17 +29,5 @@ class PlayerController:
 
 
 
-if __name__ == "__main__":
-    from views.player_view import PlayerView
-    from models.player import Player
-    from datetime import date
 
-    player1 = Player("Guillot", "Aurore", date(1990, 5, 15), 50)
-    model = player1
-    view = PlayerView()
-    controller= PlayerController(model, view)
-    controller.save_player_controller("test2.json")
-    controller.display_db("test2.json")
-    print("attention")
-    controller.display_player_controller()
 
