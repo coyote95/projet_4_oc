@@ -59,6 +59,7 @@ player5 = Player("Dalco", "Lucien", date(1995, 8, 12), 500)
 player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
 player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 
+
 #db = TinyDB("Players.json")
 #db.truncate()
 
@@ -102,7 +103,7 @@ controller_tournoi.display_player_tournament_controler()
 
 ######round####
 
-new_round= Round(None)
+new_round= Round()
 new_match=Match(None,None,None,None)
 model_round=new_round
 model_match= new_match
@@ -125,6 +126,9 @@ player4 = Championnat[3][0]
 score4 = Championnat[3][1]
 
 
+
+
+
 match1 = Match(player1, score1, player2, score2)
 match2 = Match(player3, score3, player4, score4)
 
@@ -132,28 +136,36 @@ for tour in range(Championnat.get_numbers_round()):
 
     Championnat.increment_actual_round()
 
-    new_round=Round(tour)
+    new_round=Round(tour+1)
 
     print(f"Round {tour+1}:\n")
 
 
-
-    print("creation des matchs")
-    print(match1)
-    print(match2)
-    print()
-
-
+    # print("creation des matchs")
+    # print(match1)
+    # print(match2)
+    # print()
 
     print("Résulat des matchs")
     match1.random_gagnant()
     match2.random_gagnant()
     print()
 
-
-
+   # new_round.add_match(match1)
     new_round.add_match(match1)
-    new_round.add_match(match2)
+    #new_round.add_match(match2)
+    print(new_round.matchs)
+    new_round.save_round_to_json()
+   # new_round.add_match(match1)
+    #new_round.add_match(match2)
+
+    # print("analyse code")
+    #
+    # print(score1)
+    # print(match1.score1)
+    # print(new_round)
+    # print(Championnat.list_round)
+    # print("******")
 
     Championnat.add_list_tournament_round(new_round)
     print()
@@ -161,6 +173,9 @@ for tour in range(Championnat.get_numbers_round()):
     print("*********NEXT********")
 
 print (Championnat.list_round)
+print(new_round.matchs)
+# print(new_round[0])
+# print(new_round[1])
 
 
 

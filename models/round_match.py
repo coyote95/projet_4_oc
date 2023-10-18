@@ -1,7 +1,9 @@
 import random
+from tinydb import TinyDB, Query
 
 class Round:
-    def __init__(self, numero_round):
+    def __init__(self, numero_round=1):
+        self.name="Round"
         self.numero_round = numero_round
         self.commence="date de debut"
         self.termine="date de fin"
@@ -19,8 +21,18 @@ class Round:
             f"matchs: {self.matchs}"
         )
 
+    def __getitem__(self, choice): #Round[0]
+        return self.matchs[choice]
+
     def add_match(self, match):
-        self.matchs.append(match)
+        self.matchs.append(match.__dict__)
+
+    def save_round_to_json(self, filename="save_round"):
+        db = TinyDB(filename)
+        db.insert(self.dictionnary_round())
+
+    def dictionnary_round(self):
+        return {"name": self.name, "numero_round": self.numero_round , "matchs": self.matchs}
 
 
 
@@ -42,6 +54,15 @@ class Match:
         return (
             f"Match: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})  "
         )
+
+
+
+    def save_round_to_json(self, filename="save_match"):
+        db = TinyDB(filename)
+        db.insert(self.dictionnary_match())
+
+    def dictionnary_match(self):
+        return {"player1": self.player1.__dict__, "score1": self.score1, "player2": self.player2.__dict__, "score2": self.score2}
 
     def player1_gagnant(self):
         self.score1 += 1
