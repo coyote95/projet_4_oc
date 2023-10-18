@@ -126,20 +126,45 @@ print(f"nombre de participant{Championnat.nombre_de_participants()}")
 
 for tour in range(Championnat.get_numbers_round()):
 
-    round = Round()
+
+
+
     print(P1)
-    print(f'Round numero {tour + 1}')
+    print()
+    print(f'************************Round numero {tour + 1}***************')
     Championnat.increment_actual_round()
+    list = []
 
     for personne in range(1, Championnat.nombre_de_participants() // 2 + 1):
+
+
         globals()[f'match{personne}'].random_gagnant()
-        round.add_match( globals()[f'match{personne}'])
-
-    print (f'liste match{round.matchs}')
+        globals()[f'new_match{personne}']=Match(globals()[f'match{personne}'].player1,globals()[f'match{personne}'].score1,globals()[f'match{personne}'].player2,globals()[f'match{personne}'].score2)
 
 
 
+        list.append(globals()[f'new_match{personne}'])
+        round = Round(list)
+        round.new_numero(tour)
 
+
+    print(f"list{list}")
+    print(f"roooooooo:{round}")
+    Championnat.add_list_tournament_round(round)
+    print(round)
+    del round
+
+        # new_match=Match(globals()[f'match{personne}'].player1,globals()[f'match{personne}'].score1,globals()[f'match{personne}'].player2,globals()[f'match{personne}'].score2)
+
+
+
+
+
+
+
+
+#rint(round1)
+#print(round2)
 
 
 
@@ -161,7 +186,8 @@ for tour in range(Championnat.get_numbers_round()):
 #     Championnat.add_list_tournament_round(new_round)
 # print("*********FINALE********")
 #
-#
-# print(Championnat.list_round)
-#
-#
+print(Championnat.list_round[0])
+print(Championnat.list_round[1])
+print(Championnat.list_round[2])
+# #
+# #
