@@ -5,7 +5,7 @@ from models.round_match import Round, Match
 from views.player_view import PlayerView
 from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
-from views.round_match_view import RoundView,   MatchView
+from views.round_match_view import RoundView, MatchView
 from controllers.player_controllers import PlayerController
 from controllers.tournamenent_controllers import TournamentController
 from controllers.menu_controllers import ApplicationController, HomeMenuController, MenuNewTournamentController
@@ -42,13 +42,6 @@ from tinydb import TinyDB, Query
 # controller_tournoi.display_player_tournament_controler()
 
 
-
-
-
-
-
-
-
 ###########  player    ##############"
 
 player1 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
@@ -59,11 +52,10 @@ player5 = Player("Dalco", "Lucien", date(1995, 8, 12), 500)
 player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
 player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 
+# db = TinyDB("Players.json")
+# db.truncate()
 
-#db = TinyDB("Players.json")
-#db.truncate()
-
-#view = PlayerView()
+# view = PlayerView()
 
 # controller = PlayerController(player1, view)
 # #controller.save_player_controller("Players.json")
@@ -87,7 +79,7 @@ player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 
 date_start = date(2023, 10, 14)
 date_end = date_start + timedelta(4)
-Championnat = Tournament("championnat académique", "Cergy", date_start, date_end)
+Championnat = Tournament("championnat académique", "Cergy", date_start, date_end, 4)
 print(Championnat)
 
 model = Championnat
@@ -99,22 +91,20 @@ controller_tournoi.add_tournament_player_controller(player3)
 controller_tournoi.add_tournament_player_controller(player4)
 controller_tournoi.display_player_tournament_controler()
 
-
-
 ######round####
 
-new_round= Round()
-new_match=Match(None,None,None,None)
-model_round=new_round
-model_match= new_match
+new_round = Round()
+new_match = Match(None, None, None, None)
+model_round = new_round
+model_match = new_match
 
 print()
 
-list_player=Championnat.get_tournament_players()
+list_player = Championnat.get_tournament_players()
 print(f"Nombre de tour total:{Championnat.get_numbers_round()}\n")
 
 player1 = Championnat[0][0]  # matrice tableau dans un tableau
-score1 =  Championnat[0][1]
+score1 = Championnat[0][1]
 
 player2 = Championnat[1][0]
 score2 = Championnat[1][1]
@@ -125,59 +115,28 @@ score3 = Championnat[2][1]
 player4 = Championnat[3][0]
 score4 = Championnat[3][1]
 
-
-
-
-
 match1 = Match(player1, score1, player2, score2)
 match2 = Match(player3, score3, player4, score4)
 
-for tour in range(Championnat.get_numbers_round()):
+list_round = []
+list_round_v2=[]
+round = Round()
 
+for tour in range(Championnat.get_numbers_round()):
+    print(f'Round numero {tour}')
     Championnat.increment_actual_round()
 
-    new_round=Round(tour+1)
-
-    print(f"Round {tour+1}:\n")
-
-
-    # print("creation des matchs")
-    # print(match1)
-    # print(match2)
-    # print()
-
-    print("Résulat des matchs")
     match1.random_gagnant()
     match2.random_gagnant()
+
+    list_round.append([match1.player1,match1.score1])
+    list_round_v2.append(match1.__dict__)
+    print(round.matchs)
     print()
+print("*********FINALE********")
 
-   # new_round.add_match(match1)
-    new_round.add_match(match1)
-    #new_round.add_match(match2)
-    print(new_round.matchs)
-    new_round.save_round_to_json()
-   # new_round.add_match(match1)
-    #new_round.add_match(match2)
-
-    # print("analyse code")
-    #
-    # print(score1)
-    # print(match1.score1)
-    # print(new_round)
-    # print(Championnat.list_round)
-    # print("******")
-
-    Championnat.add_list_tournament_round(new_round)
-    print()
-
-    print("*********NEXT********")
-
-print (Championnat.list_round)
-print(new_round.matchs)
-# print(new_round[0])
-# print(new_round[1])
-
-
-
-
-
+print(list_round)
+print(list_round_v2[0])
+print(list_round_v2[1])
+print(list_round_v2[2])
+print(list_round_v2[3])

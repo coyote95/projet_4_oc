@@ -25,7 +25,7 @@ class Round:
         return self.matchs[choice]
 
     def add_match(self, match):
-        self.matchs.append(match.__dict__)
+        return self.matchs.append(match)
 
     def save_round_to_json(self, filename="save_round"):
         db = TinyDB(filename)
