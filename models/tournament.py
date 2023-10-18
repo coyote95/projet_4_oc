@@ -29,6 +29,9 @@ class Tournament:
     def get_tournament_players(self):
         return self.tournament_players
 
+    def nombre_de_participants(self):
+        return len(self.tournament_players)
+
     def get_numbers_round(self):
         return self.numbers_round
 
