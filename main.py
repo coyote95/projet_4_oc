@@ -93,7 +93,7 @@ controller_tournoi.display_player_tournament_controler()
 
 ######round####
 
-new_round = Round()
+new_round = Round(None)
 new_match = Match(None, None, None, None)
 model_round = new_round
 model_match = new_match
@@ -118,26 +118,26 @@ score4 = Championnat[3][1]
 match1 = Match(player1, score1, player2, score2)
 match2 = Match(player3, score3, player4, score4)
 
-list_round = []
-list_round_v2=[]
-round = Round()
+
+round = Round(None)
 
 for tour in range(Championnat.get_numbers_round()):
-    print(f'Round numero {tour}')
+    print(f'Round numero {tour+1}')
     Championnat.increment_actual_round()
 
     match1.random_gagnant()
     match2.random_gagnant()
-    new_match=Match(match1.player1,match1.score1,match2.player2,match2.score2)
-    list_round.append([match1.player1,match1.score1])
-    print(match1)
-    list_round_v2.append(new_match)
-    print(round.matchs)
-    print()
+
+    new_match_1=Match(match1.player1,match1.score1,match1.player2,match1.score2)
+    new_match_2 = Match(match2.player1, match2.score1, match2.player2, match2.score2)
+
+    round.new_match([new_match_1,new_match_2])
+    new_round=Round(round.matchs,(tour+1))
+
+    Championnat.add_list_tournament_round(new_round)
 print("*********FINALE********")
 
-# print(list_round)
-print(list_round_v2[0])
-print(list_round_v2[1])
-print(list_round_v2[2])
-print(list_round_v2[3])
+
+print(Championnat.list_round)
+
+

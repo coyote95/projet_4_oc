@@ -23,7 +23,7 @@ class Tournament:
     def __repr__(self):
         return str(self)
 
-    def __getitem__(self, choice): #tournament[0]
+    def __getitem__(self, choice):  # tournament[0]
         return self.tournament_players[choice]
 
     def get_tournament_players(self):
@@ -32,14 +32,16 @@ class Tournament:
     def get_numbers_round(self):
         return self.numbers_round
 
+    def get_round(self, choice):
+        return self.list_round[choice]
+
     def add_tournament_player(self, player, score=0):
-        list=[player,score]
+        list = [player, score]
         self.tournament_players.append(list)
-        #self.tournament_players.append({"Player": player, "Score": score})
+        # self.tournament_players.append({"Player": player, "Score": score})
 
-    def update_tournament_player(self,player,score):
+    def update_tournament_player(self, player, score):
         self.get_tournament_players()
-
 
     def add_list_tournament_round(self, round):
         self.list_round.append(round)
