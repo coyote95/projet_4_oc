@@ -128,14 +128,15 @@ for tour in range(Championnat.get_numbers_round()):
 
     match1.random_gagnant()
     match2.random_gagnant()
-
+    new_match=Match(match1.player1,match1.score1,match2.player2,match2.score2)
     list_round.append([match1.player1,match1.score1])
-    list_round_v2.append(match1.__dict__)
+    print(match1)
+    list_round_v2.append(new_match)
     print(round.matchs)
     print()
 print("*********FINALE********")
 
-print(list_round)
+# print(list_round)
 print(list_round_v2[0])
 print(list_round_v2[1])
 print(list_round_v2[2])

@@ -87,7 +87,7 @@ class Match:
         elif choix_gagnant == "execo":
             print(f"Match nul!!")
             self.execo()
-        print( f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2}) ")
+       # print( f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2}) ")
         return choix_gagnant
 
 
