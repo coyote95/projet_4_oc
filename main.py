@@ -95,7 +95,7 @@ controller_tournoi.display_player_tournament_controler()
 
 ######round####
 
-new_round = Round(None)
+new_round = Round()
 new_match = Match(None, None, None, None)
 model_round = new_round
 model_match = new_match
@@ -104,64 +104,55 @@ print()
 
 list_player = Championnat.get_tournament_players()
 print(f"Nombre de tour total:{Championnat.get_numbers_round()}\n")
-#
-# player1 = Championnat[0][0]  # matrice tableau dans un tableau
-# score1 = Championnat[0][1]
-#
-# player2 = Championnat[1][0]
-# score2 = Championnat[1][1]
-#
-# player3 = Championnat[2][0]
-# score3 = Championnat[2][1]
-#
-# player4 = Championnat[3][0]
-# score4 = Championnat[3][1]
 
-# for personne in range(1, Championnat.nombre_de_participants()):
-#     globals()[f'P{personne}'] = Championnat[0 + personne][0]
-#     globals()[f'S{personne}'] = Championnat[0 + personne][1]
-#
-# print(P1)
+for personne in range(0, Championnat.nombre_de_participants()):
+    globals()[f'P{personne}'] = Championnat[0 + personne][0]
+    globals()[f'S{personne}'] = Championnat[0 + personne][1]
+
+i = 1
+for personne in range(0, Championnat.nombre_de_participants(), 2):
+    globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+    i += 1
+
+for personne in range(1, Championnat.nombre_de_participants()//2+1):
+    print( globals()[f'match{personne}'])
 
 
-# match1 = Match(P1, S1, P2, S2)
-# print(match1)
-# #match2 = Match(player3, score3, player4, score4)
-#
-#
-round = Round(None)
+
+#################programmation########################
+
 
 print(f"nombre de participant{Championnat.nombre_de_participants()}")
 
 for tour in range(Championnat.get_numbers_round()):
+
+    round = Round()
+    print(P1)
     print(f'Round numero {tour + 1}')
     Championnat.increment_actual_round()
 
-    for personne in range(0, Championnat.nombre_de_participants()):
-        globals()[f'P{personne}'] = Championnat[0 + personne][0]
-        globals()[f'S{personne}'] = Championnat[0 + personne][1]
+    for personne in range(1, Championnat.nombre_de_participants() // 2 + 1):
+        globals()[f'match{personne}'].random_gagnant()
+        round.add_match( globals()[f'match{personne}'])
+
+    print (f'liste match{round.matchs}')
 
 
-    i = 1
-    for personne in range(0, Championnat.nombre_de_participants(),2):
-        globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne+1}'], S2)
-        i+=1
 
 
-    print(match1)
-    print(match2)
-    print(match3)
 
-#
-#     # for i in range(1, 4):
-#     #     globals()[f'numero{i}'] = i
-#
-#
-#
-#     match1.random_gagnant()
-#     match2.random_gagnant()
-#
-#     new_match_1=Match(match1.P1,match1.S1,match1.P2,match1.S2)
+
+
+
+    # for i in range(1, 4):
+    #     globals()[f'numero{i}'] = i
+
+
+
+    # match1.random_gagnant()
+    # match2.random_gagnant()
+
+#     new_match_1=Match(match1.player1,match1.score1,match1.player2,match1.score2)
 #     new_match_2 = Match(match2.player1, match2.score1, match2.player2, match2.score2)
 #
 #     round.new_match([new_match_1,new_match_2])

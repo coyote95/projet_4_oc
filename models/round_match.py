@@ -2,12 +2,12 @@ import random
 from tinydb import TinyDB, Query
 
 class Round:
-    def __init__(self,list_matchs,numero_round="1"):
+    def __init__(self):
         self.name="Round"
-        self.numero_round = numero_round
+        self.numero_round = "1"
         self.commence="date de debut"
         self.termine="date de fin"
-        self.matchs = list_matchs
+        self.matchs = []
 
     def __str__(self):
         return (
@@ -32,6 +32,9 @@ class Round:
 
     def add_match(self, match):
         return self.matchs.append(match)
+
+    def get_match(self, match):
+        return self.matchs
 
     def save_round_to_json(self, filename="save_round"):
         db = TinyDB(filename)
