@@ -1,9 +1,12 @@
-class PlayerController:
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
+from models.player import Player
+from  views.player_view import PlayerView
 
-    def save_player_controller(self, filename):
+class PlayerController:
+    def __init__(self,player="Player()"):
+        self.model = player
+        self.view = PlayerView()
+
+    def save_player_controller(self, filename="Players.json"):
         self.model.save_player_to_json(filename)
 
     def display_db(self,filename):
