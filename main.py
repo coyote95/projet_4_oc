@@ -117,16 +117,16 @@ else:#on retire le joueur pour creer match
 ##*********************     copie   *****************************************
 
 
-print("Premier match:")
-for personne in range(1, championnat.nombre_de_participants() // 2 + 1):  # premier match
-    print(globals()[f'match{personne}'])
-
-print()
-
 for tour in range(championnat.get_numbers_round()):
     print(f'************************Round numero {tour + 1}***************\n')
     championnat.increment_actual_round()
     list_round = []
+
+    print("Affichage match:")
+    for personne in range(1, championnat.nombre_de_participants() // 2 + 1):  # premier match
+        print(globals()[f'match{personne}'])
+
+    print()
 
     for personne in range(1, championnat.nombre_de_participants() // 2 + 1):  # simulation joueur gagnant
         globals()[f'match{personne}'].random_gagnant()
