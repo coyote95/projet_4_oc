@@ -16,15 +16,16 @@ class PlayerController:
         self.view.display_player(self.model)
 
     def creation_player(self):
-        print("Nom du joueur:")
-        name = input(">>")
+        name = self.view.input_name()
         self.model.set_name(name)
-        print("Prenom du joueur:")
-        surname = input(">>")
+        surname = self.view.input_surname()
         self.model.set_surname(surname)
-        print("Date d'anniversaire:")
-        birthday = input(">>")
+        birthday = self.view.input_birthday()
         self.model.set_birthday(birthday)
-        print("Numero ID:")
-        identie = input(">>")
-        self.model.set_id(identie)
+        numero_id = self.view.input_id()
+        self.model.set_id(numero_id)
+
+
+
+
+

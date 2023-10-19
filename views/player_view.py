@@ -17,3 +17,22 @@ class PlayerView:
                f"ID_chess:{player.get_id_chess()}\t"
                )
 
+    def input_name(self):
+        print("Nom du joueur:")
+        name = input(">>")
+        return name
+
+    def input_surname(self):
+        print("Prenom du joueur:")
+        surname = input(">>")
+        return surname
+
+    def input_birthday(self):
+        print("Date d'anniversaire:")
+        birthday = input(">>")
+        return birthday
+
+    def input_id(self):
+        print("Numero ID:")
+        numero_id = input(">>")
+        return numero_id
