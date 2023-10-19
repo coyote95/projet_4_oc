@@ -144,6 +144,8 @@ for tour in range(championnat.get_numbers_round()):
         round = Round(list_round)
         round.new_numero(tour+1)
 
+#trie des joueurs par score
+
     u = 1
     for personne in range(0, championnat.nombre_de_participants() // 2 + 2,
                           2):  # mise a jours des scores players du championnat
@@ -152,6 +154,13 @@ for tour in range(championnat.get_numbers_round()):
         championnat[0 + personne + 1][1] = globals()[f'new_match{u}'].score2
         # print(f"nombre de tour{ championnat[0 + personne+1 ][0] }")
         u = u + 1
+
+    for personne in range(0,len(championnat)):
+         championnat.tournament_players=sorted(championnat.tournament_players,key=lambda x: x[1],reverse=True)
+
+    print( championnat.tournament_players)
+
+
 
     championnat.add_list_tournament_round(round)
     print()
