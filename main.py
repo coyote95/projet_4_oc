@@ -130,7 +130,6 @@ for tour in range(championnat.get_numbers_round()):
 
     for personne in range(1, championnat.nombre_de_participants() // 2 + 1):
         globals()[f'match{personne}'].random_gagnant()
-        controller_tournoi.display_player_tournament_controler()
         globals()[f'new_match{personne}'] = Match(globals()[f'match{personne}'].player1,
                                                   globals()[f'match{personne}'].score1,
                                                   globals()[f'match{personne}'].player2,
@@ -139,9 +138,24 @@ for tour in range(championnat.get_numbers_round()):
         round = Round(list_round)
         round.new_numero(tour)
 
+    u=1
+    for personne in range(0, championnat.nombre_de_participants()//2+2,2):
+        championnat[0 + personne][1] = globals()[f'new_match{u}'].score1
+        print(f"nombre de tour{championnat[0 + personne ][0]}")
+        championnat[0 + personne+1 ][1] = globals()[f'new_match{u}'].score2
+        print(f"nombre de tour{ championnat[0 + personne+1 ][0] }")
+        u=u+1
+
+    controller_tournoi.display_player_tournament_controler()
+
     championnat.add_list_tournament_round(round)
 
-print(championnat.list_round[0].matchs)
+print(championnat.list_round[0])
 print(championnat.list_round[1])
 print(championnat.list_round[2])
+controller_tournoi.display_player_tournament_controler()
+#championnat[0][1] = 5
+
+
+print()
 controller_tournoi.display_player_tournament_controler()
