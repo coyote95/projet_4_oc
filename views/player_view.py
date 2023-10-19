@@ -37,13 +37,3 @@ class PlayerView:
         numero_id = input(">>")
         return numero_id
 
-
-        # while True:
-        #     try:
-        #         numero_id = input(">>")
-        #         entier = int(numero_id)
-        #         print(f"Vous avez entré un entier : {entier}")
-        #         break
-        #     except ValueError:
-        #         print("L'entrée n'est pas un entier.")
-        # return numero_id

@@ -1,15 +1,18 @@
 from models.player import Player
 from models.tournament import Tournament
 from models.menu import MenuEntry, Menu
-from models.round_match import Round, Match
+from models.round import Round
+from models.match import Match
 from views.player_view import PlayerView
 from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
-from views.round_match_view import RoundView, MatchView
+from views.round_view import RoundView
+from views.match_view import MatchView
 from controllers.player_controllers import PlayerController
 from controllers.tournamenent_controllers import TournamentController
 from controllers.menu_controllers import ApplicationController, HomeMenuController, MenuNewTournamentController
-from controllers.round_match_controllers import RoundMatchController
+from controllers.round_controllers import RoundMatchController
+
 
 from datetime import date, timedelta
 from tinydb import TinyDB, Query
@@ -139,7 +142,7 @@ for tour in range(championnat.get_numbers_round()):
                                                   globals()[f'match{personne}'].score2)
         list_round.append(globals()[f'new_match{personne}'])
         round = Round(list_round)
-        round.new_numero(tour+1)
+        round.set_numero(tour + 1)
 
 
 
