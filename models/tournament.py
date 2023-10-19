@@ -29,6 +29,15 @@ class Tournament:
     def get_tournament_players(self):
         return self.tournament_players
 
+    def __len__(self):
+        return len(self.tournament_players)
+
+    def nombre__de_participant_pair(self):
+        if len(self.tournament_players)%2==0:
+            return True
+        else:
+            return False
+
     def nombre_de_participants(self):
         return len(self.tournament_players)
 
@@ -41,13 +50,6 @@ class Tournament:
     def add_tournament_player(self, player, score=0):
         list = [player, score]
         self.tournament_players.append(list)
-        # self.tournament_players.append({"Player": player, "Score": score})
-
-    # def new_score(self,player,score):
-    #     self.[player][score]
-
-    def update_tournament_player(self, player, score):
-        self.get_tournament_players()
 
     def add_list_tournament_round(self, round):
         self.list_round.append(round)

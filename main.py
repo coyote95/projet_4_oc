@@ -79,7 +79,7 @@ player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 
 date_start = date(2023, 10, 14)
 date_end = date_start + timedelta(4)
-championnat = Tournament("championnat académique", "Cergy", date_start, date_end, 4)
+championnat = Tournament("championnat académique", "Cergy", date_start, date_end, 6)
 print(championnat)
 
 model = championnat
@@ -89,7 +89,7 @@ controller_tournoi.add_tournament_player_controller(player1)
 controller_tournoi.add_tournament_player_controller(player2)
 controller_tournoi.add_tournament_player_controller(player3)
 controller_tournoi.add_tournament_player_controller(player4)
-# controller_tournoi.add_tournament_player_controller(player5)
+controller_tournoi.add_tournament_player_controller(player5)
 # controller_tournoi.add_tournament_player_controller(player6)
 controller_tournoi.display_player_tournament_controler()
 
@@ -109,10 +109,17 @@ for personne in range(0, championnat.nombre_de_participants()):  # affectation d
     globals()[f'P{personne}'] = championnat[0 + personne][0]  # affectation des players du championnat à S123
     globals()[f'S{personne}'] = championnat[0 + personne][1]
 
-i = 1
-for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
-    globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
-    i += 1
+if championnat.nombre__de_participant_pair():
+    i = 1
+    for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
+        globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+        i += 1
+else:#on retire le joueur pour creer match
+    i = 1
+    for personne in range(0, championnat.nombre_de_participants()-1, 2):  # creation de variable match123
+        globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+        i += 1
+
 
 print(f"nombre de participant:{championnat.nombre_de_participants()}\n")
 
