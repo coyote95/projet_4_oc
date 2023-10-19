@@ -22,35 +22,35 @@ from tinydb import TinyDB, Query
 # app.start()
 # menu = Menu()
 #
-#### ***********************   TOURNOI    ********************************
-newtournament = Tournament(None, None, None, None)
-
-controller_tournoi = TournamentController(newtournament)
-controller_tournoi.creation_tournoi()
-print(newtournament)
-
-print("Nombre de joueurs au tournoi:")
-
-while True:
-    try:
-        nombre_participant = input(">>")
-        entier = int(nombre_participant)
-        break
-    except ValueError:
-        print("L'entrée n'est pas un entier.")
-
-
-for tentative in range(0, int(nombre_participant)):
-    print(f"Player {tentative + 1}")
-    newplayer = Player(None, None, None, None)
-    PlayerController(newplayer).creation_player()
-    print(f"Resume:{newplayer}\n")
-    controller_tournoi.add_tournament_player_controller(newplayer)
-
-controller_tournoi.display_player_tournament_controler()
-
-        ## ************************  player  ******************************
-
+# #### ***********************   TOURNOI    ********************************
+# newtournament = Tournament(None, None, None, None)
+#
+# controller_tournoi = TournamentController(newtournament)
+# controller_tournoi.creation_tournoi()
+# print(newtournament)
+#
+# print("Nombre de joueurs au tournoi:")
+#
+# while True:
+#     try:
+#         nombre_participant = input(">>")
+#         entier = int(nombre_participant)
+#         break
+#     except ValueError:
+#         print("L'entrée n'est pas un entier.")
+#
+#
+# for tentative in range(0, int(nombre_participant)):
+#     print(f"Player {tentative + 1}")
+#     newplayer = Player(None, None, None, None)
+#     PlayerController(newplayer).creation_player()
+#     print(f"Resume:{newplayer}\n")
+#     controller_tournoi.add_tournament_player_controller(newplayer)
+#
+# controller_tournoi.display_player_tournament_controler()
+#
+#         ## ************************  player  ******************************
+#
 player1 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 player2 = Player("Moline", "Séverine", date(1992, 2, 1), 500)
 player3 = Player("Kagon", "Nino", date(1988, 11, 4), 350)
@@ -58,7 +58,7 @@ player4 = Player("Guyot", "Maxime", date(1998, 3, 27), 400)
 player5 = Player("Dalco", "Lucien", date(1995, 8, 12), 500)
 player6 = Player("Vardie", "Jennifer", date(1995, 7, 21), 275)
 player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
-#
+# #
 # db = TinyDB("Players.json")
 # db.truncate()
 #

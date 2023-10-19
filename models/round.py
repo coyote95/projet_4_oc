@@ -23,7 +23,7 @@ class Round:
     def __getitem__(self, choice): #Round[0]
         return self.matchs[choice]
 
-    def get_match(self, match):
+    def get_match(self):
         return self.matchs
 
     def set_match(self, list):

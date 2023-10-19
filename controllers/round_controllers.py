@@ -1,15 +1,17 @@
+from models.round import Round
+from views.round_view import RoundView
+
+
 class RoundMatchController:
 
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
+    def __init__(self, round, view):
+        self.model = round
+        self.view = RoundView(self.model)
 
-    def creation_round(self,tournament):
-        round= tournament.get_numbers_round()
+    def creation_round(self, tournament):
+        round = tournament.get_numbers_round()
         for tour in range(round):
             print(f"round n° {tour}")
 
-
-
-
-
+    def display_round_controler(self):
+        self.view.display_round()
