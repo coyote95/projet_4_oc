@@ -5,7 +5,6 @@ class Tournament:
         self.date_start = date_start
         self.date_end = date_end
         self.numbers_round = numbers_round
-
         self.actual_round = 1
         self.list_round = []
         self.tournament_players = []  # liste de dictionnaire
@@ -26,14 +25,36 @@ class Tournament:
     def __getitem__(self, choice):  # tournament[0]
         return self.tournament_players[choice]
 
-    def get_tournament_players(self):
-        return self.tournament_players
-
     def __len__(self):
         return len(self.tournament_players)
 
+    def get_tournament_players(self):
+        return self.tournament_players
+
+    def get_numbers_round(self):
+        return self.numbers_round
+
+    def get_round(self, choice):
+        return self.list_round[choice]
+
+    def set_name(self, name):
+        self.name = name
+
+    def set_place(self, place):
+        self.place = place
+
+    def set_date_start(self, date_start):
+        self.date_start = date_start
+
+    def set_date_end(self, date_end):
+        self.date_end = date_end
+
+    def set_round(self, round):
+        self.numbers_round = round
+
+
     def nombre__de_participant_pair(self):
-        if len(self.tournament_players)%2==0:
+        if len(self.tournament_players) % 2 == 0:
             return True
         else:
             return False
@@ -41,11 +62,6 @@ class Tournament:
     def nombre_de_participants(self):
         return len(self.tournament_players)
 
-    def get_numbers_round(self):
-        return self.numbers_round
-
-    def get_round(self, choice):
-        return self.list_round[choice]
 
     def add_tournament_player(self, player, score=0):
         list = [player, score]
@@ -54,17 +70,9 @@ class Tournament:
     def add_list_tournament_round(self, round):
         self.list_round.append(round)
 
-    def new_date_start(self, date_start):
-        self.date_start = date_start
-
-    def new_date_end(self, date_end):
-        self.date_end = date_end
-
     def increment_actual_round(self):
         self.actual_round += 1
 
-    def new_name(self, name):
-        self.name = name
 
-    def new_place(self, place):
-        self.place = place
+
+

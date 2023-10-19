@@ -12,7 +12,7 @@ class Player:
         return (
             f"Nom: {self._name} "
             f"Surname: {self._surname}"
-          )
+        )
 
     def __repr__(self):
         return (
@@ -40,19 +40,14 @@ class Player:
         return {"name": self._name, "surname": self._surname, "birthday": self._birthday.isoformat(),
                 "id_chess": self.id_chess}
 
+    def set_name(self, name):
+        self._name = name
 
-    def new_name(self,name):
-        self._name=name
+    def set_surname(self, surname):
+        self._surname = surname
 
-    def new_surname(self,surname):
-        self._surname=surname
+    def set_birthday(self, birthday):
+        self._birthday = birthday
 
-    def new_birthday(self,birthday):
-        self._birthday=birthday
-
-    def new_id(self,id_chess):
-        self.id_chess=id_chess
-
-
-
-
+    def set_id(self, id_chess):
+        self.id_chess = id_chess

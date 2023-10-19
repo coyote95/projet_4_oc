@@ -1,8 +1,12 @@
+from models.tournament import Tournament
+from views.tournament_view import TournamentView
+
+
 class TournamentController:
 
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
+    def __init__(self, tournament):
+        self.model = tournament
+        self.view = TournamentView(self.model)
 
     def display_player_tournament_controler(self):
         self.view.display_players_tournament()
@@ -19,20 +23,16 @@ class TournamentController:
     def creation_tournoi(self):
         print("Nom du tournoi:")
         name = input(">>")
-        self.model.new_name(name)
+        self.model.set_name(name)
         print("lieu du tournoi:")
         place = input(">>")
-        self.model.new_place(place)
+        self.model.set_place(place)
         print("Date de debut du tournoi(aaaa,mm,jj):")
         start_date = input(">>")
-        self.model.new_date_start(start_date)
+        self.model.set_date_start(start_date)
         print("Date de fin du tournoi(aaaa,mm,jj):")
         end_date = input(">>")
-        self.model.new_date_end(end_date)
+        self.model.set_date_end(end_date)
         print("Nombre de round:")
         numbers_date = input(">>")
-        self.model.new_numbers_round(numbers_date)
-
-
-
-
+        self.model.set_round(numbers_date)
