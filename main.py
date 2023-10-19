@@ -99,32 +99,23 @@ controller_round=RoundController(new_round)
 new_match = Match(None, None, None, None)
 controller_match= MatchController(new_match)
 
-print()
-
-
-print(f"Nombre de tour total:{championnat.get_numbers_round()}")
 
 
 ##********************  copie   **********************
-for personne in range(0, championnat.nombre_de_participants()):  # affectation des players du championnat à P123
-    globals()[f'P{personne}'] = championnat[0 + personne][0]  # affectation des players du championnat à S123
-    globals()[f'S{personne}'] = championnat[0 + personne][1]
-
 
 if championnat.nombre__de_participant_pair():
     i = 1
     for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
-        globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+        globals()[f'match{i}'] = Match(championnat[personne][0], championnat[personne][1], championnat[personne+1][0], championnat[personne+1][1])
         i += 1
 else:#on retire le joueur pour creer match
     i = 1
     for personne in range(0, championnat.nombre_de_participants()-1, 2):  # creation de variable match123
-        globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+        globals()[f'match{i}'] = Match(championnat[personne][0], championnat[personne][1], championnat[personne + 1][0],
+                                       championnat[personne + 1][1])
         i += 1
 ##*********************     copie   *****************************************
 
-
-print(f"nombre de participant:{championnat.nombre_de_participants()}\n")
 
 print("Premier match:")
 for personne in range(1, championnat.nombre_de_participants() // 2 + 1):  # premier match
@@ -152,9 +143,9 @@ for tour in range(championnat.get_numbers_round()):
     u = 1
     for personne in range(0, championnat.nombre_de_participants() // 2 + 2,
                           2):  # mise a jours des scores players du championnat
-        championnat[0 + personne][1] = globals()[f'new_match{u}'].score1
+        championnat[personne][1] = globals()[f'new_match{u}'].score1
         # print(f"nombre de tour{championnat[0 + personne ][0]}")
-        championnat[0 + personne + 1][1] = globals()[f'new_match{u}'].score2
+        championnat[personne + 1][1] = globals()[f'new_match{u}'].score2
         # print(f"nombre de tour{ championnat[0 + personne+1 ][0] }")
         u = u + 1
 
@@ -165,19 +156,18 @@ for tour in range(championnat.get_numbers_round()):
     print( championnat.tournament_players)
 
 ##*******************************   paste   ***************************
-    for personne in range(0, championnat.nombre_de_participants()):  # affectation des players du championnat à P123
-        globals()[f'P{personne}'] = championnat[0 + personne][0]  # affectation des players du championnat à S123
-        globals()[f'S{personne}'] = championnat[0 + personne][1]
-
     if championnat.nombre__de_participant_pair():
         i = 1
         for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
-            globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+            globals()[f'match{i}'] = Match(championnat[personne][0], championnat[personne][1],
+                                           championnat[personne + 1][0], championnat[personne + 1][1])
             i += 1
     else:  # on retire le joueur pour creer match
         i = 1
         for personne in range(0, championnat.nombre_de_participants() - 1, 2):  # creation de variable match123
-            globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+            globals()[f'match{i}'] = Match(championnat[personne][0], championnat[personne][1],
+                                           championnat[personne + 1][0],
+                                           championnat[personne + 1][1])
             i += 1
 ## *************************************    paste   *********************************
 
