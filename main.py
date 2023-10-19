@@ -89,8 +89,8 @@ controller_tournoi.add_tournament_player_controller(player1)
 controller_tournoi.add_tournament_player_controller(player2)
 controller_tournoi.add_tournament_player_controller(player3)
 controller_tournoi.add_tournament_player_controller(player4)
-controller_tournoi.add_tournament_player_controller(player5)
-controller_tournoi.add_tournament_player_controller(player6)
+# controller_tournoi.add_tournament_player_controller(player5)
+# controller_tournoi.add_tournament_player_controller(player6)
 controller_tournoi.display_player_tournament_controler()
 
 ######round####
@@ -103,32 +103,31 @@ model_match = new_match
 print()
 
 list_player = championnat.get_tournament_players()
-print(f"Nombre de tour total:{championnat.get_numbers_round()}\n")
+print(f"Nombre de tour total:{championnat.get_numbers_round()}")
 
-for personne in range(0, championnat.nombre_de_participants()):
-    globals()[f'P{personne}'] = championnat[0 + personne][0]
+for personne in range(0, championnat.nombre_de_participants()):  # affectation des players du championnat à P123
+    globals()[f'P{personne}'] = championnat[0 + personne][0]  # affectation des players du championnat à S123
     globals()[f'S{personne}'] = championnat[0 + personne][1]
 
 i = 1
-for personne in range(0, championnat.nombre_de_participants(), 2):
+for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
     globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
     i += 1
 
-for personne in range(1, championnat.nombre_de_participants() // 2 + 1):
+print(f"nombre de participant:{championnat.nombre_de_participants()}\n")
+
+print("Premier match:")
+for personne in range(1, championnat.nombre_de_participants() // 2 + 1):  # premier match
     print(globals()[f'match{personne}'])
 
-#################programmation########################
-
-
-print(f"nombre de participant{championnat.nombre_de_participants()}\n")
+print()
 
 for tour in range(championnat.get_numbers_round()):
-
-    print(f'************************Round numero {tour + 1}***************')
+    print(f'************************Round numero {tour + 1}***************\n')
     championnat.increment_actual_round()
     list_round = []
 
-    for personne in range(1, championnat.nombre_de_participants() // 2 + 1):
+    for personne in range(1, championnat.nombre_de_participants() // 2 + 1):  # simulation joueur gagnant
         globals()[f'match{personne}'].random_gagnant()
         globals()[f'new_match{personne}'] = Match(globals()[f'match{personne}'].player1,
                                                   globals()[f'match{personne}'].score1,
@@ -136,26 +135,23 @@ for tour in range(championnat.get_numbers_round()):
                                                   globals()[f'match{personne}'].score2)
         list_round.append(globals()[f'new_match{personne}'])
         round = Round(list_round)
-        round.new_numero(tour)
+        round.new_numero(tour+1)
 
-    u=1
-    for personne in range(0, championnat.nombre_de_participants()//2+2,2):
+    u = 1
+    for personne in range(0, championnat.nombre_de_participants() // 2 + 2,
+                          2):  # mise a jours des scores players du championnat
         championnat[0 + personne][1] = globals()[f'new_match{u}'].score1
-        print(f"nombre de tour{championnat[0 + personne ][0]}")
-        championnat[0 + personne+1 ][1] = globals()[f'new_match{u}'].score2
-        print(f"nombre de tour{ championnat[0 + personne+1 ][0] }")
-        u=u+1
-
-    controller_tournoi.display_player_tournament_controler()
+        # print(f"nombre de tour{championnat[0 + personne ][0]}")
+        championnat[0 + personne + 1][1] = globals()[f'new_match{u}'].score2
+        # print(f"nombre de tour{ championnat[0 + personne+1 ][0] }")
+        u = u + 1
 
     championnat.add_list_tournament_round(round)
+    print()
 
-print(championnat.list_round[0])
-print(championnat.list_round[1])
-print(championnat.list_round[2])
+print("*************************Fin du championnat****************************\n")
 controller_tournoi.display_player_tournament_controler()
-#championnat[0][1] = 5
-
-
 print()
-controller_tournoi.display_player_tournament_controler()
+print(championnat.list_round)
+
+
