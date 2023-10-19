@@ -21,18 +21,17 @@ class TournamentController:
         self.model.increment_numbers_round()
 
     def creation_tournoi(self):
-        print("Nom du tournoi:")
-        name = input(">>")
+        name = self.view.input_name()
         self.model.set_name(name)
-        print("lieu du tournoi:")
-        place = input(">>")
+        place = self.view.input_place()
         self.model.set_place(place)
-        print("Date de debut du tournoi(aaaa,mm,jj):")
-        start_date = input(">>")
+        start_date= self.view.input_date_start()
         self.model.set_date_start(start_date)
-        print("Date de fin du tournoi(aaaa,mm,jj):")
-        end_date = input(">>")
+        end_date = self.view.input_date_end()
         self.model.set_date_end(end_date)
-        print("Nombre de round:")
-        numbers_date = input(">>")
-        self.model.set_round(numbers_date)
+        number_round = self.view.input_number_round()
+        self.model.set_date_end(number_round)
+
+
+
+

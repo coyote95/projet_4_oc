@@ -9,5 +9,33 @@ class TournamentView:
             # for key, value in item.items():
             #     print(f'{key}:\t{value}')
 
+    def input_name(self):
+        print("Nom du tournoi:")
+        name = input(">>")
+        return name
 
+    def input_place(self):
+        print("lieu du tournoi:")
+        place = input(">>")
+        return place
 
+    def input_date_start(self):
+        print("Date de debut du tournoi(aaaa,mm,jj):")
+        start_date = input(">>")
+        return start_date
+
+    def input_date_end(self):
+        print("Date de fin du tournoi(aaaa,mm,jj):")
+        end_date = input(">>")
+        return end_date
+
+    def input_number_round(self):
+        print("Nombre de round:")
+        while True:
+            try:
+                number_round = input(">>")
+                entier = int(number_round)
+                break
+            except ValueError:
+                print("L'entrée n'est pas un entier.")
+        return number_round

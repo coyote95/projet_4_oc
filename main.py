@@ -27,9 +27,17 @@ controller_tournoi.creation_tournoi()
 print(newtournament)
 
 print("Nombre de joueurs au tournoi:")
-nombre_participant = int(input(">>"))
 
-for tentative in range(0, nombre_participant):
+while True:
+    try:
+        nombre_participant = input(">>")
+        entier = int(nombre_participant)
+        break
+    except ValueError:
+        print("L'entrée n'est pas un entier.")
+
+
+for tentative in range(0, int(nombre_participant)):
     print(f"Player {tentative + 1}")
     newplayer = Player(None, None, None, None)
     PlayerController(newplayer).creation_player()
