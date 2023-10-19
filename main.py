@@ -105,9 +105,12 @@ print()
 list_player = championnat.get_tournament_players()
 print(f"Nombre de tour total:{championnat.get_numbers_round()}")
 
+
+#####copie#####
 for personne in range(0, championnat.nombre_de_participants()):  # affectation des players du championnat à P123
     globals()[f'P{personne}'] = championnat[0 + personne][0]  # affectation des players du championnat à S123
     globals()[f'S{personne}'] = championnat[0 + personne][1]
+
 
 if championnat.nombre__de_participant_pair():
     i = 1
@@ -119,6 +122,7 @@ else:#on retire le joueur pour creer match
     for personne in range(0, championnat.nombre_de_participants()-1, 2):  # creation de variable match123
         globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
         i += 1
+####copie#####
 
 
 print(f"nombre de participant:{championnat.nombre_de_participants()}\n")
@@ -144,7 +148,7 @@ for tour in range(championnat.get_numbers_round()):
         round = Round(list_round)
         round.new_numero(tour+1)
 
-#trie des joueurs par score
+
 
     u = 1
     for personne in range(0, championnat.nombre_de_participants() // 2 + 2,
@@ -155,10 +159,28 @@ for tour in range(championnat.get_numbers_round()):
         # print(f"nombre de tour{ championnat[0 + personne+1 ][0] }")
         u = u + 1
 
+    # trie des joueurs par score
     for personne in range(0,len(championnat)):
          championnat.tournament_players=sorted(championnat.tournament_players,key=lambda x: x[1],reverse=True)
 
     print( championnat.tournament_players)
+
+    #####copie#####
+    for personne in range(0, championnat.nombre_de_participants()):  # affectation des players du championnat à P123
+        globals()[f'P{personne}'] = championnat[0 + personne][0]  # affectation des players du championnat à S123
+        globals()[f'S{personne}'] = championnat[0 + personne][1]
+
+    if championnat.nombre__de_participant_pair():
+        i = 1
+        for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
+            globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+            i += 1
+    else:  # on retire le joueur pour creer match
+        i = 1
+        for personne in range(0, championnat.nombre_de_participants() - 1, 2):  # creation de variable match123
+            globals()[f'match{i}'] = Match(globals()[f'P{personne}'], S1, globals()[f'P{personne + 1}'], S2)
+            i += 1
+    ####copie#####
 
 
 
