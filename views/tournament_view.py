@@ -3,11 +3,21 @@ class TournamentView:
         self.tournament = tournament
 
     def display_players_tournament(self):
-        print("******** Affichage des participants au tournoi ******  ")
+        print(f"******** Affichage des participants au tournoi ****** ")
         for item in self.tournament.get_tournament_players():
             print(item)
             # for key, value in item.items():
             #     print(f'{key}:\t{value}')
+
+    def display_tournament_info(self):
+        print(f"*********Tournoi*******\n"
+              f" Nom: {self.tournament.name}: \n"
+              f" Place: {self.tournament.place}\n"
+              f" Date de debut: {self.tournament.date_end}\n"
+              f" Date de fin: {self.tournament.date_end}\n"
+              f"Nombre de round total:{self.tournament.numbers_round}\n"
+              f"Nombre de participants:{self.tournament.nombre_de_participants()}"
+              )
 
     def input_name(self):
         print("Nom du tournoi:")

@@ -11,7 +11,8 @@ from views.match_view import MatchView
 from controllers.player_controllers import PlayerController
 from controllers.tournamenent_controllers import TournamentController
 from controllers.menu_controllers import ApplicationController, HomeMenuController, MenuNewTournamentController
-from controllers.round_controllers import RoundMatchController
+from controllers.round_controllers import RoundController
+from controllers.match_controllers import MatchController
 
 
 from datetime import date, timedelta
@@ -76,15 +77,16 @@ player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 date_start = date(2023, 10, 14)
 date_end = date_start + timedelta(4)
 championnat = Tournament("championnat académique", "Cergy", date_start, date_end, 6)
-print(championnat)
-
 controller_tournoi = TournamentController(championnat)
+
 controller_tournoi.add_tournament_player_controller(player1)
 controller_tournoi.add_tournament_player_controller(player2)
 controller_tournoi.add_tournament_player_controller(player3)
 controller_tournoi.add_tournament_player_controller(player4)
 controller_tournoi.add_tournament_player_controller(player5)
 # controller_tournoi.add_tournament_player_controller(player6)
+
+controller_tournoi.display_tournament_info_controler()
 controller_tournoi.display_player_tournament_controler()
 
 ##***************************   SIMULATION  ********************************
@@ -92,13 +94,14 @@ controller_tournoi.display_player_tournament_controler()
 ##***************   round   ***********************
 
 new_round = Round()
+controller_round=RoundController(new_round)
+
 new_match = Match(None, None, None, None)
-model_round = new_round
-model_match = new_match
+controller_match= MatchController(new_match)
 
 print()
 
-list_player = championnat.get_tournament_players()
+
 print(f"Nombre de tour total:{championnat.get_numbers_round()}")
 
 

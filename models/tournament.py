@@ -13,10 +13,10 @@ class Tournament:
     def __str__(self):
         return (
             f"*********Tournoi*******\n"
-            f" Nom: {self.name}: \n"
-            f" Place: {self.place}\n"
-            f" Date de debut: {self.date_start}\n"
-            f" Date de fin: {self.date_end}\n"
+            f"Nom: {self.name}: \n"
+            f"Place: {self.place}\n"
+            f"Date de debut: {self.date_start}\n"
+            f"Date de fin: {self.date_end}\n"
         )
 
     def __repr__(self):

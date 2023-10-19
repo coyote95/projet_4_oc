@@ -11,6 +11,9 @@ class TournamentController:
     def display_player_tournament_controler(self):
         self.view.display_players_tournament()
 
+    def display_tournament_info_controler(self):
+        self.view.display_tournament_info()
+
     def add_tournament_player_controller(self, player):
         self.model.add_tournament_player(player)
 

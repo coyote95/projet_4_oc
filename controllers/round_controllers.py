@@ -2,9 +2,9 @@ from models.round import Round
 from views.round_view import RoundView
 
 
-class RoundMatchController:
+class RoundController:
 
-    def __init__(self, round, view):
+    def __init__(self, round):
         self.model = round
         self.view = RoundView(self.model)
 
