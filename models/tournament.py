@@ -3,13 +3,13 @@ from models.player import Player
 import os
 
 class Tournament:
-    def __init__(self, name, place, date_start, date_end, numbers_round=4):
+    def __init__(self, name, place, date_start, date_end, numbers_round=4,actual_round=1):
         self.name = name
         self.place = place
         self.date_start = date_start
         self.date_end = date_end
         self.numbers_round = numbers_round
-        self.actual_round = 1
+        self.actual_round = actual_round
         self.list_round = []
         self.tournament_players = []  # liste de dictionnaire
         self.description = []
@@ -113,7 +113,7 @@ class Tournament:
 
     def dictionnary_tournament(self):
         return {"name": self.name, "place": self.place, "date_start": self.date_start,"date_end": self.date_end,
-                "actual_round": self.actual_round, "number_round":self.numbers_round}
+                "actual_round": self.actual_round, "number_round":self.numbers_round,"actual_round": self.actual_round}
 
     def rebuild_class(cls,filename='./tournoi/players.json'):
         pass
@@ -128,7 +128,8 @@ class Tournament:
                 tournement_data['place'],
                 tournement_data['date_start'],
                 tournement_data['date_end'],
-                tournement_data['number_round']
+                tournement_data['number_round'],
+                tournement_data['actual_round']
             )
         else:
             return None

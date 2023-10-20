@@ -29,7 +29,7 @@ player5 = Player("Dalco", "Lucien", date(1995, 8, 12), 500)
 # #*********************     TOURNOI     **************************
 date_start = date(2023, 10, 14)
 date_end = date_start + timedelta(4)
-championnat = Tournament("championnat académique", "Cergy", "12fevrier", "13marss", 3)
+championnat = Tournament("championnat académique", "Cergy", "12fevrier", "13marss", 5)
 controller_tournoi = TournamentController(championnat)
 
 controller_tournoi.add_tournament_player_controller(player1)
@@ -50,45 +50,45 @@ print(championnat)
 championnat=Tournament.from_tinydb()
 print(championnat)
 
+championnat.actual_round=2
 
+for tour in range(championnat.numbers_round-championnat.actual_round+1):
 
-# for tour in range(championnat.get_numbers_round()):
-#
-#     print(f'************************Round numero {tour + 1}***************\n')
-#     championnat.increment_actual_round()
-#     round = Round()
-#
-#     if championnat.nombre__de_participant_pair():
-#         i = 1
-#         for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
-#             match_save = Match(championnat[personne][0], championnat[personne][1], championnat[personne + 1][0],
-#                                championnat[personne + 1][1])
-#             round.matchs.append(match_save)
-#     print(championnat.list_round)
-#
-#     round.set_numero(tour + 1)
-#
-#     print("Affichage match:")
-#     for item in round.matchs:  # premier match
-#         print(item)
-#     print()
-#
-#     print("Affichage Gagnant:")
-#     for match in round.matchs:  # simulation joueur gagnant
-#
-#         print(match)
-#         match.random_gagnant()
-#         print(match)
-#     print("Save round:")
-#     print(round.matchs)
-#     championnat.list_round.append(round.matchs)
-#     print(championnat.list_round)
-#
-# print("***********************Fin tournoi***************")
-#
-# print(championnat)
-# print(championnat.list_round)
-#
+    print(f'************************Round numero {championnat.actual_round}***************\n')
+    championnat.increment_actual_round()
+    round = Round()
+
+    if championnat.nombre__de_participant_pair():
+        i = 1
+        for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
+            match_save = Match(championnat[personne][0], championnat[personne][1], championnat[personne + 1][0],
+                               championnat[personne + 1][1])
+            round.matchs.append(match_save)
+    print(championnat.list_round)
+
+    round.set_numero(tour + 1)
+
+    print("Affichage match:")
+    for item in round.matchs:  # premier match
+        print(item)
+    print()
+
+    print("Affichage Gagnant:")
+    for match in round.matchs:  # simulation joueur gagnant
+
+        print(match)
+        match.random_gagnant()
+        print(match)
+    print("Save round:")
+    print(round.matchs)
+    championnat.list_round.append(round.matchs)
+    print(championnat.list_round)
+
+print("***********************Fin tournoi***************")
+
+print(championnat)
+print(championnat.list_round)
+
 # ################### exemple code recherche  ########################
 # # db=TinyDB(r'C:\Users\Ghost\OneDrive\Documents\Openclassrooms\Projet_4\chess_tournaments\tournoi\players.json')
 # # doc_id_to_find = 1
