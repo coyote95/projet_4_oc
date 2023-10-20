@@ -81,29 +81,23 @@ class Tournament:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        print(self.tournament_players)
-        player_data = [player.dictionnary_player() for player in self.tournament_players if isinstance(player,Player)]
-        db.insert_multiple(player_data)
-        doc_id_to_find = 1
 
-        # Utilisez une requête TinyDB pour rechercher l'enregistrement par "doc_id"
-        Record = Query()
+        for player in self.tournament_players:
+            if isinstance(player,Player):
+                Recherche = Query()
+                existing_player = db.get(
+                    (Recherche.name == player._name) &
+                    (Recherche.surname == player._surname) &
+                    (Recherche.id_chess == player.id_chess)
+                )
+                if existing_player:
+                    print(f"ERROR: {player._name} {player._surname} existe déjà dans le fichier{filename}.")
+                else:
+                    # Aucun joueur avec les mêmes informations, vous pouvez ajouter le nouveau joueur
+                    db.insert(player.dictionnary_player())
+                    print(f"SAVE: {player._name} {player._surname} dans la base de données.")
 
-        result = db.get(doc_id=1)
-        print(result)
 
 
-
-        if result is not None:
-            # L'enregistrement a été trouvé, récupérez le score
-            score = result.get('name', None)  # Remplacez 'score' par le nom de la clé du score
-
-            if score is not None:
-                print(f"Score du doc_id {doc_id_to_find} : {score}")
-            else:
-                print(f"L'enregistrement avec le doc_id {doc_id_to_find} n'a pas de score défini.")
-        else:
-            print(f"Enregistrement avec le doc_id {doc_id_to_find} non trouvé.")
-        db.close()
 
 
