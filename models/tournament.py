@@ -17,7 +17,7 @@ class Tournament:
     def __str__(self):
         return (
             f"*********Tournoi*******\n"
-            f"Nom: {self.name}: \n"
+            f"Nom: {self.name} \n"
             f"Place: {self.place}\n"
             f"Date de debut: {self.date_start}\n"
             f"Date de fin: {self.date_end}\n"
@@ -81,11 +81,12 @@ class Tournament:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
+        table=db.table("save_players")
 
         for player in self.tournament_players:
             if isinstance(player,Player):
                 Recherche = Query()
-                existing_player = db.get(
+                existing_player = table.get(
                     (Recherche.name == player._name) &
                     (Recherche.surname == player._surname) &
                     (Recherche.id_chess == player.id_chess)
@@ -94,10 +95,43 @@ class Tournament:
                     print(f"ERROR: {player._name} {player._surname} existe déjà dans le fichier{filename}.")
                 else:
                     # Aucun joueur avec les mêmes informations, vous pouvez ajouter le nouveau joueur
-                    db.insert(player.dictionnary_player())
+                    table.insert(player.dictionnary_player())
                     print(f"SAVE: {player._name} {player._surname} dans la base de données.")
+        db.close()
 
+    def save_tournament_info_to_json(self, filename='./tournoi/players.json'):
+        directory=os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        db = TinyDB(filename)
+        table_name="save_info"
+        if table_name in db.tables():
+            db.drop_table(table_name)
+            table=db.table("save_info")
+            table.insert(self.dictionnary_tournament())
+        db.close()
 
+    def dictionnary_tournament(self):
+        return {"name": self.name, "place": self.place, "date_start": self.date_start,"date_end": self.date_end,
+                "actual_round": self.actual_round, "number_round":self.numbers_round}
+
+    def rebuild_class(cls,filename='./tournoi/players.json'):
+        pass
+
+    @staticmethod
+    def from_tinydb( filename='./tournoi/players.json'):
+        db = TinyDB(filename)
+        tournement_data = db.table("save_info").get(doc_id=1)
+        if tournement_data:
+            return Tournament(
+                tournement_data['name'],
+                tournement_data['place'],
+                tournement_data['date_start'],
+                tournement_data['date_end'],
+                tournement_data['number_round']
+            )
+        else:
+            return None
 
 
 
