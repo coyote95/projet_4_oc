@@ -1,3 +1,7 @@
+from tinydb import TinyDB, Query
+from models.player import Player
+import os
+
 class Tournament:
     def __init__(self, name, place, date_start, date_end, numbers_round=4):
         self.name = name
@@ -63,9 +67,8 @@ class Tournament:
         return len(self.tournament_players)
 
 
-    def add_tournament_player(self, player, score=0):
-        list = [player, score]
-        self.tournament_players.append(list)
+    def add_tournament_player(self, player):
+        self.tournament_players.append(player)
 
     def add_list_tournament_round(self, round):
         self.list_round.append(round)
@@ -73,6 +76,34 @@ class Tournament:
     def increment_actual_round(self):
         self.actual_round += 1
 
+    def save_player_tournament_to_json(self, filename='./tournoi/players.json'):
+        directory=os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        db = TinyDB(filename)
+        print(self.tournament_players)
+        player_data = [player.dictionnary_player() for player in self.tournament_players if isinstance(player,Player)]
+        db.insert_multiple(player_data)
+        doc_id_to_find = 1
 
+        # Utilisez une requête TinyDB pour rechercher l'enregistrement par "doc_id"
+        Record = Query()
+
+        result = db.get(doc_id=1)
+        print(result)
+
+
+
+        if result is not None:
+            # L'enregistrement a été trouvé, récupérez le score
+            score = result.get('name', None)  # Remplacez 'score' par le nom de la clé du score
+
+            if score is not None:
+                print(f"Score du doc_id {doc_id_to_find} : {score}")
+            else:
+                print(f"L'enregistrement avec le doc_id {doc_id_to_find} n'a pas de score défini.")
+        else:
+            print(f"Enregistrement avec le doc_id {doc_id_to_find} non trouvé.")
+        db.close()
 
 

@@ -7,6 +7,7 @@ class Player:
         self._surname = surname
         self._birthday = birthday
         self.id_chess = id_chess
+        self.score=0
 
     def __str__(self):
         return (
@@ -38,7 +39,7 @@ class Player:
 
     def dictionnary_player(self):
         return {"name": self._name, "surname": self._surname, "birthday": self._birthday.isoformat(),
-                "id_chess": self.id_chess}
+                "id_chess": self.id_chess, "score":self.score}
 
     def set_name(self, name):
         self._name = name
