@@ -2,12 +2,12 @@ from tinydb import TinyDB, Query
 
 
 class Round:
-    def __init__(self,list_match=[]):
+    def __init__(self,):
         self.name = "Round"
         self.numero_round = 1
         self.commence = "date de debut"
         self.termine = "date de fin"
-        self.matchs = list_match
+        self.matchs = []
 
     def __str__(self):
         return (
