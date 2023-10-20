@@ -14,9 +14,9 @@ from controllers.menu_controllers import ApplicationController, HomeMenuControll
 from controllers.round_controllers import RoundController
 from controllers.match_controllers import MatchController
 
-
 from datetime import date, timedelta
 from tinydb import TinyDB, Query
+
 #
 # ###########   Menu    ********************************
 # app = ApplicationController()
@@ -83,7 +83,7 @@ controller_tournoi.add_tournament_player_controller(player1)
 controller_tournoi.add_tournament_player_controller(player2)
 controller_tournoi.add_tournament_player_controller(player3)
 controller_tournoi.add_tournament_player_controller(player4)
-#controller_tournoi.add_tournament_player_controller(player5)
+# controller_tournoi.add_tournament_player_controller(player5)
 # controller_tournoi.add_tournament_player_controller(player6)
 
 controller_tournoi.display_tournament_info_controler()
@@ -94,26 +94,12 @@ controller_tournoi.display_player_tournament_controler()
 
 ##***************   round   ***********************
 
-# round = Round()
-# controller_round=RoundController(round)
-
-# new_match = Match(None, None, None, None)
-# controller_match= MatchController(new_match)
-
-
-
-
-
-
-
 
 for tour in range(championnat.get_numbers_round()):
 
-
     print(f'************************Round numero {tour + 1}***************\n')
     championnat.increment_actual_round()
-    round=Round()
-
+    round = Round()
 
     if championnat.nombre__de_participant_pair():
         i = 1
@@ -123,14 +109,12 @@ for tour in range(championnat.get_numbers_round()):
             round.matchs.append(match_save)
     print(championnat.list_round)
 
-    round.set_numero(tour+1)
-
+    round.set_numero(tour + 1)
 
     print("Affichage match:")
     for item in round.matchs:  # premier match
         print(item)
     print()
-
 
     print("Affichage Gagnant:")
     for match in round.matchs:  # simulation joueur gagnant
@@ -145,7 +129,5 @@ for tour in range(championnat.get_numbers_round()):
 
 print("***********************Fin tournoi***************")
 
-print(championnat.list_round[0])
-print(championnat.list_round[1])
-print(championnat.list_round[2])
-
+print(championnat)
+print(championnat.list_round)
