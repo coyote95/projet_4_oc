@@ -1,65 +1,45 @@
-player.py
+from models.player import Player
+from models.tournament import Tournament
+from models.menu import MenuEntry, Menu
+from models.round import Round
+from models.match import Match
+from views.player_view import PlayerView
+from views.tournament_view import TournamentView
+from views.menu_view import HomeMenuView
+from views.round_view import RoundView
+from views.match_view import MatchView
+from controllers.player_controllers import PlayerController
+from controllers.tournamenent_controllers import TournamentController
+from controllers.menu_controllers import ApplicationController, HomeMenuController, MenuNewTournamentController
+from controllers.round_controllers import RoundController
+from controllers.match_controllers import MatchController
+
+from datetime import date, timedelta
+from tinydb import TinyDB, Query
+round=Round()
+list=[]
+player1 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
+list.append(player1)
+round.matchs.append(player1)
+player1.set_name("julien")
+round.matchs.append(player1)
+list.append(player1)
+print(round.matchs)
+print(list)
 
 
-class Player:
-    def __init__(self, name, surname, birthday, id_chess="AB12345"):
-        self._name = name
-        self._surname = surname
-        self._birthday = birthday
-        self.id_chess = id_chess
 
-    def save_player_to_json(self, filename):
-        db = TinyDB(filename)
-        db.insert(self.dictionnary_player())
+player1 = Player("Marcel", "Marcel", date(1990, 5, 15), 50)
+for i in range(0):
+    player1=Player(f"Marcel{i}", "Marcel", date(1990, 5, 15), 50)
+    list.append(player1)
+    round.matchs.append(player1)
+print(list)
+print(round.matchs)
 
-    def get_filename(self):
-        return self.filename
-
-    def dictionnary_player(self):
-        return {"name": self._name, "surname": self._surname, "birthday": self._birthday.isoformat(),
-                "id_chess": self.id_chess}
-
-player_view.py
-
-class PlayerView:
-    def __init__(self):
-        self.player=player
-
-    def view_player_bd(self,filename):
-        db = TinyDB(filename)
-        all_items = db.all()
-        for item in all_items:
-            print(item)
-
-    def display_player(self):
-        print (self.player.dictionnary_player())
-
-player_controllers.py
-
-class PlayerController:
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
-
-    def save_player_controller(self, filename):
-        self.model.save_player_to_json(filename)
-
-    def display_db(self,filename):
-        self.view.view_player_bd(filename)
-
-    def display_player_controller(self):
-        self.view.display_player(self)
-
-if __name__ == "__main__":
-    from views.player_view import PlayerView
-    from models.player import Player
-    from datetime import date
-
-    player1 = Player("Guillot", "Aurore", date(1990, 5, 15), 50)
-    model = player1
-    view = PlayerView()
-    controller= PlayerController(model, view)
-    controller.save_player_controller("test2.json")
-    controller.display_db("test2.json")
-    print("attention")
-    controller.save_player_controller()
+# list=[]
+# player1=5
+# list.append(player1)
+# player1=10
+# list.append(player1)
+# print(list)

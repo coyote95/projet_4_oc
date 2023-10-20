@@ -8,7 +8,7 @@ class Match:
         self.player2 = player2
         self.score1 = score1
         self.score2 = score2
-        self.match = ([player1, score1], [player2, score2])
+        #self.match = ([])
 
     def __str__(self):
         return (
