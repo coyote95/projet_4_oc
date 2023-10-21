@@ -2,12 +2,12 @@ from tinydb import TinyDB, Query
 
 
 class Player:
-    def __init__(self, name, surname, birthday, id_chess="AB12345"):
+    def __init__(self, name, surname, birthday, id_chess="AB12345",score=0):
         self._name = name
         self._surname = surname
         self._birthday = birthday
         self.id_chess = id_chess
-        self.score=0
+        self.score=score
 
     def __str__(self):
         return (
@@ -52,3 +52,30 @@ class Player:
 
     def set_id(self, id_chess):
         self.id_chess = id_chess
+
+    @staticmethod
+    def from_tinydb( numero,name_table="save_players",filename='./tournoi/players.json'):
+        db = TinyDB(filename)
+        player_data = db.table(name_table).get(doc_id=numero)
+        if player_data:
+            return Player(
+                player_data['name'],
+                player_data['surname'],
+                player_data['birthday'],
+                player_data['id_chess'],
+                player_data['score']
+            )
+        else:
+            return None
+
+    @staticmethod
+    def from_tinydb_all(filename='./tournoi/players.json'):
+        db = TinyDB(filename)
+        doc_ids=db.table("save_players").all()
+        list_player=[]
+        for doc_id in  doc_ids:
+            new_player=Player.from_tinydb(doc_id.doc_id)
+            list_player.append(new_player)
+        return list_player
+
+

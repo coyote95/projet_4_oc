@@ -3,7 +3,7 @@ from models.player import Player
 import os
 
 class Tournament:
-    def __init__(self, name, place, date_start, date_end, numbers_round=4,actual_round=1):
+    def __init__(self, name, place, date_start, date_end, numbers_round=4,actual_round=1,list_players=[]):
         self.name = name
         self.place = place
         self.date_start = date_start
@@ -11,7 +11,7 @@ class Tournament:
         self.numbers_round = numbers_round
         self.actual_round = actual_round
         self.list_round = []
-        self.tournament_players = []  # liste de dictionnaire
+        self.tournament_players = list_players  # liste de dictionnaire
         self.description = []
 
     def __str__(self):
@@ -119,7 +119,7 @@ class Tournament:
         pass
 
     @staticmethod
-    def from_tinydb( filename='./tournoi/players.json'):
+    def from_tinydb(filename='./tournoi/players.json'):
         db = TinyDB(filename)
         tournement_data = db.table("save_info").get(doc_id=1)
         if tournement_data:
@@ -129,7 +129,8 @@ class Tournament:
                 tournement_data['date_start'],
                 tournement_data['date_end'],
                 tournement_data['number_round'],
-                tournement_data['actual_round']
+                tournement_data['actual_round'],
+                Player.from_tinydb_all()
             )
         else:
             return None

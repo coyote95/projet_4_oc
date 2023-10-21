@@ -38,6 +38,7 @@ controller_tournoi.add_tournament_player_controller(player3)
 controller_tournoi.add_tournament_player_controller(player4)
 controller_tournoi.add_tournament_player_controller(player5)
 # controller_tournoi.add_tournament_player_controller(player6)
+print(f'list de joueuers:{championnat.tournament_players}')
 
 controller_tournoi.display_tournament_info_controler()
 controller_tournoi.display_player_tournament_controler()
@@ -51,6 +52,7 @@ championnat=Tournament.from_tinydb()
 print(championnat)
 
 championnat.actual_round=2
+print(f'list de joueuers:{championnat.tournament_players}')
 
 for tour in range(championnat.numbers_round-championnat.actual_round+1):
 
@@ -86,7 +88,11 @@ for tour in range(championnat.numbers_round-championnat.actual_round+1):
 
 print("***********************Fin tournoi***************")
 
-print(championnat)
+print()
+
+print(championnat[0])
+print(Player.from_tinydb_all())
+
 print(championnat.list_round)
 
 # ################### exemple code recherche  ########################
