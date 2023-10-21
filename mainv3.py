@@ -36,7 +36,7 @@ controller_tournoi.add_tournament_player_controller(player1)
 controller_tournoi.add_tournament_player_controller(player2)
 controller_tournoi.add_tournament_player_controller(player3)
 controller_tournoi.add_tournament_player_controller(player4)
-controller_tournoi.add_tournament_player_controller(player5)
+#controller_tournoi.add_tournament_player_controller(player5)
 # controller_tournoi.add_tournament_player_controller(player6)
 print(f'list de joueuers:{championnat.tournament_players}')
 
@@ -48,43 +48,36 @@ championnat.save_tournament_info_to_json()
 print()
 championnat.set_name("TOTO")
 print(championnat)
-championnat=Tournament.from_tinydb()
+#championnat=Tournament.from_tinydb()
 print(championnat)
 
 championnat.actual_round=2
-print(f'list de joueuers:{championnat.tournament_players}')
+print(f'list de joueurs participants au tournoi:{championnat.tournament_players}')
 
 for tour in range(championnat.numbers_round-championnat.actual_round+1):
 
     print(f'************************Round numero {championnat.actual_round}***************\n')
     championnat.increment_actual_round()
-    round = Round()
+    round_tournament = Round()
+    round_tournament.set_numero(tour + 1)
 
     if championnat.nombre__de_participant_pair():
         i = 1
         for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
-            match_save = Match(championnat[personne][0], championnat[personne][1], championnat[personne + 1][0],
-                               championnat[personne + 1][1])
-            round.matchs.append(match_save)
-    print(championnat.list_round)
-
-    round.set_numero(tour + 1)
+            match_save = Match(championnat[personne], championnat[personne].score, championnat[personne + 1],
+                               championnat[personne].score)
+            round_tournament.matchs.append(match_save)
 
     print("Affichage match:")
-    for item in round.matchs:  # premier match
+    for item in round_tournament.matchs:  # premier match
         print(item)
     print()
 
     print("Affichage Gagnant:")
-    for match in round.matchs:  # simulation joueur gagnant
-
-        print(match)
+    for match in round_tournament.matchs:  # simulation joueur gagnant
         match.random_gagnant()
-        print(match)
-    print("Save round:")
-    print(round.matchs)
-    championnat.list_round.append(round.matchs)
-    print(championnat.list_round)
+
+    championnat.list_round.append(round_tournament.matchs)
 
 print("***********************Fin tournoi***************")
 

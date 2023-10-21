@@ -41,10 +41,8 @@ class Match:
     def random_gagnant(self):
         choix_gagnant = random.choice([self.player1, self.player2, "execo"])
         if choix_gagnant == self.player1:
-            self.score1 += 1
             print(f"le joueur gagant est:{choix_gagnant}")
-        # self.player1_gagnant()
-
+            self.player1_gagnant()
         elif choix_gagnant == self.player2:
             print(f"le joueur gagant est:{choix_gagnant}")
             self.player2_gagnant()
