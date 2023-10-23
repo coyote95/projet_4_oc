@@ -4,6 +4,7 @@ from models.tournament import Tournament
 from controllers.tournamenent_controllers import TournamentController
 from controllers.player_controllers import PlayerController
 from models.menu import Menu
+import sys
 
 
 class ApplicationController:
@@ -19,11 +20,6 @@ class ApplicationController:
         self.tournament = tournament
         self.controller = PlayerMenuController(self.tournament)
 
-        while self.controller:
-            self.controller = self.controller()
-
-    def chooseplayer(self):
-        self.controller = MenulistePlayerController()
         while self.controller:
             self.controller = self.controller()
 
@@ -71,13 +67,31 @@ class MenuResultTournamentController:
 
 
 class MenuListPlayersController:
+
+    def __init__(self):
+        self.menu = Menu()
+        self.view = HomeMenuView(self.menu)
+
     def __call__(self, *args, **kwargs):
-        print("dans le controleur de LISTE DES JOUEURS")
+        print("dans le controleur d'affichages de tous les joueurs")
+        list_player = Player.from_tinydb_all("./all_players.json", "all_player", False)
+        i=1
+        for player in list_player:
+            print(f"{i}: {player}")
+            i+=1
+
+        self.menu.add("r", "Retour", HomeMenuController())
+        self.menu.add("q", "Quitter", QuitController())
+        user_choice = self.view.get_user_choice()
+        print(user_choice)
+        return user_choice.handler
+        return None
 
 
 class QuitController:
     def __call__(self, *args, **kwargs):
         print("dans le controleur de fin")
+        sys.exit()
 
 
 class MenulistePlayerController:
@@ -96,10 +110,6 @@ class MenulistePlayerController:
         print(user_choice)
         return user_choice.handler
 
-        # app = ApplicationController()
-        # app.chooseplayer()
-        # menu = Menu()
-
 
 class Addplayer:
     def __init__(self, player=None, tournament=None):
@@ -109,17 +119,14 @@ class Addplayer:
     def __call__(self, *args, **kwargs):
         print("Dans le controller ADDPLAYER")
         self.tournament.add_tournament_player(self.player)
-        # PlayerController(self.player).creation_player()
-        # PlayerController(self.player).save_player_controller()
 
 
 class ManuelPlayer:
-    def __init__(self,tournament=None):
+    def __init__(self, tournament=None):
         self.tournament = tournament
 
     def __call__(self, *args, **kwargs):
-        player=Player(None, None, None, None)
+        print("Dans le controller Manuel")
+        player = Player(None, None, None, None)
         PlayerController(player).creation_player()
         self.tournament.add_tournament_player(player)
-
-    print("Dans le controller Manuel")

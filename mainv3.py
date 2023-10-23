@@ -24,38 +24,33 @@ app = ApplicationController()
 app.start()
 menu = Menu()
 
-
-#### ***********************   TOURNOI    ********************************
-newtournament = Tournament(None, None, None, None)
-
-controller_tournoi = TournamentController(newtournament)
-controller_tournoi.creation_tournoi()
-print(newtournament)
-
-print("Nombre de joueurs au tournoi:")
-
-while True:
-    try:
-        nombre_participant = input(">>")
-        entier = int(nombre_participant)
-        break
-    except ValueError:
-        print("L'entrée n'est pas un entier.")
-
-
-for tentative in range(0, int(nombre_participant)):
-    print(f"Player {tentative + 1}")
-    newplayer = Player(None, None, None, None)
-    app.player(newtournament)
-    menu=Menu()
-
-print(newtournament.tournament_players)
-    # PlayerController(newplayer).creation_player()
-    # PlayerController(newplayer).save_player_controller()
-    # print(f"Resume:{newplayer}\n")
-    # controller_tournoi.add_tournament_player_controller(newplayer)
-
-controller_tournoi.display_player_tournament_controler()
+#
+# #### ***********************   TOURNOI    ********************************
+# newtournament = Tournament(None, None, None, None)
+#
+# controller_tournoi = TournamentController(newtournament)
+# controller_tournoi.creation_tournoi()
+# print(newtournament)
+#
+# print("Nombre de joueurs au tournoi:")
+#
+# while True:
+#     try:
+#         nombre_participant = input(">>")
+#         entier = int(nombre_participant)
+#         break
+#     except ValueError:
+#         print("L'entrée n'est pas un entier.")
+#
+#
+# for tentative in range(0, int(nombre_participant)):
+#     print(f"Player {tentative + 1}")
+#     newplayer = Player(None, None, None, None)
+#     app.player(newtournament)
+#     menu=Menu()
+#
+# print(newtournament.tournament_players)
+# controller_tournoi.display_player_tournament_controler()
 
 
 ############################    Player  #####################################################
