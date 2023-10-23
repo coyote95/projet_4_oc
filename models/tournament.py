@@ -2,8 +2,9 @@ from tinydb import TinyDB, Query
 from models.player import Player
 import os
 
+
 class Tournament:
-    def __init__(self, name, place, date_start, date_end, numbers_round=4,actual_round=1,list_players=[]):
+    def __init__(self, name, place, date_start, date_end, numbers_round=4, actual_round=1, list_players=[]):
         self.name = name
         self.place = place
         self.date_start = date_start
@@ -56,7 +57,6 @@ class Tournament:
     def set_round(self, round):
         self.numbers_round = round
 
-
     def nombre__de_participant_pair(self):
         if len(self.tournament_players) % 2 == 0:
             return True
@@ -65,7 +65,6 @@ class Tournament:
 
     def nombre_de_participants(self):
         return len(self.tournament_players)
-
 
     def add_tournament_player(self, player):
         self.tournament_players.append(player)
@@ -76,15 +75,19 @@ class Tournament:
     def increment_actual_round(self):
         self.actual_round += 1
 
-    def save_player_tournament_to_json(self, filename='./tournoi/players.json'):
-        directory=os.path.dirname(filename)
+    def save_player_tournament_to_json(self, table_name="save_players", filename='./tournoi/players.json'):
+        directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
+
         db = TinyDB(filename)
-        table=db.table("save_players")
+        if table_name in db.tables():
+            db.drop_table(table_name)
+
+        table = db.table("save_players")
 
         for player in self.tournament_players:
-            if isinstance(player,Player):
+            if isinstance(player, Player):
                 Recherche = Query()
                 existing_player = table.get(
                     (Recherche.name == player._name) &
@@ -100,22 +103,23 @@ class Tournament:
         db.close()
 
     def save_tournament_info_to_json(self, filename='./tournoi/players.json'):
-        directory=os.path.dirname(filename)
+        directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        table_name="save_info"
+        table_name = "save_info"
         if table_name in db.tables():
             db.drop_table(table_name)
-            table=db.table("save_info")
+            table = db.table("save_info")
             table.insert(self.dictionnary_tournament())
         db.close()
 
     def dictionnary_tournament(self):
-        return {"name": self.name, "place": self.place, "date_start": self.date_start,"date_end": self.date_end,
-                "actual_round": self.actual_round, "number_round":self.numbers_round,"actual_round": self.actual_round}
+        return {"name": self.name, "place": self.place, "date_start": self.date_start, "date_end": self.date_end,
+                "actual_round": self.actual_round, "number_round": self.numbers_round,
+                "actual_round": self.actual_round}
 
-    def rebuild_class(cls,filename='./tournoi/players.json'):
+    def rebuild_class(cls, filename='./tournoi/players.json'):
         pass
 
     @staticmethod
@@ -134,6 +138,4 @@ class Tournament:
             )
         else:
             return None
-
-
 

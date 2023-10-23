@@ -101,6 +101,8 @@ for tour in range(championnat.numbers_round - championnat.actual_round + 1):
 
     print(championnat.tournament_players)
 
+    championnat.save_player_tournament_to_json()
+
 print("***********************Fin tournoi***************")
 
 print()
