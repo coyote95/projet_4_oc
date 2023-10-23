@@ -22,7 +22,7 @@ class Player:
             f"Surname: {self._surname}"
         )
 
-    def save_player_to_json(self, filename):
+    def save_player_to_json(self, filename=".all_players.json"):
         db = TinyDB(filename)
         db.insert(self.dictionnary_player())
 
@@ -38,9 +38,13 @@ class Player:
     def get_id_chess(self):
         return self.id_chess
 
-    def dictionnary_player(self):
+    def dictionnary_player_score(self):
         return {"name": self._name, "surname": self._surname, "birthday": self._birthday,
                 "id_chess": self.id_chess, "score": self.score}
+
+    def dictionnary_player(self):
+        return {"name": self._name, "surname": self._surname, "birthday": self._birthday,
+                "id_chess": self.id_chess}
 
     def set_name(self, name):
         self._name = name
@@ -55,26 +59,34 @@ class Player:
         self.id_chess = id_chess
 
     @staticmethod
-    def from_tinydb(numero, name_table="save_players", filename='./tournoi/players.json'):
+    def from_tinydb(numero, name_table="save_players", filename='./tournoi/players.json',score=True):
         db = TinyDB(filename)
         player_data = db.table(name_table).get(doc_id=numero)
         if player_data:
-            return Player(
-                player_data['name'],
-                player_data['surname'],
-                player_data['birthday'],
-                player_data['id_chess'],
-                player_data['score']
-            )
+            if score==True:
+                return Player(
+                    player_data['name'],
+                    player_data['surname'],
+                    player_data['birthday'],
+                    player_data['id_chess'],
+                    player_data['score']
+                )
+            else:
+                return Player(
+                    player_data['name'],
+                    player_data['surname'],
+                    player_data['birthday'],
+                    player_data['id_chess'],
+                )
         else:
             return None
 
     @staticmethod
-    def from_tinydb_all(filename='./tournoi/players.json'):
+    def from_tinydb_all(filename='./tournoi/players.json', name_table="save_players",score=True):
         db = TinyDB(filename)
-        doc_ids = db.table("save_players").all()
+        doc_ids = db.table(name_table).all()
         list_player = []
         for doc_id in doc_ids:
-            new_player = Player.from_tinydb(doc_id.doc_id)
+            new_player = Player.from_tinydb(doc_id.doc_id,name_table,filename,score)
             list_player.append(new_player)
         return list_player

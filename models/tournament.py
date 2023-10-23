@@ -99,7 +99,7 @@ class Tournament:
                     print(f"ERROR: {player._name} {player._surname} existe déjà dans le fichier{filename}.")
                 else:
                     # Aucun joueur avec les mêmes informations, vous pouvez ajouter le nouveau joueur
-                    table.insert(player.dictionnary_player())
+                    table.insert(player.dictionnary_player_score())
                     print(f"SAVE: {player._name} {player._surname} dans la base de données.")
         db.close()
 
