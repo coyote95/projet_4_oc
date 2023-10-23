@@ -1,4 +1,5 @@
 from tinydb import TinyDB, Query
+from models.match import Match
 
 
 class Round:
@@ -41,4 +42,7 @@ class Round:
         db.insert(self.dictionnary_round())
 
     def dictionnary_round(self):
-        return {"name": self.name, "numero_round": self.numero_round, "matchs": self.matchs}
+        matchs_data = [match.dictionnary_match() for match in self.matchs]
+        return {"name": self.name, "numero_round": self.numero_round,"debut":self.commence,"fin":self.termine, "matchs": matchs_data}
+
+

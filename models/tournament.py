@@ -1,5 +1,6 @@
 from tinydb import TinyDB, Query
 from models.player import Player
+from models.round import Round
 import os
 
 
@@ -139,3 +140,20 @@ class Tournament:
         else:
             return None
 
+    def save_round_tournament_to_json(self, table_name="round", filename='./tournoi/players.json'):
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        db = TinyDB(filename)
+        if table_name in db.tables():
+            db.drop_table(table_name)
+
+        table = db.table(table_name)
+
+        for round_tournament in self.list_round:
+            if isinstance(round_tournament, Round):
+                table.insert(round_tournament.dictionnary_round())
+                print(f"SAVE:{round_tournament}")
+
+        db.close()
