@@ -1,5 +1,8 @@
-from views.menu_view import HomeMenuView  #, PlayerMenuView, ChoosePlayerMenuView
+from views.menu_view import HomeMenuView  # , PlayerMenuView, ChoosePlayerMenuView
 from models.player import Player
+from models.tournament import Tournament
+from controllers.tournamenent_controllers import TournamentController
+from controllers.player_controllers import PlayerController
 from models.menu import Menu
 
 
@@ -12,8 +15,10 @@ class ApplicationController:
         while self.controller:
             self.controller = self.controller()
 
-    def player(self):
-        self.controller = PlayerMenuController()
+    def player(self, tournament):
+        self.tournament = tournament
+        self.controller = PlayerMenuController(self.tournament)
+
         while self.controller:
             self.controller = self.controller()
 
@@ -41,14 +46,15 @@ class HomeMenuController:
 
 
 class PlayerMenuController:
-    def __init__(self):
+    def __init__(self, tournament):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)
+        self.tournament = tournament
 
     def __call__(self, *args, **kwargs):
         # 1.construire un menu
-        self.menu.add("auto", "Ajouter joueur depuis la liste", MenulistePlayerController())
-        self.menu.add("auto", "Ajouter joueu manuellement", MenuResultTournamentController())
+        self.menu.add("auto", "Ajouter joueur depuis la liste", MenulistePlayerController(self.tournament))
+        self.menu.add("auto", "Ajouter joueu manuellement", ManuelPlayer(self.tournament))
         user_choice = self.view.get_user_choice()
         return user_choice.handler
 
@@ -75,18 +81,19 @@ class QuitController:
 
 
 class MenulistePlayerController:
-    def __init__(self):
+    def __init__(self, tournament):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)
+        self.tournament = tournament
 
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les joueurs")
         list_player = Player.from_tinydb_all("./all_players.json", "all_player", False)
         print(list_player)
         for player in list_player:
-            print(player)
-            self.menu.add("auto", f"{player}",Addplayer(player))
+            self.menu.add("auto", f"{player}", Addplayer(player, self.tournament))
         user_choice = self.view.get_user_choice()
+        print(user_choice)
         return user_choice.handler
 
         # app = ApplicationController()
@@ -95,8 +102,24 @@ class MenulistePlayerController:
 
 
 class Addplayer:
-    def __init__(self,player=None):
+    def __init__(self, player=None, tournament=None):
         self.player = player
+        self.tournament = tournament
 
     def __call__(self, *args, **kwargs):
-        print(self.player)
+        print("Dans le controller ADDPLAYER")
+        self.tournament.add_tournament_player(self.player)
+        # PlayerController(self.player).creation_player()
+        # PlayerController(self.player).save_player_controller()
+
+
+class ManuelPlayer:
+    def __init__(self,tournament=None):
+        self.tournament = tournament
+
+    def __call__(self, *args, **kwargs):
+        player=Player(None, None, None, None)
+        PlayerController(player).creation_player()
+        self.tournament.add_tournament_player(player)
+
+    print("Dans le controller Manuel")

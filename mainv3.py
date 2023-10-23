@@ -19,9 +19,9 @@ from tinydb import TinyDB, Query
 
 ##########   Menu    ********************************
 app = ApplicationController()
-app.chooseplayer()
+#app.chooseplayer()
 
-#app.start()
+app.start()
 menu = Menu()
 
 
@@ -46,12 +46,14 @@ while True:
 for tentative in range(0, int(nombre_participant)):
     print(f"Player {tentative + 1}")
     newplayer = Player(None, None, None, None)
-    app.player()
+    app.player(newtournament)
     menu=Menu()
-    PlayerController(newplayer).creation_player()
-    PlayerController(newplayer).save_player_controller()
-    print(f"Resume:{newplayer}\n")
-    controller_tournoi.add_tournament_player_controller(newplayer)
+
+print(newtournament.tournament_players)
+    # PlayerController(newplayer).creation_player()
+    # PlayerController(newplayer).save_player_controller()
+    # print(f"Resume:{newplayer}\n")
+    # controller_tournoi.add_tournament_player_controller(newplayer)
 
 controller_tournoi.display_player_tournament_controler()
 
