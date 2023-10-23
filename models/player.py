@@ -12,7 +12,8 @@ class Player:
     def __str__(self):
         return (
             f"Nom: {self._name} "
-            f"Surname: {self._surname}"
+            f"Surname: {self._surname} "
+
         )
 
     def __repr__(self):
