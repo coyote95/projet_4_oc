@@ -63,7 +63,7 @@ for tour in range(championnat.numbers_round - championnat.actual_round + 1):
     if championnat.nombre__de_participant_pair():
         i = 1
         for personne in range(0, championnat.nombre_de_participants(), 2):  # creation de variable match123
-            match_save = Match(championnat[personne], championnat[personne + 1],)
+            match_save = Match(championnat[personne], championnat[personne + 1], )
             round_tournament.matchs.append(match_save)
 
     print("Affichage match:")
@@ -78,25 +78,26 @@ for tour in range(championnat.numbers_round - championnat.actual_round + 1):
 
     championnat.list_round.append(round_tournament.matchs)
 
-
-
-
     i = 0
-    j=0
-    for personne in championnat.tournament_players:
+    j = 0
+    for personne in championnat.tournament_players:  # mise a jour score total joueur
         if j % 2 == 0:
             personne.score += round_tournament.matchs[i].score1
 
         else:
             personne.score += round_tournament.matchs[i].score2
             i += 1
-        j +=1
+        j += 1
 
     for personne in range(0, len(championnat)):
         print(championnat[personne])
-
         print(championnat[personne].score)
-        # print(championnat.list_round)
+
+    for personne in range(0, len(championnat)):
+        championnat.tournament_players = sorted(championnat.tournament_players, key=lambda player: player.score,
+                                                reverse=True)
+
+    print(championnat.tournament_players)
 
 print("***********************Fin tournoi***************")
 
