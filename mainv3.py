@@ -55,6 +55,11 @@ print(f'list de joueurs participants au tournoi:{championnat.tournament_players}
 
 for tour in range(championnat.numbers_round - championnat.actual_round + 1):
 
+    for personne in range(0, len(championnat)):
+        championnat.tournament_players = sorted(championnat.tournament_players, key=lambda player: player.score,
+                                                reverse=True)
+
+
     print(f'************************Round numero {championnat.actual_round}***************\n')
     championnat.increment_actual_round()
     round_tournament = Round()
@@ -76,7 +81,7 @@ for tour in range(championnat.numbers_round - championnat.actual_round + 1):
     for match in round_tournament.matchs:  # simulation joueur gagnant
         match.random_gagnant()
 
-    championnat.list_round.append(round_tournament.matchs)
+    championnat.list_round.append(round_tournament)
 
     i = 0
     j = 0
@@ -93,9 +98,6 @@ for tour in range(championnat.numbers_round - championnat.actual_round + 1):
         print(championnat[personne])
         print(championnat[personne].score)
 
-    for personne in range(0, len(championnat)):
-        championnat.tournament_players = sorted(championnat.tournament_players, key=lambda player: player.score,
-                                                reverse=True)
 
     print(championnat.tournament_players)
 
