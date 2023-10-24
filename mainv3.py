@@ -31,27 +31,6 @@ menu = Menu()
 # controller_tournoi = TournamentController(newtournament)
 # controller_tournoi.creation_tournoi()
 # print(newtournament)
-#
-# print("Nombre de joueurs au tournoi:")
-#
-# while True:
-#     try:
-#         nombre_participant = input(">>")
-#         entier = int(nombre_participant)
-#         break
-#     except ValueError:
-#         print("L'entrée n'est pas un entier.")
-#
-#
-# for tentative in range(0, int(nombre_participant)):
-#     print(f"Player {tentative + 1}")
-#     newplayer = Player(None, None, None, None)
-#     app.player(newtournament)
-#     menu=Menu()
-#
-# print(newtournament.tournament_players)
-# controller_tournoi.display_player_tournament_controler()
-
 
 ############################    Player  #####################################################
 #
