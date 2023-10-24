@@ -27,7 +27,7 @@ class TournamentController:
         self.model.nombre_de_participant_pair()
 
     def nombre_de_participants_controller(self):
-        self.model.nombre_de_participant()
+        return self.model.nombre_de_participants()
 
     def add_tournament_player_controller(self, player):
         self.model.add_tournament_player(player)

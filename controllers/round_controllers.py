@@ -8,6 +8,9 @@ class RoundController:
         self.model = round
         self.view = RoundView(self.model)
 
+    def get_match_controller(self):
+        return self.model.get_match()
+
     def creation_round(self, tournament):
         round = tournament.get_numbers_round()
         for tour in range(round):
@@ -18,6 +21,9 @@ class RoundController:
 
     def display_round_controler(self):
         self.view.display_round()
+
+    def display_match_controller(self):
+        self.view.display_match()
 
     def set_numero_controller(self, num):
         self.model.set_numero(num)

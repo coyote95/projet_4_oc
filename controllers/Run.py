@@ -58,48 +58,25 @@ class Run:
 
             if controller_tournoi.nombre_de_participant_pair_controller():
                 for personne in range(0, controller_tournoi.nombre_de_participants_controller(), 2):
-                    match_save = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
-                    controller_round.add_match_controller(match_save)
+                    new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+                    controller_round.add_match_controller(new_match)
             else:  # on retire le joueur pour creer match
-                for personne in range(0, controller_tournoi.nombre_de_participants_controller()-1, 2):
-                    match_save = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
-                    controller_round.add_match_controller(match_save)
-        #
-        #     print("Affichage match:")
-        #     for item in round_tournament.matchs:  # premier match
-        #         print(item)
-        #     print()
-        #
-        #     print("Affichage Gagnant:")
-        #
-        #     for match in round_tournament.matchs:  # simulation joueur gagnant
-        #         match.random_gagnant()
-        #
-        #     self.tournament.list_round.append(round_tournament)
-        #
-        #     if self.tournament.nombre__de_participant_pair():
-        #         i = 0
-        #         j = 0
-        #         for personne in self.tournament.tournament_players:  # mise a jour score total joueur
-        #             if j % 2 == 0:
-        #                 personne.score += round_tournament.matchs[i].score1
-        #
-        #             else:
-        #                 personne.score += round_tournament.matchs[i].score2
-        #                 i += 1
-        #             j += 1
-        #     else:
-        #         i = 0
-        #         j = 0
-        #         for personne in self.tournament.tournament_players[:-1]:  # mise a jour score total joueur
-        #             if j % 2 == 0:
-        #                 personne.score += round_tournament.matchs[i].score1
-        #
-        #             else:
-        #                 personne.score += round_tournament.matchs[i].score2
-        #                 i += 1
-        #             j += 1
-        #
+                for personne in range(0, controller_tournoi.nombre_de_participants_controller() - 1, 2):
+                    new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+                    controller_round.add_match_controller(new_match)
+
+            controller_round.display_match_controller()
+
+            print("Affichage Gagnant:")
+            for match in controller_round.get_match_controller():
+                controller_match = MatchController(match)
+                controller_match.random_gagnant_controller()
+
+            controller_tournoi.add_list_tournament_round_controller(round_tournament)
+
+            score_instance = UpdateScoreRun(self.tournament, round_tournament)
+            score_instance()
+
         #     for personne in range(0, len(self.tournament)):
         #         print(self.tournament[personne])
         #         print(self.tournament[personne].score)
@@ -127,3 +104,34 @@ class Run:
         #     print(self.tournament.list_round[j])
         #
         # print(self.tournament)
+
+
+class UpdateScoreRun:
+    def __init__(self, tournament, round):
+        self.tournament = tournament
+        self.round = round
+
+    def __call__(self, *args, **kwargs):
+
+        if self.tournament.nombre_de_participant_pair():
+            i = 0
+            j = 0
+            for player in self.tournament.tournament_players:  # mise a jour score total joueur
+                if j % 2 == 0:
+                    player.score += self.round.matchs[i].score1
+
+                else:
+                    player.score += self.round.matchs[i].score2
+                    i += 1
+                j += 1
+        else:
+            i = 0
+            j = 0
+            for player in self.tournament.tournament_players[:-1]:  # mise a jour score total joueur
+                if j % 2 == 0:
+                    player.score += self.round.matchs[i].score1
+
+                else:
+                    player.score += self.round.matchs[i].score2
+                    i += 1
+                j += 1

@@ -10,3 +10,6 @@ class MatchController:
 
     def display_match_controler(self):
         self.view.display_match()
+
+    def random_gagnant_controller(self):
+        self.model.random_gagnant()

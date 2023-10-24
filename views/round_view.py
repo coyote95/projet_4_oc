@@ -11,3 +11,10 @@ class RoundView:
         for match in self.round.matchs:
             print(match)
 
+    def display_match(self):
+        print("Affichage des matchs")
+        i = 1
+        for item in self.round.matchs:  # premier match
+            print(f"Match {i}:  {item}")
+            i += 1
+        print()
