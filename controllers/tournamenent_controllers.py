@@ -7,6 +7,9 @@ from models.tournament import Tournament
 
 class TournamentController:
 
+    def __getitem__(self, choice):  # tournament[0]
+        return self.model[choice]
+
     def __init__(self, tournament):
         self.model = tournament
         self.view = views.tournament_view.TournamentView(self.model)
@@ -17,6 +20,15 @@ class TournamentController:
     def display_tournament_info_controler(self):
         self.view.display_tournament_info()
 
+    def display_actual_numero_round_controller(self):
+        self.view.display_numero_round()
+
+    def nombre_de_participant_pair_controller(self):
+        self.model.nombre_de_participant_pair()
+
+    def nombre_de_participants_controller(self):
+        self.model.nombre_de_participant()
+
     def add_tournament_player_controller(self, player):
         self.model.add_tournament_player(player)
 
@@ -24,7 +36,7 @@ class TournamentController:
         self.model.add_list_tournament_round(round)
 
     def increment_actual_round_controller(self):
-        self.model.increment_numbers_round()
+        self.model.increment_actual_round()
 
     def creation_tournoi(self):
         name = self.view.input_name()
@@ -49,3 +61,8 @@ class TournamentController:
 
     def save_tournament_info_to_json_controller(self, filename, table_name="save_info"):
         self.model.save_tournament_info_to_json(filename, table_name)
+
+    def sort_players_by_score_controller(self):
+        self.model.sort_players_by_score()
+
+

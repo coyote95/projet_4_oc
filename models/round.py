@@ -28,11 +28,29 @@ class Round:
     def get_match(self):
         return self.matchs
 
+    def get_name(self):
+        return self.name
+
+    def get_commence(self):
+        return self.commence
+
+    def get_termine(self):
+        return self.termine
+
+    def get_numero_round(self):
+        return self.numero_round
+
     def set_match(self, list):
         self.matchs = list
 
     def set_numero(self, num):
         self.numero_round = num
+
+    def set_commence(self,commence):
+        self.commence = commence
+
+    def set_termine(self, termine):
+        self.termine = termine
 
     def add_match(self, match):
         return self.matchs.append(match)

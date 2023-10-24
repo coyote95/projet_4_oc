@@ -13,5 +13,17 @@ class RoundController:
         for tour in range(round):
             print(f"round n° {tour}")
 
+    def add_match_controller(self, match):
+        self.model.add_match(match)
+
     def display_round_controler(self):
         self.view.display_round()
+
+    def set_numero_controller(self, num):
+        self.model.set_numero(num)
+
+    def set_commence_controller(self, commence):
+        self.model.set_commence(commence)
+
+    def set_termine_controller(self, termine):
+        self.model.set_termine(termine)

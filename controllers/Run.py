@@ -44,91 +44,86 @@ class Run:
         self.tournament = tournament
 
     def __call__(self, *args, **kwargs):
+        controller_tournoi = TournamentController(self.tournament)
 
-        print(f'list de joueurs participants au tournoi:{self.tournament.tournament_players}')
+        for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round() + 1):
+            controller_tournoi.sort_players_by_score_controller()
+            controller_tournoi.display_actual_numero_round_controller()
+            controller_tournoi.increment_actual_round_controller()
 
-        for tour in range(self.tournament.numbers_round - self.tournament.actual_round + 1):
-
-            for personne in range(0, len(self.tournament)):
-                self.tournament.tournament_players = sorted(self.tournament.tournament_players,
-                                                            key=lambda player: player.score,
-                                                            reverse=True)
-
-            print(f'************************Round numero {self.tournament.actual_round}***************\n')
-            self.tournament.increment_actual_round()
             round_tournament = Round()
-            round_tournament.set_numero(tour + 1)
-            round_tournament.commence = datetime.now().isoformat()
+            controller_round = RoundController(round_tournament)
+            controller_round.set_numero_controller(tour + 1)
+            controller_round.set_commence_controller(datetime.now().isoformat())
 
-            if self.tournament.nombre__de_participant_pair():
-                for personne in range(0, self.tournament.nombre_de_participants(), 2):  # creation de variable match123
-                    match_save = Match(self.tournament[personne], self.tournament[personne + 1], )
-                    round_tournament.matchs.append(match_save)
+            if controller_tournoi.nombre_de_participant_pair_controller():
+                for personne in range(0, controller_tournoi.nombre_de_participants_controller(), 2):
+                    match_save = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+                    controller_round.add_match_controller(match_save)
             else:  # on retire le joueur pour creer match
-                for personne in range(0, self.tournament.nombre_de_participants() - 1,
-                                      2):  # creation de variable match123
-                    match_save = Match(self.tournament[personne], self.tournament[personne + 1], )
-                    round_tournament.matchs.append(match_save)
-
-            print("Affichage match:")
-            for item in round_tournament.matchs:  # premier match
-                print(item)
-            print()
-
-            print("Affichage Gagnant:")
-
-            for match in round_tournament.matchs:  # simulation joueur gagnant
-                match.random_gagnant()
-
-            self.tournament.list_round.append(round_tournament)
-
-            if self.tournament.nombre__de_participant_pair():
-                i = 0
-                j = 0
-                for personne in self.tournament.tournament_players:  # mise a jour score total joueur
-                    if j % 2 == 0:
-                        personne.score += round_tournament.matchs[i].score1
-
-                    else:
-                        personne.score += round_tournament.matchs[i].score2
-                        i += 1
-                    j += 1
-            else:
-                i = 0
-                j = 0
-                for personne in self.tournament.tournament_players[:-1]:  # mise a jour score total joueur
-                    if j % 2 == 0:
-                        personne.score += round_tournament.matchs[i].score1
-
-                    else:
-                        personne.score += round_tournament.matchs[i].score2
-                        i += 1
-                    j += 1
-
-            for personne in range(0, len(self.tournament)):
-                print(self.tournament[personne])
-                print(self.tournament[personne].score)
-
-            print(self.tournament.tournament_players)
-
-            self.tournament.save_player_tournament_to_json()
-            self.tournament.save_round_tournament_to_json()
-
-            round_tournament.termine = datetime.now().isoformat()
-
-        print("***********************Fin tournoi***************")
-
-        print()
-
-        for i in range(len(self.tournament.tournament_players)):
-            print(self.tournament[i])
-
-        print(Player.from_tinydb_all())
-
-        print(self.tournament.list_round)
-        print()
-
-        for j in range(len(self.tournament.list_round)):
-            print(self.tournament.list_round[j])
-
-        print(self.tournament)
+                for personne in range(0, controller_tournoi.nombre_de_participants_controller()-1, 2):
+                    match_save = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+                    controller_round.add_match_controller(match_save)
+        #
+        #     print("Affichage match:")
+        #     for item in round_tournament.matchs:  # premier match
+        #         print(item)
+        #     print()
+        #
+        #     print("Affichage Gagnant:")
+        #
+        #     for match in round_tournament.matchs:  # simulation joueur gagnant
+        #         match.random_gagnant()
+        #
+        #     self.tournament.list_round.append(round_tournament)
+        #
+        #     if self.tournament.nombre__de_participant_pair():
+        #         i = 0
+        #         j = 0
+        #         for personne in self.tournament.tournament_players:  # mise a jour score total joueur
+        #             if j % 2 == 0:
+        #                 personne.score += round_tournament.matchs[i].score1
+        #
+        #             else:
+        #                 personne.score += round_tournament.matchs[i].score2
+        #                 i += 1
+        #             j += 1
+        #     else:
+        #         i = 0
+        #         j = 0
+        #         for personne in self.tournament.tournament_players[:-1]:  # mise a jour score total joueur
+        #             if j % 2 == 0:
+        #                 personne.score += round_tournament.matchs[i].score1
+        #
+        #             else:
+        #                 personne.score += round_tournament.matchs[i].score2
+        #                 i += 1
+        #             j += 1
+        #
+        #     for personne in range(0, len(self.tournament)):
+        #         print(self.tournament[personne])
+        #         print(self.tournament[personne].score)
+        #
+        #     print(self.tournament.tournament_players)
+        #
+        #     self.tournament.save_player_tournament_to_json()
+        #     self.tournament.save_round_tournament_to_json()
+        #
+        #     round_tournament.termine = datetime.now().isoformat()
+        #
+        # print("***********************Fin tournoi***************")
+        #
+        # print()
+        #
+        # for i in range(len(self.tournament.tournament_players)):
+        #     print(self.tournament[i])
+        #
+        # print(Player.from_tinydb_all())
+        #
+        # print(self.tournament.list_round)
+        # print()
+        #
+        # for j in range(len(self.tournament.list_round)):
+        #     print(self.tournament.list_round[j])
+        #
+        # print(self.tournament)

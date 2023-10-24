@@ -44,8 +44,14 @@ class Tournament:
     def get_round(self, choice):
         return self.list_round[choice]
 
+    def get_actual_round(self):
+        return self.actual_round
+
     def get_name(self):
         return self.name
+
+    def set_tournament_players(self, list_players):
+        self.tournament_players = list_players
 
     def set_name(self, name):
         self.name = name
@@ -62,7 +68,7 @@ class Tournament:
     def set_round(self, round):
         self.numbers_round = round
 
-    def nombre__de_participant_pair(self):
+    def nombre_de_participant_pair(self):
         if len(self.tournament_players) % 2 == 0:
             return True
         else:
@@ -144,3 +150,11 @@ class Tournament:
                 print(f"SAVE:{round_tournament}")
 
         db.close()
+
+    def sort_players_by_score(self):
+        for personne in range(0, len(self.tournament_players)):
+            self.set_tournament_players(sorted(self.tournament_players,
+                                                          key=lambda player: player.score,
+                                                          reverse=True))
+
+

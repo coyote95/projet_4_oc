@@ -22,6 +22,9 @@ class TournamentView:
               # f"Nombre de participants:{self.tournament.nombre_de_participants()}"
               )
 
+    def display_numero_round(self):
+        print(f'************************Round numero {self.tournament.actual_round}***************\n')
+
     def input_name(self):
         print("Nom du tournoi:")
         name = input(">>")
