@@ -44,6 +44,7 @@ class HomeMenuController:
     def __call__(self, *args, **kwargs):
         # 1.construire un menu
         self.menu.add("auto", "Création nouveau tournoi", RunCreationTournoi())
+        self.menu.add("auto", "Reprendre tournoi", MenuResultTournamentController())
         self.menu.add("auto", "Résultat ancien tournoi", MenuResultTournamentController())
         self.menu.add("auto", "Liste des joueurs", MenuListPlayersController())
         self.menu.add("q", "Quitter", QuitController())
@@ -62,7 +63,7 @@ class PlayerMenuController:
     def __call__(self, *args, **kwargs):
         # 1.construire un menu
         self.menu.add("auto", "Ajouter joueur depuis la liste", MenulistePlayerController(self.tournament))
-        self.menu.add("auto", "Ajouter joueu manuellement", ManuelPlayer(self.tournament))
+        self.menu.add("auto", "Ajouter joueur manuellement", ManuelPlayer(self.tournament))
         user_choice = self.view.get_user_choice()
         return user_choice.handler
 
@@ -86,7 +87,7 @@ class MenuListPlayersController:
 
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les joueurs")
-        list_player = Player.from_tinydb_all("./all_players.json", "all_player", False)
+        list_player = Player.from_tinydb_all("./data/all_players.json", "all_players", False)
         i = 1
         for player in list_player:
             print(f"{i}: {player}")

@@ -1,6 +1,4 @@
 import controllers.menu_controllers
-
-
 # from controllers.menu_controllers import ApplicationController
 
 

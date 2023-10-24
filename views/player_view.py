@@ -20,12 +20,12 @@ class PlayerView:
     def input_name(self):
         print("Nom du joueur:")
         name = input(">>")
-        return name
+        return name.upper()
 
     def input_surname(self):
         print("Prenom du joueur:")
         surname = input(">>")
-        return surname
+        return surname.upper()
 
     def input_birthday(self):
         while True:
@@ -44,4 +44,4 @@ class PlayerView:
     def input_id(self):
         print("Numero ID:")
         numero_id = input(">>")
-        return numero_id
+        return numero_id.upper()
