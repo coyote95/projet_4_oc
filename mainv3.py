@@ -19,8 +19,6 @@ from tinydb import TinyDB, Query
 
 ##########   Menu    ********************************
 app = ApplicationController()
-#app.chooseplayer()
-
 app.start()
 menu = Menu()
 
@@ -40,6 +38,12 @@ menu = Menu()
 # player4 = Player("Guyot", "Maxime", "24mars", 400)
 # player5 = Player("Dalco", "Lucien", "12sepetembre", 500)
 # player6 = Player("Vardie", "Jennifer", date(1995, 7, 21).isoformat(), 275)
+#
+# player1.save_player_to_json(filename="./data/all_players.json")
+# player2.save_player_to_json(filename="./data/all_players.json")
+# player3.save_player_to_json(filename="./data/all_players.json")
+# player4.save_player_to_json(filename="./data/all_players.json")
+
 # # player7 = Player("Dupont", "Adrien", date(1990, 5, 15), 50)
 #
 # # #*********************     TOURNOI     **************************

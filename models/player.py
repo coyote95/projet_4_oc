@@ -1,4 +1,5 @@
 from tinydb import TinyDB, Query
+import os
 
 
 class Player:
@@ -22,9 +23,30 @@ class Player:
             f"Surname: {self._surname}"
         )
 
-    def save_player_to_json(self, filename=".all_players.json"):
+    def save_player_to_json(self, filename, table_name,score=True):
         db = TinyDB(filename)
-        db.insert(self.dictionnary_player())
+        table = db.table(table_name)
+
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        Recherche = Query()
+        existing_player = table.get(
+            (Recherche.name == self._name) &
+            (Recherche.surname == self._surname) &
+            (Recherche.id_chess == self.id_chess)
+        )
+        if existing_player:
+            print(f"ERROR: {self._name} {self._surname} existe déjà dans le fichier{filename}.")
+        else:
+            # Aucun joueur avec les mêmes informations, vous pouvez ajouter le nouveau joueur
+            if score==True:
+                table.insert(self.dictionnary_player_score())
+            else:
+                table.insert(self.dictionnary_player())
+            print(f"SAVE: {self._name} {self._surname} dans le fichier {filename}")
+        db.close()
 
     def get_name(self):
         return self._name
@@ -59,11 +81,11 @@ class Player:
         self.id_chess = id_chess
 
     @staticmethod
-    def from_tinydb(numero, name_table="save_players", filename='./tournoi/players.json',score=True):
+    def from_tinydb(numero, name_table="save_players", filename='./tournoi/players.json', score=True):
         db = TinyDB(filename)
         player_data = db.table(name_table).get(doc_id=numero)
         if player_data:
-            if score==True:
+            if score == True:
                 return Player(
                     player_data['name'],
                     player_data['surname'],
@@ -82,11 +104,11 @@ class Player:
             return None
 
     @staticmethod
-    def from_tinydb_all(filename='./tournoi/players.json', name_table="save_players",score=True):
+    def from_tinydb_all(filename='./tournoi/players.json', name_table="save_players", score=True):
         db = TinyDB(filename)
         doc_ids = db.table(name_table).all()
         list_player = []
         for doc_id in doc_ids:
-            new_player = Player.from_tinydb(doc_id.doc_id,name_table,filename,score)
+            new_player = Player.from_tinydb(doc_id.doc_id, name_table, filename, score)
             list_player.append(new_player)
         return list_player

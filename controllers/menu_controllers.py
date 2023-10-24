@@ -113,7 +113,7 @@ class MenulistePlayerController:
 
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les joueurs")
-        list_player = Player.from_tinydb_all("./all_players.json", "all_player", False)
+        list_player = Player.from_tinydb_all("./data/all_players.json", "all_players", False)
         print(list_player)
         for player in list_player:
             self.menu.add("auto", f"{player}", Addplayer(player, self.tournament))
@@ -140,6 +140,7 @@ class ManuelPlayer:
         print("Dans le controller Manuel")
         player = Player(None, None, None, None)
         PlayerController(player).creation_player()
+        PlayerController(player).save_player_controller(filename="./data/all_players.json" , table_name="all_players", score=False)
         self.tournament.add_tournament_player(player)
 
 
@@ -169,10 +170,12 @@ class RunCreationTournoi:
             app.player(self.tournament)
             menu = Menu()
 
+        self.tournament.save_player_tournament_to_json(filename= self.tournament.name)
+        self.tournament.save_tournament_info_to_json(filename=self.tournament.name)
         print(self.tournament.tournament_players)
         controller_tournoi.display_player_tournament_controler()
-        run_instance=Run(self.tournament)
-        run_instance()
+        # run_instance=Run(self.tournament)
+        # run_instance()
 
 
 class Run:
