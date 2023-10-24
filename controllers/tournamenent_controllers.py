@@ -28,13 +28,12 @@ class TournamentController:
         self.model.set_name(name)
         place = self.view.input_place()
         self.model.set_place(place)
-        start_date= self.view.input_date_start()
+        start_date = self.view.input_date_start()
         self.model.set_date_start(start_date)
         end_date = self.view.input_date_end()
         self.model.set_date_end(end_date)
         number_round = int(self.view.input_number_round())
         self.model.set_round(number_round)
 
-
-
-
+    def input_number_players_controller(self):
+        return self.view.input_number_players()

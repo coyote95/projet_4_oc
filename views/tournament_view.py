@@ -11,12 +11,12 @@ class TournamentView:
 
     def display_tournament_info(self):
         print(f"*********Tournoi*******\n"
-              f" Nom: {self.tournament.name}: \n"
-              f" Place: {self.tournament.place}\n"
-              f" Date de debut: {self.tournament.date_end}\n"
-              f" Date de fin: {self.tournament.date_end}\n"
+              f"Nom: {self.tournament.name}: \n"
+              f"Place: {self.tournament.place}\n"
+              f"Date de debut: {self.tournament.date_end}\n"
+              f"Date de fin: {self.tournament.date_end}\n"
               f"Nombre de round total:{self.tournament.numbers_round}\n"
-              f"Nombre de participants:{self.tournament.nombre_de_participants()}"
+             # f"Nombre de participants:{self.tournament.nombre_de_participants()}"
               )
 
     def input_name(self):
@@ -49,3 +49,15 @@ class TournamentView:
             except ValueError:
                 print("L'entrée n'est pas un entier.")
         return number_round
+
+    def input_number_players(self):
+        while True:
+            print("Nombre de joueurs au tournoi:")
+            try:
+                nombre_participant = input(">>")
+                entier = int(nombre_participant)
+                return entier
+            except ValueError:
+                print("L'entrée n'est pas un entier.")
+
+
