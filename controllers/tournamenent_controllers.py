@@ -1,12 +1,15 @@
+import views.tournament_view
 from models.tournament import Tournament
-from views.tournament_view import TournamentView
+
+
+# rom views.tournament_view import TournamentView
 
 
 class TournamentController:
 
     def __init__(self, tournament):
         self.model = tournament
-        self.view = TournamentView(self.model)
+        self.view = views.tournament_view.TournamentView(self.model)
 
     def display_player_tournament_controler(self):
         self.view.display_players_tournament()
@@ -35,5 +38,14 @@ class TournamentController:
         number_round = int(self.view.input_number_round())
         self.model.set_round(number_round)
 
+    def get_name_controller(self):
+        return self.model.get_name()
+
     def input_number_players_controller(self):
         return self.view.input_number_players()
+
+    def save_player_tournament_to_json_controller(self,filename, table_name="players"):
+        self.model.save_player_tournament_to_json(filename, table_name)
+
+    def save_tournament_info_to_json_controller(self, filename, table_name="save_info"):
+        self.model.save_tournament_info_to_json(filename, table_name)

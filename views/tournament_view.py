@@ -1,3 +1,6 @@
+from controllers.menu_controllers import ApplicationController
+
+
 class TournamentView:
     def __init__(self, tournament):
         self.tournament = tournament
@@ -16,7 +19,7 @@ class TournamentView:
               f"Date de debut: {self.tournament.date_end}\n"
               f"Date de fin: {self.tournament.date_end}\n"
               f"Nombre de round total:{self.tournament.numbers_round}\n"
-             # f"Nombre de participants:{self.tournament.nombre_de_participants()}"
+              # f"Nombre de participants:{self.tournament.nombre_de_participants()}"
               )
 
     def input_name(self):
@@ -44,7 +47,7 @@ class TournamentView:
         while True:
             try:
                 number_round = input(">>")
-                entier = int(number_round)
+                test = int(number_round)
                 break
             except ValueError:
                 print("L'entrée n'est pas un entier.")
@@ -55,9 +58,12 @@ class TournamentView:
             print("Nombre de joueurs au tournoi:")
             try:
                 nombre_participant = input(">>")
-                entier = int(nombre_participant)
-                return entier
+                test = int(nombre_participant)
+                break
             except ValueError:
                 print("L'entrée n'est pas un entier.")
 
-
+        for tentative in range(0, int(nombre_participant)):
+            print(f"Player {tentative + 1}")
+            app = ApplicationController()
+            app.player(self.tournament)

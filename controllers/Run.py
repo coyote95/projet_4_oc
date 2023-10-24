@@ -6,7 +6,7 @@ from models.round import Round
 from models.match import Match
 from models.menu import Menu, MenuEntry
 from views.player_view import PlayerView
-from views.tournament_view import TournamentView
+# from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
 from views.round_view import RoundView
 from views.match_view import MatchView
@@ -15,7 +15,7 @@ from controllers.player_controllers import PlayerController
 from controllers.tournamenent_controllers import TournamentController
 from controllers.round_controllers import RoundController
 from controllers.match_controllers import MatchController
-#from controllers.menu_controllers import ApplicationController, HomeMenuController, PlayerMenuController
+# from controllers.menu_controllers import ApplicationController, HomeMenuController, PlayerMenuController
 #    MenuListPlayersController, QuitController, Addplayer, ManuelPlayer
 
 from datetime import date, timedelta, datetime
@@ -31,30 +31,12 @@ class RunCreationTournoi:
         controller_tournoi = TournamentController(self.tournament)
         controller_tournoi.creation_tournoi()
         controller_tournoi.display_tournament_info_controler()
-        nombre_participant=controller_tournoi.input_number_players_controller()
-
-        # print("Nombre de joueurs au tournoi:")
-        #
-        # while True:
-        #     try:
-        #         nombre_participant = input(">>")
-        #         entier = int(nombre_participant)
-        #         break
-        #     except ValueError:
-        #         print("L'entrée n'est pas un entier.")
-
-        for tentative in range(0, nombre_participant):
-            print(f"Player {tentative + 1}")
-            app = controllers.menu_controllers.ApplicationController()
-            app.player(self.tournament)
-            # menu = Menu()
-
-        self.tournament.save_player_tournament_to_json(filename=self.tournament.name)
-        self.tournament.save_tournament_info_to_json(filename=self.tournament.name)
-        print(self.tournament.tournament_players)
+        controller_tournoi.input_number_players_controller()
+        controller_tournoi.save_player_tournament_to_json_controller(filename=controller_tournoi.get_name_controller())
+        controller_tournoi.save_tournament_info_to_json_controller(filename=controller_tournoi.get_name_controller())
         controller_tournoi.display_player_tournament_controler()
-        # run_instance=Run(self.tournament)
-        # run_instance()
+        run_instance = Run(self.tournament)
+        run_instance()
 
 
 class Run:

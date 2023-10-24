@@ -4,7 +4,7 @@ from models.menu import MenuEntry, Menu
 from models.round import Round
 from models.match import Match
 from views.player_view import PlayerView
-from views.tournament_view import TournamentView
+# from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
 from views.round_view import RoundView
 from views.match_view import MatchView

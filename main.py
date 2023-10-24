@@ -17,7 +17,6 @@ from controllers.match_controllers import MatchController
 from datetime import date, timedelta, datetime
 from tinydb import TinyDB, Query
 
-
 app = ApplicationController()
 app.start()
 

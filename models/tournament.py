@@ -44,6 +44,9 @@ class Tournament:
     def get_round(self, choice):
         return self.list_round[choice]
 
+    def get_name(self):
+        return self.name
+
     def set_name(self, name):
         self.name = name
 
@@ -77,41 +80,21 @@ class Tournament:
     def increment_actual_round(self):
         self.actual_round += 1
 
-    def save_player_tournament_to_json(self, table_name="save_players", filename="default"):
-        filename = './data/tournements/' + filename +".json"
+    def save_player_tournament_to_json(self, filename, table_name):
+        filename = './data/tournements/' + filename + ".json"
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
-
         db = TinyDB(filename)
         if table_name in db.tables():
             db.drop_table(table_name)
         db.close()
-
         for player in self.tournament_players:
             if isinstance(player, Player):
-                player.save_player_to_json(filename,table_name,score=True)
+                player.save_player_to_json(filename, table_name, score=True)
 
-        # table = db.table(table_name)
-
-        # for player in self.tournament_players:
-        #     if isinstance(player, Player):
-        # #         Recherche = Query()
-        # #         existing_player = table.get(
-        # #             (Recherche.name == player._name) &
-        # #             (Recherche.surname == player._surname) &
-        # #             (Recherche.id_chess == player.id_chess)
-        # #         )
-        # #         if existing_player:
-        # #             print(f"ERROR: {player._name} {player._surname} existe déjà dans le fichier{filename}.")
-        # #         else:
-        # #             # Aucun joueur avec les mêmes informations, vous pouvez ajouter le nouveau joueur
-        # #             table.insert(player.dictionnary_player_score())
-        # #             print(f"SAVE: {player._name} {player._surname} dans la base de données.")
-        # # db.close()
-
-    def save_tournament_info_to_json(self,table_name="save_info", filename='default'):
-        filename = './data/tournements/' + filename +".json"
+    def save_tournament_info_to_json(self, filename, table_name):
+        filename = './data/tournements/' + filename + ".json"
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -126,7 +109,6 @@ class Tournament:
         return {"name": self.name, "place": self.place, "date_start": self.date_start, "date_end": self.date_end,
                 "actual_round": self.actual_round, "number_round": self.numbers_round,
                 "actual_round": self.actual_round}
-
 
     @staticmethod
     def from_tinydb(filename='./tournoi/players.json'):
