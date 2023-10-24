@@ -32,8 +32,8 @@ class TournamentController:
         self.model.set_date_start(start_date)
         end_date = self.view.input_date_end()
         self.model.set_date_end(end_date)
-        number_round = self.view.input_number_round()
-        self.model.set_date_end(number_round)
+        number_round = int(self.view.input_number_round())
+        self.model.set_round(number_round)
 
 
 

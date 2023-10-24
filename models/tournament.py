@@ -23,6 +23,7 @@ class Tournament:
             f"Place: {self.place}\n"
             f"Date de debut: {self.date_start}\n"
             f"Date de fin: {self.date_end}\n"
+            f"nombre de round: {self.numbers_round}\n"
         )
 
     def __repr__(self):
