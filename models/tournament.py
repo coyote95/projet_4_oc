@@ -133,17 +133,15 @@ class Tournament:
         else:
             return None
 
-    def save_round_tournament_to_json(self, table_name="round", filename='./tournoi/players.json'):
+    def save_round_tournament_to_json(self, filename, table_name):
+        filename = './data/tournements/' + filename + ".json"
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
-
         db = TinyDB(filename)
         if table_name in db.tables():
             db.drop_table(table_name)
-
         table = db.table(table_name)
-
         for round_tournament in self.list_round:
             if isinstance(round_tournament, Round):
                 table.insert(round_tournament.dictionnary_round())
@@ -154,7 +152,5 @@ class Tournament:
     def sort_players_by_score(self):
         for personne in range(0, len(self.tournament_players)):
             self.set_tournament_players(sorted(self.tournament_players,
-                                                          key=lambda player: player.score,
-                                                          reverse=True))
-
-
+                                               key=lambda player: player.score,
+                                               reverse=True))

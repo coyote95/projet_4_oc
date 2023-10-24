@@ -77,33 +77,24 @@ class Run:
             score_instance = UpdateScoreRun(self.tournament, round_tournament)
             score_instance()
 
-        #     for personne in range(0, len(self.tournament)):
-        #         print(self.tournament[personne])
-        #         print(self.tournament[personne].score)
-        #
-        #     print(self.tournament.tournament_players)
-        #
-        #     self.tournament.save_player_tournament_to_json()
-        #     self.tournament.save_round_tournament_to_json()
-        #
-        #     round_tournament.termine = datetime.now().isoformat()
-        #
-        # print("***********************Fin tournoi***************")
-        #
-        # print()
-        #
-        # for i in range(len(self.tournament.tournament_players)):
-        #     print(self.tournament[i])
-        #
-        # print(Player.from_tinydb_all())
-        #
-        # print(self.tournament.list_round)
-        # print()
-        #
-        # for j in range(len(self.tournament.list_round)):
-        #     print(self.tournament.list_round[j])
-        #
-        # print(self.tournament)
+            controller_tournoi.score_player_tournament_controller()
+
+            controller_tournoi.save_player_tournament_to_json_controller(
+                filename=controller_tournoi.get_name_controller())
+            controller_tournoi.save_round_tournament_to_json_controller(
+                filename=controller_tournoi.get_name_controller())
+
+            controller_round.set_termine_controller(datetime.now().isoformat())
+
+        print(f"***********************Fin tournoi***************\n")
+
+        for i in range(len(self.tournament.tournament_players)):
+            print(self.tournament[i])
+
+        for j in range(len(self.tournament.list_round)):
+            print(self.tournament.list_round[j])
+
+
 
 
 class UpdateScoreRun:

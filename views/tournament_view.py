@@ -1,4 +1,5 @@
-from controllers.menu_controllers import ApplicationController
+import controllers.menu_controllers
+# from controllers.menu_controllers import ApplicationController
 
 
 class TournamentView:
@@ -9,8 +10,7 @@ class TournamentView:
         print(f"******** Affichage des participants au tournoi ****** ")
         for item in self.tournament.get_tournament_players():
             print(item)
-            # for key, value in item.items():
-            #     print(f'{key}:\t{value}')
+
 
     def display_tournament_info(self):
         print(f"*********Tournoi*******\n"
@@ -68,5 +68,5 @@ class TournamentView:
 
         for tentative in range(0, int(nombre_participant)):
             print(f"Player {tentative + 1}")
-            app = ApplicationController()
+            app = controllers.menu_controllers.ApplicationController()
             app.player(self.tournament)

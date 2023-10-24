@@ -56,13 +56,19 @@ class TournamentController:
     def input_number_players_controller(self):
         return self.view.input_number_players()
 
-    def save_player_tournament_to_json_controller(self,filename, table_name="players"):
+    def save_player_tournament_to_json_controller(self, filename, table_name="players"):
         self.model.save_player_tournament_to_json(filename, table_name)
 
     def save_tournament_info_to_json_controller(self, filename, table_name="save_info"):
         self.model.save_tournament_info_to_json(filename, table_name)
 
+    def save_round_tournament_to_json_controller(self, filename, table_name="round"):
+        self.model.save_round_tournament_to_json(filename, table_name)
+
     def sort_players_by_score_controller(self):
         self.model.sort_players_by_score()
 
-
+    def score_player_tournament_controller(self):
+        for personne in range(0, len(self.model)):
+            print(self.model[personne])
+            print(self.model[personne].score)
