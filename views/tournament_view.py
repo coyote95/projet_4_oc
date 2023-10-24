@@ -1,4 +1,6 @@
 import controllers.menu_controllers
+
+
 # from controllers.menu_controllers import ApplicationController
 
 
@@ -10,7 +12,6 @@ class TournamentView:
         print(f"******** Affichage des participants au tournoi ****** ")
         for item in self.tournament.get_tournament_players():
             print(item)
-
 
     def display_tournament_info(self):
         print(f"*********Tournoi*******\n"
@@ -36,14 +37,32 @@ class TournamentView:
         return place
 
     def input_date_start(self):
-        print("Date de debut du tournoi(aaaa,mm,jj):")
-        start_date = input(">>")
-        return start_date
+        while True:
+            print("Date de debut du tournoi (dd-mm-yyyy):")
+            start_date = input(">>")
+            try:
+                jour, mois, annee = map(int, start_date.split('-'))
+                if 1 <= jour <= 31 and 1 <= mois <= 12 and 1900 <= annee:
+                    return start_date
+                else:
+                    print(
+                        "La date saisie est invalide")
+            except ValueError:
+                print("Format invalide. Assurez-vous de séparer la date par des tirets (dd-mm-yyyy).")
 
     def input_date_end(self):
-        print("Date de fin du tournoi(aaaa,mm,jj):")
-        end_date = input(">>")
-        return end_date
+        while True:
+            print("Date de fin du tournoi (dd-mm-yyyy):")
+            end_date = input(">>")
+            try:
+                jour, mois, annee = map(int, end_date.split('-'))
+                if 1 <= jour <= 31 and 1 <= mois <= 12 and 1900 <= annee:
+                    return end_date
+                else:
+                    print(
+                        "La date saisie est invalide")
+            except ValueError:
+                print("Format invalide. Assurez-vous de séparer la date par des tirets (dd-mm-yyyy).")
 
     def input_number_round(self):
         print("Nombre de round:")
