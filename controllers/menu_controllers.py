@@ -45,8 +45,8 @@ class HomeMenuController:
         # 1.construire un menu
         self.menu.add("auto", "Création nouveau tournoi", RunCreationTournoi())
         self.menu.add("auto", "Reprendre tournoi", MenuResultTournamentController())
-        self.menu.add("auto", "Résultat ancien tournoi", MenuResultTournamentController())
-        self.menu.add("auto", "Liste des joueurs", MenuListPlayersController())
+        self.menu.add("auto", "Résultat ancien tournoi", MenulisteTournamentController())
+        self.menu.add("auto", "Liste des joueurs", MenuPrincipalListPlayersController())
         self.menu.add("q", "Quitter", QuitController())
         # 2. Demander à la vue d'afficher le menu et de collecter la réponse de l'utilisateur
         user_choice = self.view.get_user_choice()
@@ -79,7 +79,7 @@ class MenuResultTournamentController:
         print("dans le controleur de RESULTAT ANCIEN TOURNOI")
 
 
-class MenuListPlayersController:
+class MenuPrincipalListPlayersController:
 
     def __init__(self):
         self.menu = Menu()
@@ -98,7 +98,7 @@ class MenuListPlayersController:
         user_choice = self.view.get_user_choice()
         print(user_choice)
         return user_choice.handler
-        return None
+
 
 
 class QuitController:
@@ -119,6 +119,26 @@ class MenulistePlayerController:
         print(list_player)
         for player in list_player:
             self.menu.add("auto", f"{player}", Addplayer(player, self.tournament))
+        user_choice = self.view.get_user_choice()
+        print(user_choice)
+        return user_choice.handler
+
+
+class MenulisteTournamentController:
+    def __init__(self):
+        self.menu = Menu()
+        self.view = HomeMenuView(self.menu)
+
+    def __call__(self, *args, **kwargs):
+        print("dans le controleur d'affichages de tous les tournois")
+        list_tournaments = Tournament.from_tinydb_all("./data/tournaments.json")
+        i = 1
+        for tournament in list_tournaments:
+            print(f"{i}: Nom: {tournament.get_name()} Place: {tournament.get_place()}")
+            i += 1
+
+        self.menu.add("r", "Retour", HomeMenuController())
+        self.menu.add("q", "Quitter", QuitController())
         user_choice = self.view.get_user_choice()
         print(user_choice)
         return user_choice.handler

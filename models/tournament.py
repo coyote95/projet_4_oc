@@ -50,6 +50,9 @@ class Tournament:
     def get_name(self):
         return self.name
 
+    def get_place(self):
+        return self.place
+
     def set_tournament_players(self, list_players):
         self.tournament_players = list_players
 
@@ -106,17 +109,6 @@ class Tournament:
             print("ERROR: Le tournoi n'existe pas!")
         db.close()
 
-        # directory = os.path.dirname(filename)
-        # if not os.path.exists(directory):
-        #     os.makedirs(directory)
-        # db = TinyDB(filename)
-        # if table_name in db.tables():
-        #     db.drop_table(table_name)
-        # db.close()
-        # for player in self.tournament_players:
-        #     if isinstance(player, Player):
-        #         player.save_player_to_json(filename, table_name, score=True)
-
     def save_tournament_info_to_json(self, filename):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
@@ -137,9 +129,9 @@ class Tournament:
                 "actual_round": self.actual_round, "list_doc_id_players": None}
 
     @staticmethod
-    def from_tinydb(filename='./tournoi/players.json'):
+    def from_tinydb(numero, filename='./tournoi/tournaments.json'):
         db = TinyDB(filename)
-        tournement_data = db.table("save_info").get(doc_id=1)
+        tournement_data = db.get(doc_id=numero)
         if tournement_data:
             return Tournament(
                 tournement_data['name'],
@@ -148,10 +140,20 @@ class Tournament:
                 tournement_data['date_end'],
                 tournement_data['number_round'],
                 tournement_data['actual_round'],
-                Player.from_tinydb_all()
+                Player.from_tinydb_list_player_tournement(tournement_data['list_player'])
             )
         else:
             return None
+
+    @staticmethod
+    def from_tinydb_all(filename='./tournoi/tournaments.json'):
+        db = TinyDB(filename)
+        doc_ids = db.all()
+        list_tournaments = []
+        for doc_id in doc_ids:
+            new_tounrament = Tournament.from_tinydb(doc_id.doc_id, filename)
+            list_tournaments.append(new_tounrament)
+        return list_tournaments
 
     def save_round_tournament_to_json(self, filename, table_name):
         filename = './data/tournements/' + filename + ".json"

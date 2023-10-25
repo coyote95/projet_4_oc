@@ -113,6 +113,17 @@ class Player:
             list_player.append(new_player)
         return list_player
 
+    @staticmethod
+    def from_tinydb_list_player_tournement(list_player_docs_id,filename='./tournoi/tournaments.json',  score=False):
+        if list_player_docs_id:
+            list_player = []
+            for doc_id in list_player_docs_id:
+                new_player = Player.from_tinydb(doc_id,  filename='./data/all_players.json ', score=score)
+                list_player.append(new_player)
+            return list_player
+        else:
+            return None
+
     def find_doc_id_player(self,filename='./data/all_players.json'):
         directory = os.path.dirname(filename)
         print(f"testttttttt:       {self._name}")
