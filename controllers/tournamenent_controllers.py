@@ -43,10 +43,10 @@ class TournamentController:
         self.model.set_name(name)
         place = self.view.input_place()
         self.model.set_place(place)
-        start_date = self.view.input_date_start()
-        self.model.set_date_start(start_date)
-        end_date = self.view.input_date_end()
-        self.model.set_date_end(end_date)
+        # start_date = self.view.input_date_start()
+        # self.model.set_date_start(start_date)
+        # end_date = self.view.input_date_end()
+        # self.model.set_date_end(end_date)
         number_round = int(self.view.input_number_round())
         self.model.set_round(number_round)
 
@@ -59,8 +59,8 @@ class TournamentController:
     def save_player_tournament_to_json_controller(self, filename, table_name="players"):
         self.model.save_player_tournament_to_json(filename, table_name)
 
-    def save_tournament_info_to_json_controller(self, filename, table_name="save_info"):
-        self.model.save_tournament_info_to_json(filename, table_name)
+    def save_tournament_info_to_json_controller(self, filename="./data/tournaments.json"):
+        self.model.save_tournament_info_to_json(filename)
 
     def save_round_tournament_to_json_controller(self, filename, table_name="round"):
         self.model.save_round_tournament_to_json(filename, table_name)

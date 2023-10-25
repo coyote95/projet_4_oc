@@ -32,8 +32,8 @@ class RunCreationTournoi:
         controller_tournoi.creation_tournoi()
         controller_tournoi.display_tournament_info_controler()
         controller_tournoi.input_number_players_controller()
-        controller_tournoi.save_player_tournament_to_json_controller(filename=controller_tournoi.get_name_controller())
-        controller_tournoi.save_tournament_info_to_json_controller(filename=controller_tournoi.get_name_controller())
+       # controller_tournoi.save_player_tournament_to_json_controller()
+        controller_tournoi.save_tournament_info_to_json_controller()
         controller_tournoi.display_player_tournament_controler()
         run_instance = Run(self.tournament)
         run_instance()
@@ -79,8 +79,8 @@ class Run:
 
             controller_tournoi.score_player_tournament_controller()
 
-            controller_tournoi.save_player_tournament_to_json_controller(
-                filename=controller_tournoi.get_name_controller())
+          #  controller_tournoi.save_player_tournament_to_json_controller(
+          #      filename=controller_tournoi.get_name_controller())
             controller_tournoi.save_round_tournament_to_json_controller(
                 filename=controller_tournoi.get_name_controller())
 

@@ -54,10 +54,10 @@ class Tournament:
         self.tournament_players = list_players
 
     def set_name(self, name):
-        self.name = name
+        self.name = name.upper()
 
     def set_place(self, place):
-        self.place = place
+        self.place = place.upper()
 
     def set_date_start(self, date_start):
         self.date_start = date_start
@@ -86,8 +86,7 @@ class Tournament:
     def increment_actual_round(self):
         self.actual_round += 1
 
-    def save_player_tournament_to_json(self, filename, table_name):
-        filename = './data/tournements/' + filename + ".json"
+    def save_player_tournament_to_json(self, filename):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -99,16 +98,23 @@ class Tournament:
             if isinstance(player, Player):
                 player.save_player_to_json(filename, table_name, score=True)
 
-    def save_tournament_info_to_json(self, filename, table_name):
-        filename = './data/tournements/' + filename + ".json"
+    def save_tournament_info_to_json(self, filename):
+
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
+
         db = TinyDB(filename)
-        if table_name in db.tables():
-            db.drop_table(table_name)
-        table = db.table(table_name)
-        table.insert(self.dictionnary_tournament())
+        Recherche = Query()
+        result = db.search((Recherche.name == self.name) & (Recherche.place == self.place))
+        if result:
+            # Le `doc_id` du premier enregistrement correspondant (s'il y en a plusieurs) peut être obtenu comme suit :
+            doc_id = result[0].doc_id
+            db.update(self.dictionnary_tournament(),doc_ids=[doc_id])
+            print(f"Le doc_id du championnat est {doc_id}")
+        else:
+            print(f"Aucun joueur avec le nom {self.name} = {Recherche.name} n'a été trouvé.")
+            db.insert(self.dictionnary_tournament())
         db.close()
 
     def dictionnary_tournament(self):
