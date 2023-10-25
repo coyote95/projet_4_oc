@@ -79,10 +79,9 @@ class Run:
 
             controller_tournoi.score_player_tournament_controller()
 
-          #  controller_tournoi.save_player_tournament_to_json_controller(
-          #      filename=controller_tournoi.get_name_controller())
-            controller_tournoi.save_round_tournament_to_json_controller(
-                filename=controller_tournoi.get_name_controller())
+            controller_tournoi.save_player_tournament_to_json_controller()
+            # controller_tournoi.save_round_tournament_to_json_controller(
+            #     filename=controller_tournoi.get_name_controller())
 
             controller_round.set_termine_controller(datetime.now().isoformat())
 

@@ -81,9 +81,9 @@ class Player:
         self.id_chess = id_chess
 
     @staticmethod
-    def from_tinydb(numero, name_table="save_players", filename='./tournoi/players.json', score=True):
+    def from_tinydb(numero,  filename='./data/all_players.json', score=True):
         db = TinyDB(filename)
-        player_data = db.table(name_table).get(doc_id=numero)
+        player_data = db.get(doc_id=numero)
         if player_data:
             if score == True:
                 return Player(
@@ -104,11 +104,30 @@ class Player:
             return None
 
     @staticmethod
-    def from_tinydb_all(filename='./tournoi/players.json', name_table="save_players", score=True):
+    def from_tinydb_all(filename='./tournoi/players.json',  score=True):
         db = TinyDB(filename)
-        doc_ids = db.table(name_table).all()
+        doc_ids = db.all()
         list_player = []
         for doc_id in doc_ids:
-            new_player = Player.from_tinydb(doc_id.doc_id, name_table, filename, score)
+            new_player = Player.from_tinydb(doc_id.doc_id,  filename, score)
             list_player.append(new_player)
         return list_player
+
+    def find_doc_id_player(self,filename='./data/all_players.json'):
+        directory = os.path.dirname(filename)
+        print(f"testttttttt:       {self._name}")
+        if not os.path.exists(directory):
+            print(f"PASSSSSS BONNNN")
+            os.makedirs(directory)
+        db = TinyDB(filename)
+        Recherche = Query()
+        result = db.search((Recherche.name == self._name) & (Recherche.surname == self._surname))
+        if result:
+            doc_id = result[0].doc_id
+            print(f"le doc id du joueur est{doc_id}")
+            db.close()
+            return doc_id
+        else:
+            print(f"le joueur{self._name}={Recherche.name} n'existe pas!")
+            db.close()
+            return None

@@ -87,40 +87,54 @@ class Tournament:
         self.actual_round += 1
 
     def save_player_tournament_to_json(self, filename):
-        directory = os.path.dirname(filename)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        db = TinyDB(filename)
-        if table_name in db.tables():
-            db.drop_table(table_name)
-        db.close()
+        list_player = []
         for player in self.tournament_players:
             if isinstance(player, Player):
-                player.save_player_to_json(filename, table_name, score=True)
-
-    def save_tournament_info_to_json(self, filename):
+                list_player.append(player.find_doc_id_player())
+            print(list_player)
 
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
-
         db = TinyDB(filename)
         Recherche = Query()
         result = db.search((Recherche.name == self.name) & (Recherche.place == self.place))
         if result:
-            # Le `doc_id` du premier enregistrement correspondant (s'il y en a plusieurs) peut être obtenu comme suit :
             doc_id = result[0].doc_id
-            db.update(self.dictionnary_tournament(),doc_ids=[doc_id])
-            print(f"Le doc_id du championnat est {doc_id}")
+            db.update({'list_doc_id_players': list_player}, doc_ids=[doc_id])
         else:
-            print(f"Aucun joueur avec le nom {self.name} = {Recherche.name} n'a été trouvé.")
+            print("ERROR: Le tournoi n'existe pas!")
+        db.close()
+
+        # directory = os.path.dirname(filename)
+        # if not os.path.exists(directory):
+        #     os.makedirs(directory)
+        # db = TinyDB(filename)
+        # if table_name in db.tables():
+        #     db.drop_table(table_name)
+        # db.close()
+        # for player in self.tournament_players:
+        #     if isinstance(player, Player):
+        #         player.save_player_to_json(filename, table_name, score=True)
+
+    def save_tournament_info_to_json(self, filename):
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        db = TinyDB(filename)
+        Recherche = Query()
+        result = db.search((Recherche.name == self.name) & (Recherche.place == self.place))
+        if result:
+            doc_id = result[0].doc_id
+            db.update(self.dictionnary_tournament(), doc_ids=[doc_id])
+        else:
             db.insert(self.dictionnary_tournament())
         db.close()
 
     def dictionnary_tournament(self):
         return {"name": self.name, "place": self.place, "date_start": self.date_start, "date_end": self.date_end,
                 "actual_round": self.actual_round, "number_round": self.numbers_round,
-                "actual_round": self.actual_round}
+                "actual_round": self.actual_round, "list_doc_id_players": None}
 
     @staticmethod
     def from_tinydb(filename='./tournoi/players.json'):

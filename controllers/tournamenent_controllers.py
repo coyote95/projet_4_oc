@@ -56,8 +56,8 @@ class TournamentController:
     def input_number_players_controller(self):
         return self.view.input_number_players()
 
-    def save_player_tournament_to_json_controller(self, filename, table_name="players"):
-        self.model.save_player_tournament_to_json(filename, table_name)
+    def save_player_tournament_to_json_controller(self, filename="./data/tournaments.json"):
+        self.model.save_player_tournament_to_json(filename)
 
     def save_tournament_info_to_json_controller(self, filename="./data/tournaments.json"):
         self.model.save_tournament_info_to_json(filename)

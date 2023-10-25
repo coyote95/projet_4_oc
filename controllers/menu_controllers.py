@@ -115,7 +115,7 @@ class MenulistePlayerController:
 
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les joueurs")
-        list_player = Player.from_tinydb_all("./data/all_players.json", "all_players", False)
+        list_player = Player.from_tinydb_all("./data/all_players.json",  False)
         print(list_player)
         for player in list_player:
             self.menu.add("auto", f"{player}", Addplayer(player, self.tournament))
