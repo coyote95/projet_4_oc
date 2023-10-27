@@ -6,10 +6,12 @@ import os
 
 class Match:
     def __init__(self, player1, player2, score1=0, score2=0):
+       # self.commence=commence
         self.player1 = player1
         self.player2 = player2
         self.score1 = score1
         self.score2 = score2
+
 
     def __str__(self):
         return (
@@ -55,9 +57,14 @@ class Match:
 
     @staticmethod
     def from_tinydb_list_match_round(list_matchs_docs_id, filename='./tournoi/tournaments.json'):
+        if isinstance(list_matchs_docs_id, int):
+            list_matchs_docs_id = [list_matchs_docs_id]
+
         if list_matchs_docs_id:
+            print(f"list match doc id {list_matchs_docs_id}")
             list_matchs = []
             for doc_id in list_matchs_docs_id:
+                print(doc_id)
                 new_match = Match.from_tinydb(doc_id, filename='./data/matchs.json ')
                 list_matchs.append(new_match)
             return list_matchs
@@ -72,8 +79,8 @@ class Match:
 
         if match_data:
             return Match(
-                Player.from_tinydb(match_data["doc_id_player1"]),
-                Player.from_tinydb(match_data["doc_id_player2"]),
+                Player.from_tinydb(match_data["player1"]),
+                Player.from_tinydb(match_data["player2"]),
                 match_data['score1'],
                 match_data['score2'],
             )

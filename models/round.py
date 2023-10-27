@@ -65,12 +65,13 @@ class Round:
         db.insert(self.dictionnary_round())
 
     def save_match_round_to_json(self, filename):
-        list_match = []
+        list_matchs = []
         for match in self.matchs:
             print(f"matchs docs id debug {match}")
             if isinstance(match, Match):
-                list_match.append(match.find_doc_id_match())
-            print(list_match)
+                list_matchs.append(match.find_doc_id_match())
+            print("DEBUG")
+            print(list_matchs)
 
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
@@ -80,7 +81,7 @@ class Round:
         result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round)& (Recherche.debut == self.commence))
         if result:
             doc_id = result[0].doc_id
-            db.update({"list_doc_id_matchs": list_match}, doc_ids=[doc_id])
+            db.update({"list_doc_id_matchs": list_matchs}, doc_ids=[doc_id])
         else:
             print("ERROR: Le tournoi n'existe pas!")
         db.close()
