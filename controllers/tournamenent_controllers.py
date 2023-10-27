@@ -62,8 +62,8 @@ class TournamentController:
     def save_tournament_info_to_json_controller(self, filename="./data/tournaments.json"):
         self.model.save_tournament_info_to_json(filename)
 
-    def save_round_tournament_to_json_controller(self, filename, table_name="round"):
-        self.model.save_round_tournament_to_json(filename, table_name)
+    def save_round_tournament_to_json_controller(self, filename="./data/tournaments.json"):
+        self.model.save_round_tournament_to_json(filename)
 
     def sort_players_by_score_controller(self):
         self.model.sort_players_by_score()

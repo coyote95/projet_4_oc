@@ -33,3 +33,6 @@ class RoundController:
 
     def set_termine_controller(self, termine):
         self.model.set_termine(termine)
+
+    def save_round_to_json_controller(self, filename="./data/rounds.json"):
+        self.model.save_round_to_json(filename)

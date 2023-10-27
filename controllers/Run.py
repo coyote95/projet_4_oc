@@ -46,7 +46,7 @@ class Run:
     def __call__(self, *args, **kwargs):
         controller_tournoi = TournamentController(self.tournament)
 
-        for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round() + 1):
+        for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round() ):
             controller_tournoi.sort_players_by_score_controller()
             controller_tournoi.display_actual_numero_round_controller()
             controller_tournoi.increment_actual_round_controller()
@@ -80,10 +80,12 @@ class Run:
             controller_tournoi.score_player_tournament_controller()
 
             controller_tournoi.save_player_tournament_to_json_controller()
-            # controller_tournoi.save_round_tournament_to_json_controller(
-            #     filename=controller_tournoi.get_name_controller())
+            controller_round.save_round_to_json_controller()
+            controller_tournoi.save_round_tournament_to_json_controller()
 
             controller_round.set_termine_controller(datetime.now().isoformat())
+
+
 
         print(f"***********************Fin tournoi***************\n")
 
