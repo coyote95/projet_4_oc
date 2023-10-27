@@ -24,7 +24,7 @@ class TournamentController:
         self.view.display_numero_round()
 
     def nombre_de_participant_pair_controller(self):
-        self.model.nombre_de_participant_pair()
+        return self.model.nombre_de_participant_pair()
 
     def nombre_de_participants_controller(self):
         return self.model.nombre_de_participants()

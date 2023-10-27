@@ -32,7 +32,7 @@ class RunCreationTournoi:
         controller_tournoi.creation_tournoi()
         controller_tournoi.display_tournament_info_controler()
         controller_tournoi.input_number_players_controller()
-       # controller_tournoi.save_player_tournament_to_json_controller()
+        # controller_tournoi.save_player_tournament_to_json_controller()
         controller_tournoi.save_tournament_info_to_json_controller()
         controller_tournoi.display_player_tournament_controler()
         run_instance = Run(self.tournament)
@@ -46,24 +46,28 @@ class Run:
     def __call__(self, *args, **kwargs):
         controller_tournoi = TournamentController(self.tournament)
 
-        for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round() ):
+        for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round()):
             controller_tournoi.sort_players_by_score_controller()
             controller_tournoi.display_actual_numero_round_controller()
             controller_tournoi.increment_actual_round_controller()
 
             round_tournament = Round()
+            round_tournament.matchs.clear() #Pourquoi doit clear
             controller_round = RoundController(round_tournament)
             controller_round.set_numero_controller(tour + 1)
             controller_round.set_commence_controller(datetime.now().isoformat())
 
+          #  print(controller_tournoi.nombre_de_participant_pair_controller())
             if controller_tournoi.nombre_de_participant_pair_controller():
+             #   print(controller_tournoi.nombre_de_participants_controller())
                 for personne in range(0, controller_tournoi.nombre_de_participants_controller(), 2):
+                    print(f"dans la boucle for de creation matchs {personne}")
                     new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
                     controller_round.add_match_controller(new_match)
-            else:  # on retire le joueur pour creer match
-                for personne in range(0, controller_tournoi.nombre_de_participants_controller() - 1, 2):
-                    new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
-                    controller_round.add_match_controller(new_match)
+            # else:  # on retire le joueur pour creer match
+            # #     for personne in range(0, controller_tournoi.nombre_de_participants_controller() - 2, 2):
+            # #         new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+            # #         controller_round.add_match_controller(new_match)
 
             controller_round.display_match_controller()
 
@@ -71,6 +75,7 @@ class Run:
             for match in controller_round.get_match_controller():
                 controller_match = MatchController(match)
                 controller_match.random_gagnant_controller()
+                controller_match.save_match_to_json_controller()
 
             controller_tournoi.add_list_tournament_round_controller(round_tournament)
 
@@ -81,11 +86,10 @@ class Run:
 
             controller_tournoi.save_player_tournament_to_json_controller()
             controller_round.save_round_to_json_controller()
+            controller_round.save_match_round_to_json_controller()
             controller_tournoi.save_round_tournament_to_json_controller()
 
             controller_round.set_termine_controller(datetime.now().isoformat())
-
-
 
         print(f"***********************Fin tournoi***************\n")
 
@@ -94,8 +98,6 @@ class Run:
 
         for j in range(len(self.tournament.list_round)):
             print(self.tournament.list_round[j])
-
-
 
 
 class UpdateScoreRun:
@@ -116,14 +118,14 @@ class UpdateScoreRun:
                     player.score += self.round.matchs[i].score2
                     i += 1
                 j += 1
-        else:
-            i = 0
-            j = 0
-            for player in self.tournament.tournament_players[:-1]:  # mise a jour score total joueur
-                if j % 2 == 0:
-                    player.score += self.round.matchs[i].score1
-
-                else:
-                    player.score += self.round.matchs[i].score2
-                    i += 1
-                j += 1
+        # else:
+        #     i = 0
+        #     j = 0
+        #     for player in self.tournament.tournament_players[:-1]:  # mise a jour score total joueur
+        #         if j % 2 == 0:
+        #             player.score += self.round.matchs[i].score1
+        #
+        #         else:
+        #             player.score += self.round.matchs[i].score2
+        #             i += 1
+        #         j += 1

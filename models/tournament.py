@@ -5,7 +5,8 @@ import os
 
 
 class Tournament:
-    def __init__(self, name, place, date_start, date_end, numbers_round=4, actual_round=0, list_players=[], list_round=[]):
+    def __init__(self, name, place, date_start, date_end, numbers_round=4, actual_round=0, list_players=[],
+                 list_round=[]):
         self.name = name
         self.place = place
         self.date_start = date_start
@@ -73,6 +74,8 @@ class Tournament:
 
     def nombre_de_participant_pair(self):
         if len(self.tournament_players) % 2 == 0:
+
+            print(f"pair: {self.tournament_players}")
             return True
         else:
             return False
@@ -140,7 +143,7 @@ class Tournament:
                 tournement_data['date_end'],
                 tournement_data['number_round'],
                 tournement_data['actual_round'],
-                Player.from_tinydb_list_player_tournement(tournement_data[ "list_doc_id_players"]),
+                Player.from_tinydb_list_player_tournement(tournement_data["list_doc_id_players"]),
                 Round.from_tinydb_list_round_tournement(tournement_data["list_doc_id_rounds"])
             )
         else:
@@ -156,27 +159,11 @@ class Tournament:
             list_tournaments.append(new_tounrament)
         return list_tournaments
 
-    # def save_round_tournament_to_json(self, filename, table_name):
-    #     filename = './data/tournements/' + filename + ".json"
-    #     directory = os.path.dirname(filename)
-    #     if not os.path.exists(directory):
-    #         os.makedirs(directory)
-    #     db = TinyDB(filename)
-    #     if table_name in db.tables():
-    #         db.drop_table(table_name)
-    #     table = db.table(table_name)
-    #     for round_tournament in self.list_round:
-    #         if isinstance(round_tournament, Round):
-    #             table.insert(round_tournament.dictionnary_round())
-    #             print(f"SAVE:{round_tournament}")
-    #     db.close()
-
     def save_round_tournament_to_json(self, filename):
         list_round = []
         for round in self.list_round:
             if isinstance(round, Round):
                 list_round.append(round.find_doc_id_round())
-            print(list_round)
 
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
@@ -187,7 +174,7 @@ class Tournament:
         if result:
             doc_id = result[0].doc_id
             db.update({'list_doc_id_rounds': list_round}, doc_ids=[doc_id])
-            db.update({'actual_round':self.actual_round})
+            db.update({'actual_round': self.actual_round})
         else:
             print("ERROR: Le tournoi n'existe pas!")
         db.close()

@@ -13,3 +13,6 @@ class MatchController:
 
     def random_gagnant_controller(self):
         self.model.random_gagnant()
+
+    def save_match_to_json_controller(self, filename="./data/matchs.json"):
+        self.model.save_match_to_json(filename)

@@ -62,28 +62,40 @@ class Round:
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
+        db.insert(self.dictionnary_round())
 
+    def save_match_round_to_json(self, filename):
+        list_match = []
+        for match in self.matchs:
+            print(f"matchs docs id debug {match}")
+            if isinstance(match, Match):
+                list_match.append(match.find_doc_id_match())
+            print(list_match)
+
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        db = TinyDB(filename)
         Recherche = Query()
-        existing_round = db.get(
-            (Recherche.name == self.name) &
-            (Recherche.numero_round == self.numero_round) &
-            (Recherche.debut == self.commence)
-        )
-        if existing_round:
-            print(f"ERROR: {self.name} {self.commence} existe déjà dans le fichier{filename}.")
+        result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round)& (Recherche.debut == self.commence))
+        if result:
+            doc_id = result[0].doc_id
+            db.update({"list_doc_id_matchs": list_match}, doc_ids=[doc_id])
         else:
-            db.insert(self.dictionnary_round())
-            print(f"SAVE: {self.name} {self.commence} dans le fichier {filename}")
+            print("ERROR: Le tournoi n'existe pas!")
         db.close()
 
     def dictionnary_round(self):
         matchs_data = [match.dictionnary_match() for match in self.matchs]
-        return {"name": self.name, "numero_round": self.numero_round,"debut":self.commence,"fin":self.termine, "matchs": matchs_data}
+        return {"name": self.name, "numero_round": self.numero_round,"debut":self.commence,"fin":self.termine,
+                "list_doc_id_matchs": None}
+
+
+
 
 
     @staticmethod
     def from_tinydb_list_round_tournement(list_round_docs_id,filename='./data/rounds.json'):
-        print (f"test: {list_round_docs_id}")
         if list_round_docs_id:
             list_round = []
             for doc_id in list_round_docs_id:
@@ -92,16 +104,6 @@ class Round:
             return list_round
         else:
             return None
-
-    # @staticmethod
-    # def from_tinydb_all(filename='./data/rounds.json'):
-    #     db = TinyDB(filename)
-    #     doc_ids = db.all()
-    #     list_round = []
-    #     for doc_id in doc_ids:
-    #         new_player = Round.from_tinydb(doc_id.doc_id,  filename)
-    #         list_round.append(new_player)
-    #     return list_round
 
     @staticmethod
     def from_tinydb(numero,  filename='./data/rounds.json'):
@@ -115,27 +117,22 @@ class Round:
                     round_data['numero_round'],
                     round_data['debut'],
                     round_data['fin'],
-                    #round_data['matchs']
+                    Match.from_tinydb_list_match_round(round_data["list_doc_id_matchs"])
                 )
-
         else:
             return None
 
     def find_doc_id_round(self,filename='./data/rounds.json'):
         directory = os.path.dirname(filename)
-        print(f"testttttttt:       {self.name}")
         if not os.path.exists(directory):
-            print(f"PASSSSSS BONNNN")
             os.makedirs(directory)
         db = TinyDB(filename)
         Recherche = Query()
         result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round)& (Recherche.debut == self.commence))
         if result:
             doc_id = result[0].doc_id
-            print(f"le doc id du round est{doc_id}")
             db.close()
             return doc_id
         else:
-            print(f"le round{self.name}={Recherche.name} n'existe pas!")
             db.close()
             return None

@@ -126,19 +126,15 @@ class Player:
 
     def find_doc_id_player(self,filename='./data/all_players.json'):
         directory = os.path.dirname(filename)
-        print(f"testttttttt:       {self._name}")
         if not os.path.exists(directory):
-            print(f"PASSSSSS BONNNN")
             os.makedirs(directory)
         db = TinyDB(filename)
         Recherche = Query()
         result = db.search((Recherche.name == self._name) & (Recherche.surname == self._surname))
         if result:
             doc_id = result[0].doc_id
-            print(f"le doc id du joueur est{doc_id}")
             db.close()
             return doc_id
         else:
-            print(f"le joueur{self._name}={Recherche.name} n'existe pas!")
             db.close()
             return None
