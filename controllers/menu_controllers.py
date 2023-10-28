@@ -134,15 +134,10 @@ class MenulisteTournamentController:
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les tournois")
         list_tournaments = Tournament.from_tinydb_all("./data/tournaments.json")
+        print(f'nombre de tournoi:{len(list_tournaments)}')
 
         for tournament in list_tournaments:
-
             self.menu.add("auto", f"Nom: {tournament.get_name()} Place: {tournament.get_place()}", views.tournament_view.TournamentView(tournament))
-
-        # i = 1
-        # for tournament in list_tournaments:
-        #     print(f"{i}: Nom: {tournament.get_name()} Place: {tournament.get_place()}")
-        #     i += 1
 
         self.menu.add("r", "Retour", HomeMenuController())
         self.menu.add("q", "Quitter", QuitController())

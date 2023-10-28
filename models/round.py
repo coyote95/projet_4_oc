@@ -69,7 +69,6 @@ class Round:
         for match in self.matchs:
             if isinstance(match, Match):
                 list_matchs.append(match.find_doc_id_match())
-            print(list_matchs)
 
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
@@ -110,7 +109,6 @@ class Round:
     @staticmethod
     def from_tinydb(numero,  filename='./data/rounds.json'):
         db = TinyDB(filename)
-        print(numero)
         round_data = db.get(doc_id=numero)
 
         if round_data:

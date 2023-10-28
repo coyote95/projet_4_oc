@@ -71,7 +71,6 @@ class Match:
     @staticmethod
     def from_tinydb(numero, filename='./data/matchs.json'):
         db = TinyDB(filename)
-        print(numero)
         match_data = db.get(doc_id=numero)
 
         if match_data:
@@ -98,7 +97,6 @@ class Match:
             os.makedirs(directory)
         db = TinyDB(filename)
         Recherche = Query()
-        print(self.player1)
 
         result = db.search((Recherche.player1._name == self.player1._name) &
                            (Recherche.player1._surname == self.player1._surname) &

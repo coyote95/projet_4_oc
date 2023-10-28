@@ -72,8 +72,7 @@ class TournamentView:
                 if 1 <= jour <= 31 and 1 <= mois <= 12 and 1900 <= annee:
                     return end_date
                 else:
-                    print(
-                        "La date saisie est invalide")
+                    print("La date saisie est invalide")
             except ValueError:
                 print("Format invalide. Assurez-vous de séparer la date par des tirets (dd-mm-yyyy).")
 

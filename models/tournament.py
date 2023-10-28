@@ -77,8 +77,6 @@ class Tournament:
 
     def nombre_de_participant_pair(self):
         if len(self.tournament_players) % 2 == 0:
-
-            print(f"pair: {self.tournament_players}")
             return True
         else:
             return False
