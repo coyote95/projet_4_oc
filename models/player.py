@@ -9,6 +9,7 @@ class Player:
         self._birthday = birthday
         self.id_chess = id_chess
         self.score = score
+        self.is_paired= False
 
     def __str__(self):
         return (
@@ -141,3 +142,11 @@ class Player:
         else:
             db.close()
             return None
+
+    def pair(self):
+        # Méthode pour appairer un joueur
+        self.is_paired = True
+
+    def unpair(self):
+        # Méthode pour désappairer un joueur (par exemple, à la fin d'un round)
+        self.is_paired = False

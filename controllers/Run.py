@@ -52,33 +52,97 @@ class Run:
             controller_tournoi.increment_actual_round_controller()
 
             round_tournament = Round()
-           # round_tournament.matchs.clear()  # Pourquoi doit clear
+            # round_tournament.matchs.clear()  # Pourquoi doit clear
             controller_round = RoundController(round_tournament)
             controller_round.increment_numero_round_controller()
             controller_round.set_commence_controller(datetime.now().isoformat())
 
-            #  print(controller_tournoi.nombre_de_participant_pair_controller())
+            #           pair history
+
+            pairs_history = []
+
+            for round in self.tournament.list_round:
+                for match in round.matchs:
+                    pairs_history.append((match.player1, match.player2))
+
+            print(pairs_history)
+
+            #                    code tournoi
+            print (controller_tournoi.nombre_de_participants_controller())
             if controller_tournoi.nombre_de_participant_pair_controller():
-                #   print(controller_tournoi.nombre_de_participants_controller())
-                for personne in range(0, controller_tournoi.nombre_de_participants_controller(), 2):
-                    print(f"dans la boucle for de creation matchs {personne}")
-                    new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
-                    print("listes de tous les matchs")
-                    for round in self.tournament.list_round:
-                        print(f"round{round}")
-                        for match in round.matchs:
-                            print(f"match dans la liste{match}")
-                            if (match.player1 == new_match.player1 or match.player1== new_match.player2 and
-                                match.player2 == new_match.player1 and match.player2 == new_match.player2):
-                                print ("match deja realisé")
-                    controller_round.add_match_controller(new_match)
+                # Liste des joueurs restants
+                remaining_players = self.tournament.get_remaining_players()
+                print(f"remaining player:{remaining_players}")
+
+                while len(remaining_players)>=2:
+                    print("je refais la boucle")
+                    player1=remaining_players.pop(0)
+                    print("player1:")
+                    print(player1)
+                    for player2 in remaining_players:
+
+                        if (player1, player2) not in pairs_history and (player2, player1) not in pairs_history:
+                            remaining_players.remove(player2)
+                            print("player2:")
+                            print(player2)
+                            new_match = Match(player1, player2)
+                            controller_round.add_match_controller(new_match)
+                            pairs_history.append((player1, player2))
+                            break
 
 
-            # else:  # on retire le joueur pour creer match
-            # #     for personne in range(0, controller_tournoi.nombre_de_participants_controller() - 2, 2):
-            # #         new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
-            # #         controller_round.add_match_controller(new_match)
 
+
+
+
+
+
+
+                # # Créez des paires tout en évitant les répétitions
+                # for i in range(len(remaining_players)):
+                #     player1 = remaining_players[i]
+                #
+                #     for j in range(i + 1, len(remaining_players)):
+                #         player2 = remaining_players[j]
+                #
+                #         # Vérifiez si ces deux joueurs se sont déjà rencontrés
+                #         if (player1, player2) not in pairs_history and (player2, player1) not in pairs_history:
+                #             new_match = Match(player1, player2)
+                #             controller_round.add_match_controller(new_match)
+                #
+                #             # Mettez à jour l'historique des paires
+                #             pairs_history.append((player1, player2))
+                #
+                #             break  # Sortez de la boucle interne
+                #         else:
+                #             print("le match existe deja")
+                #
+                # # Mettez à jour le nombre de joueurs restants
+                # self.tournament.remove_players(remaining_players)
+
+            #     fin du code copie
+            #
+            # #  print(controller_tournoi.nombre_de_participant_pair_controller())
+            # if controller_tournoi.nombre_de_participant_pair_controller():
+            #     #   print(controller_tournoi.nombre_de_participants_controller())
+            #     for personne in range(0, controller_tournoi.nombre_de_participants_controller(), 2):
+            #         print(f"dans la boucle for de creation matchs {personne}")
+            #         new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+            #         print("listes de tous les matchs:")
+            #         for round in self.tournament.list_round:
+            #             for match in round.matchs:
+            #                 print(f"match dans la liste :{match}")
+            #                 if ((match.player1 == new_match.player1 or match.player1 == new_match.player2) and
+            #                         (match.player2 == new_match.player1 or match.player2 == new_match.player2)):
+            #                     print("match deja realisé")
+            #         print()
+            #         controller_round.add_match_controller(new_match)
+            #
+            # # else:  # on retire le joueur pour creer match
+            # # #     for personne in range(0, controller_tournoi.nombre_de_participants_controller() - 2, 2):
+            # # #         new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+            # # #         controller_round.add_match_controller(new_match)
+            #
             controller_round.display_match_controller()
 
             print("Affichage Gagnant:")
@@ -89,8 +153,8 @@ class Run:
 
             controller_tournoi.add_list_tournament_round_controller(round_tournament)
 
-            score_instance = UpdateScoreRun(self.tournament, round_tournament)
-            score_instance()
+            # score_instance = UpdateScoreRun(self.tournament, round_tournament)
+            # score_instance()
 
             controller_tournoi.score_player_tournament_controller()
 
@@ -109,11 +173,9 @@ class Run:
         for j in range(len(self.tournament.list_round)):
             print(self.tournament.list_round[j])
 
-
-        print ("listes de tous les matchs")
+        print("listes de tous les matchs")
         for round in self.tournament.list_round:
             for match in round.matchs:
-
                 print(match)
 
 

@@ -98,7 +98,6 @@ class Tournament:
         for player in self.tournament_players:
             if isinstance(player, Player):
                 list_player.append(player.find_doc_id_player())
-            print(list_player)
 
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
@@ -185,3 +184,13 @@ class Tournament:
             self.set_tournament_players(sorted(self.tournament_players,
                                                key=lambda player: player.score,
                                                reverse=True))
+
+    def get_remaining_players(self):
+        # Obtenez la liste des joueurs qui n'ont pas encore été appariés
+        remaining_players = [player for player in self.tournament_players if not player.is_paired]
+        return remaining_players
+
+    def remove_players(self, players_to_remove):
+        for player in players_to_remove:
+            if player in self.tournament_players:
+                self.tournament_players.remove(player)
