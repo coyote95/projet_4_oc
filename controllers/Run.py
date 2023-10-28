@@ -52,7 +52,7 @@ class Run:
             controller_tournoi.increment_actual_round_controller()
 
             round_tournament = Round()
-            round_tournament.matchs.clear()  # Pourquoi doit clear
+           # round_tournament.matchs.clear()  # Pourquoi doit clear
             controller_round = RoundController(round_tournament)
             controller_round.increment_numero_round_controller()
             controller_round.set_commence_controller(datetime.now().isoformat())
@@ -63,7 +63,17 @@ class Run:
                 for personne in range(0, controller_tournoi.nombre_de_participants_controller(), 2):
                     print(f"dans la boucle for de creation matchs {personne}")
                     new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
+                    print("listes de tous les matchs")
+                    for round in self.tournament.list_round:
+                        print(f"round{round}")
+                        for match in round.matchs:
+                            print(f"match dans la liste{match}")
+                            if (match.player1 == new_match.player1 or match.player1== new_match.player2 and
+                                match.player2 == new_match.player1 and match.player2 == new_match.player2):
+                                print ("match deja realisé")
                     controller_round.add_match_controller(new_match)
+
+
             # else:  # on retire le joueur pour creer match
             # #     for personne in range(0, controller_tournoi.nombre_de_participants_controller() - 2, 2):
             # #         new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])
@@ -98,6 +108,13 @@ class Run:
 
         for j in range(len(self.tournament.list_round)):
             print(self.tournament.list_round[j])
+
+
+        print ("listes de tous les matchs")
+        for round in self.tournament.list_round:
+            for match in round.matchs:
+
+                print(match)
 
 
 class UpdateScoreRun:

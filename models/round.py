@@ -4,11 +4,14 @@ import os
 
 
 class Round:
-    def __init__(self,name='Round',numero_round=1,commence= "date de debut",termine= "date de fin",list_matchs=[]):
+    def __init__(self,name='Round',numero_round=0,commence= "date de debut",termine= "date de fin",list_matchs=None):
         self.name = name
         self.numero_round = numero_round
         self.commence = commence
         self.termine = termine
+
+        if list_matchs is None:
+            list_matchs=[]
         self.matchs = list_matchs
 
     def __str__(self):
