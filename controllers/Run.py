@@ -48,6 +48,7 @@ class Run:
 
         for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round()):
             controller_tournoi.sort_players_by_score_controller()
+            controller_tournoi.display_player_tournament_controler()
             controller_tournoi.display_actual_numero_round_controller()
             controller_tournoi.increment_actual_round_controller()
 
@@ -69,37 +70,37 @@ class Run:
 
             #                    code tournoi
             print(controller_tournoi.nombre_de_participants_controller())
-            if controller_tournoi.nombre_de_participant_pair_controller():
+            #if controller_tournoi.nombre_de_participant_pair_controller():
                 # Liste des joueurs restants
-                remaining_players = self.tournament.get_remaining_players()
-                print(f"remaining player:{remaining_players}")
+            remaining_players = self.tournament.get_remaining_players()
+            print(f"remaining player:{remaining_players}")
 
-                while len(remaining_players) >= 2:
-                    print("je refais la boucle")
-                    player1 = remaining_players.pop(0)
+            while len(remaining_players) >= 2:
+                print("je refais la boucle")
+                player1 = remaining_players.pop(0)
 
-                    print("player1:")
-                    print(player1)
+                print("player1:")
+                print(player1)
 
-                    player2 = None
-                    for other_player in remaining_players:
+                player2 = None
+                for other_player in remaining_players:
 
-                        if (player1, other_player) not in pairs_history and (
-                        other_player, player1) not in pairs_history:
-                            player2 = other_player
-                            remaining_players.remove(player2)
-                            print("player2:")
-                            print(player2)
+                    if (player1, other_player) not in pairs_history and (
+                    other_player, player1) not in pairs_history:
+                        player2 = other_player
+                        remaining_players.remove(player2)
+                        print("player2:")
+                        print(player2)
 
-                            new_match = Match(player1, player2)
-                            controller_round.add_match_controller(new_match)
-                            pairs_history.append((player1, player2))
-                            break
-                    if player2 is None:
-                        player2 = remaining_players.pop(0)
                         new_match = Match(player1, player2)
                         controller_round.add_match_controller(new_match)
                         pairs_history.append((player1, player2))
+                        break
+                if player2 is None:
+                    player2 = remaining_players.pop(0)
+                    new_match = Match(player1, player2)
+                    controller_round.add_match_controller(new_match)
+                    pairs_history.append((player1, player2))
 
             controller_round.display_match_controller()
 
