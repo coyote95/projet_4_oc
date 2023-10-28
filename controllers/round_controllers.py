@@ -16,6 +16,9 @@ class RoundController:
         for tour in range(round):
             print(f"round n° {tour}")
 
+    def increment_numero_round_controller(self):
+        self.model.increment_numero_round()
+
     def add_match_controller(self, match):
         self.model.add_match(match)
 

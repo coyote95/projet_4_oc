@@ -53,6 +53,9 @@ class Round:
     def set_termine(self, termine):
         self.termine = termine
 
+    def increment_numero_round(self):
+        self.numero_round += 1
+
     def add_match(self, match):
         return self.matchs.append(match)
 

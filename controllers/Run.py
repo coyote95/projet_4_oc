@@ -52,14 +52,14 @@ class Run:
             controller_tournoi.increment_actual_round_controller()
 
             round_tournament = Round()
-            round_tournament.matchs.clear() #Pourquoi doit clear
+            round_tournament.matchs.clear()  # Pourquoi doit clear
             controller_round = RoundController(round_tournament)
-            controller_round.set_numero_controller(tour + 1)
+            controller_round.increment_numero_round_controller()
             controller_round.set_commence_controller(datetime.now().isoformat())
 
-          #  print(controller_tournoi.nombre_de_participant_pair_controller())
+            #  print(controller_tournoi.nombre_de_participant_pair_controller())
             if controller_tournoi.nombre_de_participant_pair_controller():
-             #   print(controller_tournoi.nombre_de_participants_controller())
+                #   print(controller_tournoi.nombre_de_participants_controller())
                 for personne in range(0, controller_tournoi.nombre_de_participants_controller(), 2):
                     print(f"dans la boucle for de creation matchs {personne}")
                     new_match = Match(controller_tournoi[personne], controller_tournoi[personne + 1])

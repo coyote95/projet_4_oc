@@ -14,12 +14,12 @@ class Match:
 
     def __str__(self):
         return (
-            f"{self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})  "
+            f"{self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})"
         )
 
     def __repr__(self):
         return (
-            f"Match: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})  "
+            f"Match: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})"
         )
 
     def save_round_to_json(self, filename="save_match"):

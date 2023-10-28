@@ -4,7 +4,7 @@ from models.menu import MenuEntry, Menu
 from models.round import Round
 from models.match import Match
 from views.player_view import PlayerView
-#from views.tournament_view import TournamentView
+# from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
 from views.round_view import RoundView
 from views.match_view import MatchView
@@ -14,7 +14,6 @@ from controllers.round_controllers import RoundController
 from controllers.match_controllers import MatchController
 from controllers.Run import Run, RunCreationTournoi
 import views
-
 
 from datetime import date, timedelta, datetime
 from tinydb import TinyDB, Query
@@ -46,7 +45,7 @@ class HomeMenuController:
     def __call__(self, *args, **kwargs):
         # 1.construire un menu
         self.menu.add("auto", "Création nouveau tournoi", RunCreationTournoi())
-        self.menu.add("auto", "Reprendre tournoi", MenuResultTournamentController())
+        self.menu.add("auto", "Reprendre tournoi", MenuReprendreTournamentController())
         self.menu.add("auto", "Résultat ancien tournoi", MenulisteTournamentController())
         self.menu.add("auto", "Liste des joueurs", MenuPrincipalListPlayersController())
         self.menu.add("q", "Quitter", QuitController())
@@ -76,9 +75,31 @@ class MenuNewTournamentController:
         print("Appleler creation d'un tournoi ")
 
 
-class MenuResultTournamentController:
+class MenuReprendreTournamentController:
+    def __init__(self):
+        self.menu = Menu()
+        self.view = HomeMenuView(self.menu)
+
     def __call__(self, *args, **kwargs):
-        print("dans le controleur de RESULTAT ANCIEN TOURNOI")
+        print("dans le controleur de REPRENDRE UN TOURNOI")
+
+        list_tournaments = Tournament.from_tinydb_all("./data/tournaments.json")
+        print(f'nombre de tournoi:{len(list_tournaments)}')
+
+        for tournament in list_tournaments:
+            print(f"round total:{tournament.get_numbers_round()}")
+            print(f"round actual:{tournament.get_actual_round()}")
+            if tournament.get_numbers_round()== tournament.get_actual_round():
+                print ("tournoi terminé")
+            else:
+                self.menu.add("auto", f"Nom: {tournament.get_name()} Place: {tournament.get_place()}",
+                              Run(tournament))
+
+        self.menu.add("r", "Retour", HomeMenuController())
+        self.menu.add("q", "Quitter", QuitController())
+        user_choice = self.view.get_user_choice()
+        print(user_choice)
+        return user_choice.handler
 
 
 class MenuPrincipalListPlayersController:
@@ -102,7 +123,6 @@ class MenuPrincipalListPlayersController:
         return user_choice.handler
 
 
-
 class QuitController:
     def __call__(self, *args, **kwargs):
         print("dans le controleur de fin")
@@ -117,7 +137,7 @@ class MenulistePlayerController:
 
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les joueurs")
-        list_player = Player.from_tinydb_all("./data/all_players.json",  False)
+        list_player = Player.from_tinydb_all("./data/all_players.json", False)
         print(list_player)
         for player in list_player:
             self.menu.add("auto", f"{player}", Addplayer(player, self.tournament))
@@ -137,7 +157,8 @@ class MenulisteTournamentController:
         print(f'nombre de tournoi:{len(list_tournaments)}')
 
         for tournament in list_tournaments:
-            self.menu.add("auto", f"Nom: {tournament.get_name()} Place: {tournament.get_place()}", views.tournament_view.TournamentView(tournament))
+            self.menu.add("auto", f"Nom: {tournament.get_name()} Place: {tournament.get_place()}",
+                          views.tournament_view.TournamentView(tournament))
 
         self.menu.add("r", "Retour", HomeMenuController())
         self.menu.add("q", "Quitter", QuitController())
