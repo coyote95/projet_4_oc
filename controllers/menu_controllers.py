@@ -4,7 +4,7 @@ from models.menu import MenuEntry, Menu
 from models.round import Round
 from models.match import Match
 from views.player_view import PlayerView
-# from views.tournament_view import TournamentView
+#from views.tournament_view import TournamentView
 from views.menu_view import HomeMenuView
 from views.round_view import RoundView
 from views.match_view import MatchView
@@ -13,6 +13,8 @@ from controllers.tournamenent_controllers import TournamentController
 from controllers.round_controllers import RoundController
 from controllers.match_controllers import MatchController
 from controllers.Run import Run, RunCreationTournoi
+import views
+
 
 from datetime import date, timedelta, datetime
 from tinydb import TinyDB, Query
@@ -132,10 +134,15 @@ class MenulisteTournamentController:
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les tournois")
         list_tournaments = Tournament.from_tinydb_all("./data/tournaments.json")
-        i = 1
+
         for tournament in list_tournaments:
-            print(f"{i}: Nom: {tournament.get_name()} Place: {tournament.get_place()}")
-            i += 1
+
+            self.menu.add("auto", f"Nom: {tournament.get_name()} Place: {tournament.get_place()}", views.tournament_view.TournamentView(tournament))
+
+        # i = 1
+        # for tournament in list_tournaments:
+        #     print(f"{i}: Nom: {tournament.get_name()} Place: {tournament.get_place()}")
+        #     i += 1
 
         self.menu.add("r", "Retour", HomeMenuController())
         self.menu.add("q", "Quitter", QuitController())

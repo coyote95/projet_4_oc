@@ -1,4 +1,7 @@
 import controllers.menu_controllers
+import views
+
+
 # from controllers.menu_controllers import ApplicationController
 
 
@@ -6,10 +9,22 @@ class TournamentView:
     def __init__(self, tournament):
         self.tournament = tournament
 
+    def __call__(self, *args, **kwargs):
+        self.display_tournament_info()
+        self.display_players_tournament()
+        self.display_round_tournament()
+
     def display_players_tournament(self):
         print(f"******** Affichage des participants au tournoi ****** ")
         for item in self.tournament.get_tournament_players():
             print(item)
+
+    def display_round_tournament(self):
+        print(f"******** Affichage des rounds du tournoi ****** ")
+        for item in self.tournament.get_tournament_rounds():
+            print(item)
+
+
 
     def display_tournament_info(self):
         print(f"*********Tournoi*******\n"
@@ -17,7 +32,7 @@ class TournamentView:
               f"Place: {self.tournament.place}\n"
               f"Date de debut: {self.tournament.date_end}\n"
               f"Date de fin: {self.tournament.date_end}\n"
-              f"Nombre de round total:{self.tournament.numbers_round}\n"
+              f"Nombre de round total:{self.tournament.numbers_round}"
               # f"Nombre de participants:{self.tournament.nombre_de_participants()}"
               )
 

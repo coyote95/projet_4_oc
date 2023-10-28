@@ -67,10 +67,8 @@ class Round:
     def save_match_round_to_json(self, filename):
         list_matchs = []
         for match in self.matchs:
-            print(f"matchs docs id debug {match}")
             if isinstance(match, Match):
                 list_matchs.append(match.find_doc_id_match())
-            print("DEBUG")
             print(list_matchs)
 
         directory = os.path.dirname(filename)
@@ -97,6 +95,9 @@ class Round:
 
     @staticmethod
     def from_tinydb_list_round_tournement(list_round_docs_id,filename='./data/rounds.json'):
+        # if isinstance(list_round_docs_id, int):
+        #     list_round_docs_id = [list_round_docs_id]
+
         if list_round_docs_id:
             list_round = []
             for doc_id in list_round_docs_id:

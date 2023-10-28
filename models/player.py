@@ -115,6 +115,9 @@ class Player:
 
     @staticmethod
     def from_tinydb_list_player_tournement(list_player_docs_id,filename='./tournoi/tournaments.json',  score=False):
+        if isinstance(list_player_docs_id, int):
+            list_player_docs_id = [list_player_docs_id]
+
         if list_player_docs_id:
             list_player = []
             for doc_id in list_player_docs_id:

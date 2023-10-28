@@ -6,12 +6,11 @@ import os
 
 class Match:
     def __init__(self, player1, player2, score1=0, score2=0):
-       # self.commence=commence
+        # self.commence=commence
         self.player1 = player1
         self.player2 = player2
         self.score1 = score1
         self.score2 = score2
-
 
     def __str__(self):
         return (
@@ -61,10 +60,8 @@ class Match:
             list_matchs_docs_id = [list_matchs_docs_id]
 
         if list_matchs_docs_id:
-            print(f"list match doc id {list_matchs_docs_id}")
             list_matchs = []
             for doc_id in list_matchs_docs_id:
-                print(doc_id)
                 new_match = Match.from_tinydb(doc_id, filename='./data/matchs.json ')
                 list_matchs.append(new_match)
             return list_matchs
@@ -79,8 +76,8 @@ class Match:
 
         if match_data:
             return Match(
-                Player.from_tinydb(match_data["player1"]),
-                Player.from_tinydb(match_data["player2"]),
+                match_data["player1"]["_name"],
+                match_data["player2"]["_name"],
                 match_data['score1'],
                 match_data['score2'],
             )
@@ -103,14 +100,12 @@ class Match:
         Recherche = Query()
         print(self.player1)
 
-        result = db.search((Recherche.player1._name== self.player1._name) &
-                            (Recherche.player1._surname== self.player1._surname) &
+        result = db.search((Recherche.player1._name == self.player1._name) &
+                           (Recherche.player1._surname == self.player1._surname) &
                            (Recherche.player2._name == self.player2._name) &
                            (Recherche.player2._surname == self.player2._surname) &
                            (Recherche.score1 == self.score1))
 
-        print( self.player1._name)
-        print(f"result{result}")
         if result:
             doc_id = result[0].doc_id
             db.close()
