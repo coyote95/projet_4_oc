@@ -5,12 +5,12 @@ import os
 
 
 class Match:
-    def __init__(self, player1, player2, score1=0, score2=0):
-        # self.commence=commence
+    def __init__(self, player1, player2, score1=0, score2=0, date_save=0):
         self.player1 = player1
         self.player2 = player2
         self.score1 = score1
         self.score2 = score2
+        self.date_save = date_save
 
     def __str__(self):
         return (
@@ -27,7 +27,8 @@ class Match:
         db.insert(self.dictionnary_match())
 
     def dictionnary_match(self):
-        return {"player1": self.player1.__dict__, "score1": self.score1, "player2": self.player2.__dict__,
+        return {"date_save": self.date_save, "player1": self.player1.__dict__, "score1": self.score1,
+                "player2": self.player2.__dict__,
                 "score2": self.score2}
 
     def player1_gagnant(self):
@@ -102,7 +103,7 @@ class Match:
                            (Recherche.player1._surname == self.player1._surname) &
                            (Recherche.player2._name == self.player2._name) &
                            (Recherche.player2._surname == self.player2._surname) &
-                           (Recherche.score1 == self.score1))
+                           (Recherche.date_save == self.date_save))
 
         if result:
             doc_id = result[0].doc_id

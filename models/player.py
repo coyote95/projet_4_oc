@@ -9,7 +9,8 @@ class Player:
         self._birthday = birthday
         self.id_chess = id_chess
         self.score = score
-        self.is_paired= False
+        self.is_paired=False
+
 
     def __str__(self):
         return (

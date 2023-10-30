@@ -53,6 +53,9 @@ class TournamentController:
     def get_name_controller(self):
         return self.model.get_name()
 
+    def get_actual_round_controller(self):
+        return self.model.get_actual_round()
+
     def input_number_players_controller(self):
         return self.view.input_number_players()
 

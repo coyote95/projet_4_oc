@@ -49,13 +49,14 @@ class Run:
         for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round()):
             controller_tournoi.sort_players_by_score_controller()
             controller_tournoi.display_player_tournament_controler()
-            controller_tournoi.display_actual_numero_round_controller()
+
             controller_tournoi.increment_actual_round_controller()
+            controller_tournoi.display_actual_numero_round_controller()
 
             round_tournament = Round()
             # round_tournament.matchs.clear()  # Pourquoi doit clear
             controller_round = RoundController(round_tournament)
-            controller_round.increment_numero_round_controller()
+            controller_round.set_numero_controller(controller_tournoi.get_actual_round_controller())
             controller_round.set_commence_controller(datetime.now().isoformat())
 
             #           pair history
@@ -92,13 +93,13 @@ class Run:
                         print("player2:")
                         print(player2)
 
-                        new_match = Match(player1, player2)
+                        new_match = Match(player1, player2,date_save=datetime.now().isoformat())
                         controller_round.add_match_controller(new_match)
                         pairs_history.append((player1, player2))
                         break
                 if player2 is None:
                     player2 = remaining_players.pop(0)
-                    new_match = Match(player1, player2)
+                    new_match = Match(player1, player2,date_save=datetime.now().isoformat())
                     controller_round.add_match_controller(new_match)
                     pairs_history.append((player1, player2))
 
