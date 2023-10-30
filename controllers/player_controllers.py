@@ -6,8 +6,8 @@ class PlayerController:
         self.model = player
         self.view = PlayerView()
 
-    def save_player_controller(self, filename="./data/all_players.json", table_name="all_players",score=True):
-        self.model.save_player_to_json(filename, table_name,score)
+    def save_player_controller(self, filename="./data/all_players.json", table_name="all_players", score=True):
+        self.model.save_player_to_json(filename, table_name, score)
 
     def display_db(self, filename):
         self.view.view_player_bd(filename)
@@ -24,8 +24,3 @@ class PlayerController:
         self.model.set_birthday(birthday)
         numero_id = self.view.input_id()
         self.model.set_id(numero_id)
-
-
-
-
-
