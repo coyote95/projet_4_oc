@@ -14,6 +14,7 @@ from controllers.round_controllers import RoundController
 from controllers.match_controllers import MatchController
 from controllers.Run import Run, RunCreationTournoi
 import views
+import models
 
 from datetime import date, timedelta, datetime
 from tinydb import TinyDB, Query
@@ -26,6 +27,12 @@ class ApplicationController:
 
     def start(self):
         self.controller = HomeMenuController()
+        while self.controller:
+            self.controller = self.controller()
+
+    def choixgagnantmatch(self,match):
+        self.match = match
+        self.controller = MenuChoixgagnantPlayerController(self.match)
         while self.controller:
             self.controller = self.controller()
 
@@ -89,8 +96,8 @@ class MenuReprendreTournamentController:
         for tournament in list_tournaments:
             print(f"round total:{tournament.get_numbers_round()}")
             print(f"round actual:{tournament.get_actual_round()}")
-            if tournament.get_numbers_round()== tournament.get_actual_round():
-                print ("tournoi terminé")
+            if tournament.get_numbers_round() == tournament.get_actual_round():
+                print("tournoi terminé")
             else:
                 self.menu.add("auto", f"Nom: {tournament.get_name()} Place: {tournament.get_place()}",
                               Run(tournament))
@@ -188,3 +195,44 @@ class ManuelPlayer:
         PlayerController(player).save_player_controller(filename="./data/all_players.json", table_name="all_players",
                                                         score=False)
         self.tournament.add_tournament_player(player)
+
+
+class MenuChoixgagnantPlayerController:
+    def __init__(self, match):
+        self.menu = Menu()
+        self.view = HomeMenuView(self.menu)
+        self.match = match
+
+
+    def __call__(self, *args, **kwargs):
+        print("dans le controleur d'affichages des gagnants")
+        print("Le gagant est")
+        self.menu.add("auto", f"{self.match.player1}", Vainqueur(self.match, self.match.player1))
+        self.menu.add("auto", f"{self.match.player2}", Vainqueur(self.match, self.match.player2))
+        self.menu.add("auto", f"match null",lambda: print("nnnnnnnnnnnnnon"))
+        user_choice = self.view.get_user_choice()
+        print(user_choice)
+        print(user_choice.handler)
+        return user_choice.handler
+
+
+class Vainqueur:
+    def __init__(self, match, player_gagnant):
+        self.match = match
+        self.player_gagnant = player_gagnant
+
+    def __call__(self, *args, **kwargs):
+        print("dans la methode vainqueuer!!!!!")
+
+        if self.player_gagnant == self.match.player1:
+            print(f"le joueur gagant est:{self.player_gagnant}")
+            self.match.player1_gagnant()
+        elif self.player_gagnant == self.match.player2:
+            print(f"le joueur gagant est:{self.match.player2}")
+            self.match.player2_gagnant()
+        elif self.player_gagnant == "execo":
+            print(f"Match nul!!")
+            self.match.execo()
+        print(
+            f"Nouveau score: {self.match.player1} (score:{self.match.score1}) CONTRE {self.match.player2} (score: {self.match.score2})\n ")
+        return None

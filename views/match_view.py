@@ -8,3 +8,8 @@ class MatchView:
               f"VS"
               f"Joueur 2:{self.match.player}(score:{self.match.score2}" )
 
+    def input_name(self):
+        print("Nom du tournoi:")
+        name = input(">>")
+        return name
+

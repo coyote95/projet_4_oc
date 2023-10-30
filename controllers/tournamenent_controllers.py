@@ -56,6 +56,12 @@ class TournamentController:
     def get_actual_round_controller(self):
         return self.model.get_actual_round()
 
+    def get_round_controller(self):
+        return self.model.get_tournament_rounds()
+
+    def get_remaining_players_controllers(self):
+        return self.model.get_remaining_players()
+
     def input_number_players_controller(self):
         return self.view.input_number_players()
 

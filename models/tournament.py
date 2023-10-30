@@ -44,9 +44,9 @@ class Tournament:
 
     def get_numbers_round(self):
         return self.numbers_round
-
-    def get_round(self, choice):
-        return self.list_round[choice]
+    #
+    # def get_round(self):
+    #     return self.list_round
 
     def get_actual_round(self):
         return self.actual_round

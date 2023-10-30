@@ -55,6 +55,22 @@ class Match:
         print(f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})\n ")
         return choix_gagnant
 
+    def vainqueuer(self,player_gagnant):
+        print("dans la methode vainqueuer!!!!!")
+
+        if player_gagnant == self.player1:
+            print(f"le joueur gagant est:{player_gagnant}")
+            self.player1_gagnant()
+        elif player_gagnant == self.player2:
+            print(f"le joueur gagant est:{player_gagnant}")
+            self.player2_gagnant()
+        elif player_gagnant == "execo":
+            print(f"Match nul!!")
+            self.execo()
+        print(f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})\n ")
+        return player_gagnant
+
+
     @staticmethod
     def from_tinydb_list_match_round(list_matchs_docs_id, filename='./tournoi/tournaments.json'):
         if isinstance(list_matchs_docs_id, int):
