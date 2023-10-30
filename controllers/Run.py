@@ -30,11 +30,9 @@ class RunCreationTournoi:
     def __call__(self, *args, **kwargs):
         controller_tournoi = TournamentController(self.tournament)
         controller_tournoi.creation_tournoi()
-        controller_tournoi.display_tournament_info_controler()
         controller_tournoi.input_number_players_controller()
         controller_tournoi.save_tournament_info_to_json_controller()
         controller_tournoi.save_player_tournament_to_json_controller()
-        controller_tournoi.display_player_tournament_controler()
         run_instance = Run(self.tournament)
         run_instance()
 
@@ -48,6 +46,7 @@ class Run:
 
         for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round()):
             controller_tournoi.sort_players_by_score_controller()
+            controller_tournoi.display_tournament_info_controler()
             controller_tournoi.display_player_tournament_controler()
 
             controller_tournoi.increment_actual_round_controller()
@@ -58,7 +57,6 @@ class Run:
             controller_round.set_numero_controller(controller_tournoi.get_actual_round_controller())
             controller_round.set_date_save_controller(datetime.now().isoformat())
 
-            print(self.tournament.list_round)
 
             app = controllers.menu_controllers.ApplicationController()
             app.ChoixJouerleRound(round_tournament)

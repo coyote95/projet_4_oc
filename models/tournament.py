@@ -163,7 +163,6 @@ class Tournament:
     def save_round_tournament_to_json(self, filename):
         list_round = []
         for game_round in self.list_round:
-            print(game_round)
             if isinstance(game_round, Round):
                 list_round.append(game_round.find_doc_id_round())
         directory = os.path.dirname(filename)

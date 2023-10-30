@@ -99,7 +99,6 @@ class MenuReprendreTournamentController:
         list_tournaments = Tournament.from_tinydb_all("./data/tournaments.json")
         print(f'nombre de tournoi:{len(list_tournaments)}')
 
-
         for tournament in list_tournaments:
             print(f"round total:{tournament.get_numbers_round()}")
             print(f"round actual:{tournament.get_actual_round()}")
@@ -124,13 +123,11 @@ class MenuPrincipalListPlayersController:
         self.view = HomeMenuView(self.menu)
 
     def __call__(self, *args, **kwargs):
-        print("dans le controleur d'affichages de tous les joueurs")
         list_player = Player.from_tinydb_all("./data/all_players.json", False)
         i = 1
         for player in list_player:
             print(f"{i}: {player}")
             i += 1
-
         self.menu.add("r", "Retour", HomeMenuController())
         self.menu.add("q", "Quitter", QuitController())
         user_choice = self.view.get_user_choice()
@@ -188,7 +185,6 @@ class Addplayer:
         self.tournament = tournament
 
     def __call__(self, *args, **kwargs):
-        print("Dans le controller ADDPLAYER")
         self.tournament.add_tournament_player(self.player)
 
 
@@ -212,13 +208,13 @@ class MenuChoixgagnantPlayerController:
         self.match = match
 
     def __call__(self, *args, **kwargs):
-
         print("Le gagant est")
         self.menu.add("auto", f"{self.match.player1}", lambda: self.match.winner(self.match.player1))
         self.menu.add("auto", f"{self.match.player2}", lambda: self.match.winner(self.match.player2))
         self.menu.add("auto", f"match null", lambda: self.match.winner("execo"))
         user_choice = self.view.get_user_choice()
         return user_choice.handler
+
 
 class MenuChoixJouerleRound:
     def __init__(self, round):
@@ -227,9 +223,8 @@ class MenuChoixJouerleRound:
         self.round = round
 
     def __call__(self, *args, **kwargs):
-
-        print(f"Voulez vous jouer le round {self.round.get_numero_round()}")
-        self.menu.add("auto", f"OUI", lambda:None )
+        print(f"Voulez vous jouer le round {self.round.get_numero_round()} ?")
+        self.menu.add("auto", f"OUI", lambda: None)
         self.menu.add("auto", f"NON", QuitController())
         user_choice = self.view.get_user_choice()
         return user_choice.handler
