@@ -4,13 +4,12 @@ import os
 
 
 class Round:
-    def __init__(self, name, numero_round=0, date_save=0, list_matchs=None):
-        self.name = "ROUND " + name
-        self.numero_round = numero_round
-        self.date_save = date_save
-
+    def __init__(self, name="Round", numero_round=0, date_save=0, list_matchs=None):
         if list_matchs is None:
             list_matchs = []
+        self.name = name
+        self.numero_round = numero_round
+        self.date_save = date_save
         self.matchs = list_matchs
 
     def __str__(self):
@@ -116,8 +115,10 @@ class Round:
             os.makedirs(directory)
         db = TinyDB(filename)
         search = Query()
-        result = db.search((search.name == self.name) & (search.numero_round == self.numero_round) & (
-                search.date_save == self.date_save))
+        print(self.name)
+        print(self.numero_round)
+        result = db.search((search.name == self.name) & (search.numero_round == self.numero_round) &
+                           (search.date_save == self.date_save))
         if result:
             doc_id = result[0].doc_id
             db.close()

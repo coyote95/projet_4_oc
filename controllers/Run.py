@@ -53,10 +53,12 @@ class Run:
             controller_tournoi.increment_actual_round_controller()
             controller_tournoi.display_actual_numero_round_controller()
 
-            round_tournament = Round(name=controller_tournoi.get_name_controller())
+            round_tournament = Round(name="Round "+controller_tournoi.get_name_controller())
             controller_round = RoundController(round_tournament)
             controller_round.set_numero_controller(controller_tournoi.get_actual_round_controller())
             controller_round.set_date_save_controller(datetime.now().isoformat())
+
+            print(self.tournament.list_round)
 
             app = controllers.menu_controllers.ApplicationController()
             app.ChoixJouerleRound(round_tournament)

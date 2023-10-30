@@ -13,7 +13,6 @@ from controllers.tournamenent_controllers import TournamentController
 from controllers.menu_controllers import ApplicationController, HomeMenuController, MenuNewTournamentController
 from controllers.round_controllers import RoundController
 from controllers.match_controllers import MatchController
-
 from datetime import date, timedelta, datetime
 from tinydb import TinyDB, Query
 

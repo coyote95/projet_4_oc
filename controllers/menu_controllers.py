@@ -99,9 +99,11 @@ class MenuReprendreTournamentController:
         list_tournaments = Tournament.from_tinydb_all("./data/tournaments.json")
         print(f'nombre de tournoi:{len(list_tournaments)}')
 
+
         for tournament in list_tournaments:
             print(f"round total:{tournament.get_numbers_round()}")
             print(f"round actual:{tournament.get_actual_round()}")
+            print(tournament.list_round)
             if tournament.get_numbers_round() == tournament.get_actual_round():
                 print("tournoi terminé")
             else:

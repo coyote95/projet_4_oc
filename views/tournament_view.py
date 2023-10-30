@@ -1,8 +1,4 @@
 import controllers.menu_controllers
-import views
-
-
-# from controllers.menu_controllers import ApplicationController
 
 
 class TournamentView:
@@ -24,32 +20,32 @@ class TournamentView:
         for item in self.tournament.get_tournament_rounds():
             print(item)
 
-
-
     def display_tournament_info(self):
         print(f"*********Tournoi*******\n"
               f"Nom: {self.tournament.name}: \n"
               f"Place: {self.tournament.place}\n"
               f"Date de debut: {self.tournament.date_end}\n"
               f"Date de fin: {self.tournament.date_end}\n"
-              f"Nombre de round total:{self.tournament.numbers_round}"
-              # f"Nombre de participants:{self.tournament.nombre_de_participants()}"
+              f"Nombre de round total:{self.tournament.numbers_round}\n"
               )
 
     def display_numero_round(self):
         print(f'************************Round numero {self.tournament.actual_round}***************\n')
 
-    def input_name(self):
+    @staticmethod
+    def input_name():
         print("Nom du tournoi:")
         name = input(">>")
         return name
 
-    def input_place(self):
+    @staticmethod
+    def input_place():
         print("lieu du tournoi:")
         place = input(">>")
         return place
 
-    def input_date_start(self):
+    @staticmethod
+    def input_date_start():
         while True:
             print("Date de debut du tournoi (dd-mm-yyyy):")
             start_date = input(">>")
@@ -63,7 +59,8 @@ class TournamentView:
             except ValueError:
                 print("Format invalide. Assurez-vous de séparer la date par des tirets (dd-mm-yyyy).")
 
-    def input_date_end(self):
+    @staticmethod
+    def input_date_end():
         while True:
             print("Date de fin du tournoi (dd-mm-yyyy):")
             end_date = input(">>")
@@ -76,7 +73,8 @@ class TournamentView:
             except ValueError:
                 print("Format invalide. Assurez-vous de séparer la date par des tirets (dd-mm-yyyy).")
 
-    def input_number_round(self):
+    @staticmethod
+    def input_number_round():
         print("Nombre de round:")
         while True:
             try:

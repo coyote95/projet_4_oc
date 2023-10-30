@@ -5,8 +5,12 @@ import os
 
 
 class Tournament:
-    def __init__(self, name, place, date_start, date_end, numbers_round=4, actual_round=0, list_players=[],
-                 list_round=[]):
+    def __init__(self, name, place, date_start, date_end, numbers_round=4, actual_round=0, list_players=None,
+                 list_round=None):
+        if list_players is None:
+            list_players = []
+        if list_round is None:
+            list_round = []
         self.name = name
         self.place = place
         self.date_start = date_start
@@ -69,8 +73,8 @@ class Tournament:
     def set_date_end(self, date_end):
         self.date_end = date_end
 
-    def set_round(self, round):
-        self.numbers_round = round
+    def set_round(self, game_round):
+        self.numbers_round = game_round
 
     def nombre_de_participant_pair(self):
         if len(self.tournament_players) % 2 == 0:
@@ -84,8 +88,8 @@ class Tournament:
     def add_tournament_player(self, player):
         self.tournament_players.append(player)
 
-    def add_list_tournament_round(self, round):
-        self.list_round.append(round)
+    def add_list_tournament_round(self, game_round):
+        self.list_round.append(game_round)
 
     def increment_actual_round(self):
         self.actual_round += 1
@@ -100,8 +104,8 @@ class Tournament:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.place == self.place))
+        search = Query()
+        result = db.search((search.name == self.name) & (search.place == self.place))
         if result:
             doc_id = result[0].doc_id
             db.update({'list_doc_id_players': list_player}, doc_ids=[doc_id])
@@ -114,8 +118,8 @@ class Tournament:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.place == self.place))
+        search = Query()
+        result = db.search((search.name == self.name) & (search.place == self.place))
         if result:
             doc_id = result[0].doc_id
             db.update(self.dictionnary_tournament(), doc_ids=[doc_id])
@@ -158,17 +162,16 @@ class Tournament:
 
     def save_round_tournament_to_json(self, filename):
         list_round = []
-        for round in self.list_round:
-            print(list_round)
-            if isinstance(round, Round):
-                list_round.append(round.find_doc_id_round())
-
+        for game_round in self.list_round:
+            print(game_round)
+            if isinstance(game_round, Round):
+                list_round.append(game_round.find_doc_id_round())
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        recherche = Query()
-        result = db.search((recherche.name == self.name) & (recherche.place == self.place))
+        search = Query()
+        result = db.search((search.name == self.name) & (search.place == self.place))
         if result:
             doc_id = result[0].doc_id
             db.update({'list_doc_id_rounds': list_round}, doc_ids=[doc_id])

@@ -1,8 +1,4 @@
 import views.tournament_view
-from models.tournament import Tournament
-
-
-# rom views.tournament_view import TournamentView
 
 
 class TournamentController:
@@ -32,8 +28,8 @@ class TournamentController:
     def add_tournament_player_controller(self, player):
         self.model.add_tournament_player(player)
 
-    def add_list_tournament_round_controller(self, round):
-        self.model.add_list_tournament_round(round)
+    def add_list_tournament_round_controller(self, game_round):
+        self.model.add_list_tournament_round(game_round)
 
     def increment_actual_round_controller(self):
         self.model.increment_actual_round()
