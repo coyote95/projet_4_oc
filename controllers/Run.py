@@ -56,12 +56,10 @@ class Run:
             round_tournament = Round()
             controller_round = RoundController(round_tournament)
             controller_round.set_numero_controller(controller_tournoi.get_actual_round_controller())
-            controller_round.set_commence_controller(datetime.now().isoformat())
+            controller_round.set_date_save_controller(datetime.now().isoformat())
 
             app = controllers.menu_controllers.ApplicationController()
             app.ChoixJouerleRound(round_tournament)
-
-
 
             creation_pair_match_instance = CreationPairMatch(self.tournament, round_tournament)
             creation_pair_match_instance()
@@ -85,11 +83,13 @@ class Run:
 
             controller_tournoi.score_player_tournament_controller()
 
+            #controller_round.set_date_save_controller(datetime.now().isoformat())
+
             controller_round.save_round_to_json_controller()
             controller_round.save_match_round_to_json_controller()
             controller_tournoi.save_round_tournament_to_json_controller()
 
-            controller_round.set_termine_controller(datetime.now().isoformat())
+
 
         print(f"***********************Fin tournoi***************\n")
 
@@ -103,6 +103,10 @@ class Run:
         for round_game in self.tournament.list_round:
             for match in round_game.matchs:
                 print(match)
+
+        app = controllers.menu_controllers.ApplicationController()
+        app.start()
+
 
 
 class UpdateScoreRun:

@@ -4,14 +4,13 @@ import os
 
 
 class Round:
-    def __init__(self,name='Round',numero_round=0,commence= "date de debut",termine= "date de fin",list_matchs=None):
+    def __init__(self, name='Round', numero_round=0, date_save=0, list_matchs=None):
         self.name = name
         self.numero_round = numero_round
-        self.commence = commence
-        self.termine = termine
+        self.date_save = date_save
 
         if list_matchs is None:
-            list_matchs=[]
+            list_matchs = []
         self.matchs = list_matchs
 
     def __str__(self):
@@ -35,11 +34,8 @@ class Round:
     def get_name(self):
         return self.name
 
-    def get_commence(self):
-        return self.commence
-
-    def get_termine(self):
-        return self.termine
+    def get_date_save(self):
+        return self.get_date_save()
 
     def get_numero_round(self):
         return self.numero_round
@@ -50,11 +46,8 @@ class Round:
     def set_numero(self, num):
         self.numero_round = num
 
-    def set_commence(self,commence):
-        self.commence = commence
-
-    def set_termine(self, termine):
-        self.termine = termine
+    def set_date_save(self, date):
+        self.date_save = date
 
     def increment_numero_round(self):
         self.numero_round += 1
@@ -81,7 +74,8 @@ class Round:
             os.makedirs(directory)
         db = TinyDB(filename)
         Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round)& (Recherche.debut == self.commence))
+        result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round) & (
+                Recherche.date_save == self.date_save))
         if result:
             doc_id = result[0].doc_id
             db.update({"list_doc_id_matchs": list_matchs}, doc_ids=[doc_id])
@@ -90,51 +84,44 @@ class Round:
         db.close()
 
     def dictionnary_round(self):
-        matchs_data = [match.dictionnary_match() for match in self.matchs]
-        return {"name": self.name, "numero_round": self.numero_round,"debut":self.commence,"fin":self.termine,
+        return {"date_save": self.date_save, "name": self.name, "numero_round": self.numero_round,
                 "list_doc_id_matchs": None}
 
-
-
-
-
     @staticmethod
-    def from_tinydb_list_round_tournement(list_round_docs_id,filename='./data/rounds.json'):
-        # if isinstance(list_round_docs_id, int):
-        #     list_round_docs_id = [list_round_docs_id]
+    def from_tinydb_list_round_tournement(list_round_docs_id, filename='./data/rounds.json'):
 
         if list_round_docs_id:
             list_round = []
             for doc_id in list_round_docs_id:
-                new_round = Round.from_tinydb(doc_id,  filename='./data/rounds.json ')
+                new_round = Round.from_tinydb(doc_id, filename='./data/rounds.json ')
                 list_round.append(new_round)
             return list_round
         else:
             return None
 
     @staticmethod
-    def from_tinydb(numero,  filename='./data/rounds.json'):
+    def from_tinydb(numero, filename='./data/rounds.json'):
         db = TinyDB(filename)
         round_data = db.get(doc_id=numero)
 
         if round_data:
-                return Round(
-                    round_data['name'],
-                    round_data['numero_round'],
-                    round_data['debut'],
-                    round_data['fin'],
-                    Match.from_tinydb_list_match_round(round_data["list_doc_id_matchs"])
-                )
+            return Round(
+                round_data['name'],
+                round_data['numero_round'],
+                round_data['date_save'],
+                Match.from_tinydb_list_match_round(round_data["list_doc_id_matchs"])
+            )
         else:
             return None
 
-    def find_doc_id_round(self,filename='./data/rounds.json'):
+    def find_doc_id_round(self, filename='./data/rounds.json'):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
         Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round)& (Recherche.debut == self.commence))
+        result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round) & (
+                Recherche.date_save == self.date_save))
         if result:
             doc_id = result[0].doc_id
             db.close()

@@ -44,9 +44,6 @@ class Tournament:
 
     def get_numbers_round(self):
         return self.numbers_round
-    #
-    # def get_round(self):
-    #     return self.list_round
 
     def get_actual_round(self):
         return self.actual_round
@@ -129,7 +126,7 @@ class Tournament:
     def dictionnary_tournament(self):
         return {"name": self.name, "place": self.place, "date_start": self.date_start, "date_end": self.date_end,
                 "actual_round": self.actual_round, "number_round": self.numbers_round,
-                "actual_round": self.actual_round, "list_doc_id_players": None, "list_doc_id_rounds": None}
+                "list_doc_id_players": None, "list_doc_id_rounds": None}
 
     @staticmethod
     def from_tinydb(numero, filename='./tournoi/tournaments.json'):
@@ -162,6 +159,7 @@ class Tournament:
     def save_round_tournament_to_json(self, filename):
         list_round = []
         for round in self.list_round:
+            print(list_round)
             if isinstance(round, Round):
                 list_round.append(round.find_doc_id_round())
 
