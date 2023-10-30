@@ -68,7 +68,7 @@ class Match:
             print(f"Match nul!!")
             self.execo()
         print(f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})\n ")
-        return player_gagnant
+
 
 
     @staticmethod
@@ -100,7 +100,7 @@ class Match:
         else:
             return None
 
-    def save_match_to_json(self, filename="./data/matchss.json"):
+    def save_match_to_json(self, filename="./data/matchs.json"):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)

@@ -30,9 +30,15 @@ class ApplicationController:
         while self.controller:
             self.controller = self.controller()
 
-    def choixgagnantmatch(self,match):
+    def choixgagnantmatch(self, match):
         self.match = match
         self.controller = MenuChoixgagnantPlayerController(self.match)
+        while self.controller:
+            self.controller = self.controller()
+
+    def ChoixJouerleRound(self, round):
+        self.round = round
+        self.controller = MenuChoixJouerleRound(self.round)
         while self.controller:
             self.controller = self.controller()
 
@@ -117,7 +123,7 @@ class MenuPrincipalListPlayersController:
 
     def __call__(self, *args, **kwargs):
         print("dans le controleur d'affichages de tous les joueurs")
-        list_player = Player.from_tinydb_all("./data/all_players.json", "all_players", False)
+        list_player = Player.from_tinydb_all("./data/all_players.json", False)
         i = 1
         for player in list_player:
             print(f"{i}: {player}")
@@ -203,36 +209,25 @@ class MenuChoixgagnantPlayerController:
         self.view = HomeMenuView(self.menu)
         self.match = match
 
-
     def __call__(self, *args, **kwargs):
-        print("dans le controleur d'affichages des gagnants")
+
         print("Le gagant est")
-        self.menu.add("auto", f"{self.match.player1}", Vainqueur(self.match, self.match.player1))
-        self.menu.add("auto", f"{self.match.player2}", Vainqueur(self.match, self.match.player2))
-        self.menu.add("auto", f"match null",lambda: print("nnnnnnnnnnnnnon"))
+        self.menu.add("auto", f"{self.match.player1}", lambda: self.match.vainqueuer(self.match.player1))
+        self.menu.add("auto", f"{self.match.player2}", lambda: self.match.vainqueuer(self.match.player2))
+        self.menu.add("auto", f"match null", lambda: self.match.vainqueuer("execo"))
         user_choice = self.view.get_user_choice()
-        print(user_choice)
-        print(user_choice.handler)
         return user_choice.handler
 
-
-class Vainqueur:
-    def __init__(self, match, player_gagnant):
-        self.match = match
-        self.player_gagnant = player_gagnant
+class MenuChoixJouerleRound:
+    def __init__(self, round):
+        self.menu = Menu()
+        self.view = HomeMenuView(self.menu)
+        self.round = round
 
     def __call__(self, *args, **kwargs):
-        print("dans la methode vainqueuer!!!!!")
 
-        if self.player_gagnant == self.match.player1:
-            print(f"le joueur gagant est:{self.player_gagnant}")
-            self.match.player1_gagnant()
-        elif self.player_gagnant == self.match.player2:
-            print(f"le joueur gagant est:{self.match.player2}")
-            self.match.player2_gagnant()
-        elif self.player_gagnant == "execo":
-            print(f"Match nul!!")
-            self.match.execo()
-        print(
-            f"Nouveau score: {self.match.player1} (score:{self.match.score1}) CONTRE {self.match.player2} (score: {self.match.score2})\n ")
-        return None
+        print(f"Voulez vous jouer le round {self.round.get_numero_round()}")
+        self.menu.add("auto", f"OUI", lambda:None )
+        self.menu.add("auto", f"NON", QuitController())
+        user_choice = self.view.get_user_choice()
+        return user_choice.handler

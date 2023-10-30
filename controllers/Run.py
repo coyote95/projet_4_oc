@@ -58,22 +58,23 @@ class Run:
             controller_round.set_numero_controller(controller_tournoi.get_actual_round_controller())
             controller_round.set_commence_controller(datetime.now().isoformat())
 
+            app = controllers.menu_controllers.ApplicationController()
+            app.ChoixJouerleRound(round_tournament)
+
+
+
             creation_pair_match_instance = CreationPairMatch(self.tournament, round_tournament)
             creation_pair_match_instance()
 
             #         ####################code #########################
 
-            # print("Affichage Gagnant:")
-            # for match in controller_round.get_match_controller():
-            #     controller_match = MatchController(match)
-            #     controller_match.random_gagnant_controller()
-            #     controller_match.save_match_to_json_controller()
-
             print("Affichage Gagnant:")
 
             for match in controller_round.get_match_controller():
+                print(match)
                 app = controllers.menu_controllers.ApplicationController()
                 app.choixgagnantmatch(match)
+                match.save_match_to_json()
 
             # *********************code***************
 
