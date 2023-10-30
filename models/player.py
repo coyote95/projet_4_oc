@@ -62,7 +62,7 @@ class Player:
         return self.id_chess
 
     def dictionnary_player_score(self):
-        return {"name": self.name, "surname": self.surname, "birthday": self.birthday,
+        return {"name": self.name, "surname": self.surname,
                 "id_chess": self.id_chess, "score": self.score}
 
     def dictionnary_player(self):

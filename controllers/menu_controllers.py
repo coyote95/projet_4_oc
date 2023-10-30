@@ -212,9 +212,9 @@ class MenuChoixgagnantPlayerController:
     def __call__(self, *args, **kwargs):
 
         print("Le gagant est")
-        self.menu.add("auto", f"{self.match.player1}", lambda: self.match.vainqueuer(self.match.player1))
-        self.menu.add("auto", f"{self.match.player2}", lambda: self.match.vainqueuer(self.match.player2))
-        self.menu.add("auto", f"match null", lambda: self.match.vainqueuer("execo"))
+        self.menu.add("auto", f"{self.match.player1}", lambda: self.match.winner(self.match.player1))
+        self.menu.add("auto", f"{self.match.player2}", lambda: self.match.winner(self.match.player2))
+        self.menu.add("auto", f"match null", lambda: self.match.winner("execo"))
         user_choice = self.view.get_user_choice()
         return user_choice.handler
 

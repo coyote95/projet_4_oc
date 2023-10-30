@@ -53,7 +53,7 @@ class Run:
             controller_tournoi.increment_actual_round_controller()
             controller_tournoi.display_actual_numero_round_controller()
 
-            round_tournament = Round(name= controller_tournoi.get_name_controller())
+            round_tournament = Round(name=controller_tournoi.get_name_controller())
             controller_round = RoundController(round_tournament)
             controller_round.set_numero_controller(controller_tournoi.get_actual_round_controller())
             controller_round.set_date_save_controller(datetime.now().isoformat())
@@ -65,8 +65,6 @@ class Run:
             creation_pair_match_instance()
 
             #         ####################code #########################
-
-            print("Affichage Gagnant:")
 
             for match in controller_round.get_match_controller():
                 print(match)
@@ -87,8 +85,6 @@ class Run:
             controller_round.save_match_round_to_json_controller()
             controller_tournoi.save_round_tournament_to_json_controller()
 
-
-
         print(f"***********************Fin tournoi***************\n")
 
         for i in range(len(self.tournament.tournament_players)):
@@ -104,7 +100,6 @@ class Run:
 
         app = controllers.menu_controllers.ApplicationController()
         app.start()
-
 
 
 class UpdateScoreRun:

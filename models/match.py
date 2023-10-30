@@ -25,33 +25,31 @@ class Match:
         db.insert(self.dictionnary_match())
 
     def dictionnary_match(self):
-        return {"date_save": self.date_save, "player1": self.player1.__dict__, "score1": self.score1,
-                "player2": self.player2.__dict__,
+        return {"date_save": self.date_save, "player1": self.player1.dictionnary_player_score(), "score1": self.score1,
+                "player2": self.player2.dictionnary_player_score(),
                 "score2": self.score2}
 
-    def player1_gagnant(self):
+    def player1_winner(self):
         self.score1 += 1
 
-    def player2_gagnant(self):
+    def player2_winner(self):
         self.score2 += 1
 
-    def execo(self):
+    def draw_match(self):
         self.score1 += 0.5
         self.score2 += 0.5
 
-    def vainqueuer(self, player_gagnant):
-        print("dans la methode vainqueuer!!!!!")
-
-        if player_gagnant == self.player1:
-            print(f"le joueur gagant est:{player_gagnant}")
-            self.player1_gagnant()
-        elif player_gagnant == self.player2:
-            print(f"le joueur gagant est:{player_gagnant}")
-            self.player2_gagnant()
-        elif player_gagnant == "execo":
+    def winner(self, winning_player):
+        if winning_player == self.player1:
+            print(f"le joueur gagant est:{winning_player}")
+            self.player1_winner()
+        elif winning_player == self.player2:
+            print(f"le joueur gagant est:{winning_player}")
+            self.player2_winner()
+        elif winning_player == "execo":
             print(f"Match nul!!")
-            self.execo()
-        print(f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})\n ")
+            self.draw_match()
+        print(f"Nouveau score: {self.player1} (score:{self.score1}) / {self.player2} (score: {self.score2})\n ")
 
     @staticmethod
     def from_tinydb_list_match_round(list_matchs_docs_id):
@@ -71,11 +69,10 @@ class Match:
     def from_tinydb(numero, filename='./data/matchs.json'):
         db = TinyDB(filename)
         match_data = db.get(doc_id=numero)
-
         if match_data:
             return Match(
-                match_data["player1"]["_name"],
-                match_data["player2"]["_name"],
+                match_data["player1"]["name"],
+                match_data["player2"]["name"],
                 match_data['score1'],
                 match_data['score2'],
             )
@@ -96,13 +93,11 @@ class Match:
             os.makedirs(directory)
         db = TinyDB(filename)
         recherche = Query()
-
         result = db.search((recherche.player1.name == self.player1.name) &
                            (recherche.player1.surname == self.player1.surname) &
                            (recherche.player2.name == self.player2.name) &
                            (recherche.player2.surname == self.player2.surname) &
                            (recherche.date_save == self.date_save))
-
         if result:
             doc_id = result[0].doc_id
             db.close()
