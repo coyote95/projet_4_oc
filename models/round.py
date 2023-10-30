@@ -4,8 +4,8 @@ import os
 
 
 class Round:
-    def __init__(self, name='Round', numero_round=0, date_save=0, list_matchs=None):
-        self.name = name
+    def __init__(self, name, numero_round=0, date_save=0, list_matchs=None):
+        self.name = "ROUND " + name
         self.numero_round = numero_round
         self.date_save = date_save
 
@@ -40,8 +40,8 @@ class Round:
     def get_numero_round(self):
         return self.numero_round
 
-    def set_match(self, list):
-        self.matchs = list
+    def set_match(self, list_matchs):
+        self.matchs = list_matchs
 
     def set_numero(self, num):
         self.numero_round = num
@@ -73,9 +73,9 @@ class Round:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round) & (
-                Recherche.date_save == self.date_save))
+        recherche = Query()
+        result = db.search((recherche.name == self.name) & (recherche.numero_round == self.numero_round) & (
+                recherche.date_save == self.date_save))
         if result:
             doc_id = result[0].doc_id
             db.update({"list_doc_id_matchs": list_matchs}, doc_ids=[doc_id])
@@ -88,7 +88,7 @@ class Round:
                 "list_doc_id_matchs": None}
 
     @staticmethod
-    def from_tinydb_list_round_tournement(list_round_docs_id, filename='./data/rounds.json'):
+    def from_tinydb_list_round_tournement(list_round_docs_id):
 
         if list_round_docs_id:
             list_round = []
@@ -119,9 +119,9 @@ class Round:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.numero_round == self.numero_round) & (
-                Recherche.date_save == self.date_save))
+        recherche = Query()
+        result = db.search((recherche.name == self.name) & (recherche.numero_round == self.numero_round) & (
+                recherche.date_save == self.date_save))
         if result:
             doc_id = result[0].doc_id
             db.close()

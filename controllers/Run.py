@@ -53,7 +53,7 @@ class Run:
             controller_tournoi.increment_actual_round_controller()
             controller_tournoi.display_actual_numero_round_controller()
 
-            round_tournament = Round()
+            round_tournament = Round(name= controller_tournoi.get_name_controller())
             controller_round = RoundController(round_tournament)
             controller_round.set_numero_controller(controller_tournoi.get_actual_round_controller())
             controller_round.set_date_save_controller(datetime.now().isoformat())
@@ -82,8 +82,6 @@ class Run:
             score_instance()
 
             controller_tournoi.score_player_tournament_controller()
-
-            #controller_round.set_date_save_controller(datetime.now().isoformat())
 
             controller_round.save_round_to_json_controller()
             controller_round.save_match_round_to_json_controller()
@@ -118,9 +116,9 @@ class UpdateScoreRun:
 
         for match in self.round.matchs:
             for players in self.tournament.tournament_players:
-                if match.player1._name == players._name:
+                if match.player1.name == players.name:
                     players.score += match.score1
-                if match.player2._name == players._name:
+                if match.player2.name == players.name:
                     players.score += match.score2
 
 

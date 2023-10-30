@@ -1,6 +1,4 @@
-import random
 from tinydb import TinyDB, Query
-from models.player import Player
 import os
 
 
@@ -41,21 +39,7 @@ class Match:
         self.score1 += 0.5
         self.score2 += 0.5
 
-    def random_gagnant(self):
-        choix_gagnant = random.choice([self.player1, self.player2, "execo"])
-        if choix_gagnant == self.player1:
-            print(f"le joueur gagant est:{choix_gagnant}")
-            self.player1_gagnant()
-        elif choix_gagnant == self.player2:
-            print(f"le joueur gagant est:{choix_gagnant}")
-            self.player2_gagnant()
-        elif choix_gagnant == "execo":
-            print(f"Match nul!!")
-            self.execo()
-        print(f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})\n ")
-        return choix_gagnant
-
-    def vainqueuer(self,player_gagnant):
+    def vainqueuer(self, player_gagnant):
         print("dans la methode vainqueuer!!!!!")
 
         if player_gagnant == self.player1:
@@ -69,10 +53,8 @@ class Match:
             self.execo()
         print(f"Nouveau score: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})\n ")
 
-
-
     @staticmethod
-    def from_tinydb_list_match_round(list_matchs_docs_id, filename='./tournoi/tournaments.json'):
+    def from_tinydb_list_match_round(list_matchs_docs_id):
         if isinstance(list_matchs_docs_id, int):
             list_matchs_docs_id = [list_matchs_docs_id]
 
@@ -113,13 +95,13 @@ class Match:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        Recherche = Query()
+        recherche = Query()
 
-        result = db.search((Recherche.player1._name == self.player1._name) &
-                           (Recherche.player1._surname == self.player1._surname) &
-                           (Recherche.player2._name == self.player2._name) &
-                           (Recherche.player2._surname == self.player2._surname) &
-                           (Recherche.date_save == self.date_save))
+        result = db.search((recherche.player1.name == self.player1.name) &
+                           (recherche.player1.surname == self.player1.surname) &
+                           (recherche.player2.name == self.player2.name) &
+                           (recherche.player2.surname == self.player2.surname) &
+                           (recherche.date_save == self.date_save))
 
         if result:
             doc_id = result[0].doc_id

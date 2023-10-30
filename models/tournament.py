@@ -167,8 +167,8 @@ class Tournament:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.place == self.place))
+        recherche = Query()
+        result = db.search((recherche.name == self.name) & (recherche.place == self.place))
         if result:
             doc_id = result[0].doc_id
             db.update({'list_doc_id_rounds': list_round}, doc_ids=[doc_id])
