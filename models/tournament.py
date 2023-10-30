@@ -184,8 +184,7 @@ class Tournament:
                                                reverse=True))
 
     def get_remaining_players(self):
-        # Obtenez la liste des joueurs qui n'ont pas encore été appariés
-        remaining_players = [player for player in self.tournament_players if not player.is_paired]
+        remaining_players = [player for player in self.tournament_players]
         return remaining_players
 
     def remove_players(self, players_to_remove):

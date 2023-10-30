@@ -55,7 +55,6 @@ class Match:
     def from_tinydb_list_match_round(list_matchs_docs_id):
         if isinstance(list_matchs_docs_id, int):
             list_matchs_docs_id = [list_matchs_docs_id]
-
         if list_matchs_docs_id:
             list_matchs = []
             for doc_id in list_matchs_docs_id:
@@ -92,12 +91,12 @@ class Match:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        recherche = Query()
-        result = db.search((recherche.player1.name == self.player1.name) &
-                           (recherche.player1.surname == self.player1.surname) &
-                           (recherche.player2.name == self.player2.name) &
-                           (recherche.player2.surname == self.player2.surname) &
-                           (recherche.date_save == self.date_save))
+        search = Query()
+        result = db.search((search.player1.name == self.player1.name) &
+                           (search.player1.surname == self.player1.surname) &
+                           (search.player2.name == self.player2.name) &
+                           (search.player2.surname == self.player2.surname) &
+                           (search.date_save == self.date_save))
         if result:
             doc_id = result[0].doc_id
             db.close()

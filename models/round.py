@@ -57,21 +57,19 @@ class Round:
 
     def save_round_to_json(self, filename="./data/rounds.json"):
         db = TinyDB(filename)
-
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
         db.insert(self.dictionnary_round())
 
     def save_match_round_to_json(self, filename):
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         list_matchs = []
         for match in self.matchs:
             if isinstance(match, Match):
                 list_matchs.append(match.find_doc_id_match())
-
-        directory = os.path.dirname(filename)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
         db = TinyDB(filename)
         recherche = Query()
         result = db.search((recherche.name == self.name) & (recherche.numero_round == self.numero_round) & (
@@ -89,7 +87,6 @@ class Round:
 
     @staticmethod
     def from_tinydb_list_round_tournement(list_round_docs_id):
-
         if list_round_docs_id:
             list_round = []
             for doc_id in list_round_docs_id:
@@ -103,7 +100,6 @@ class Round:
     def from_tinydb(numero, filename='./data/rounds.json'):
         db = TinyDB(filename)
         round_data = db.get(doc_id=numero)
-
         if round_data:
             return Round(
                 round_data['name'],
@@ -119,9 +115,9 @@ class Round:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        recherche = Query()
-        result = db.search((recherche.name == self.name) & (recherche.numero_round == self.numero_round) & (
-                recherche.date_save == self.date_save))
+        search = Query()
+        result = db.search((search.name == self.name) & (search.numero_round == self.numero_round) & (
+                search.date_save == self.date_save))
         if result:
             doc_id = result[0].doc_id
             db.close()

@@ -9,13 +9,11 @@ class Player:
         self.birthday = birthday
         self.id_chess = id_chess
         self.score = score
-        self.is_paired = False
 
     def __str__(self):
         return (
             f"Nom: {self.name} "
             f"Surname: {self.surname} "
-
         )
 
     def __repr__(self):
@@ -23,31 +21,6 @@ class Player:
             f"Nom: {self.name} "
             f"Surname: {self.surname}"
         )
-
-    def save_player_to_json(self, filename, table_name, score=True):
-        db = TinyDB(filename)
-        table = db.table(table_name)
-
-        directory = os.path.dirname(filename)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-
-        Recherche = Query()
-        existing_player = table.get(
-            (Recherche.name == self.name) &
-            (Recherche.surname == self.surname) &
-            (Recherche.id_chess == self.id_chess)
-        )
-        if existing_player:
-            print(f"ERROR: {self.name} {self.surname} existe déjà dans le fichier{filename}.")
-        else:
-            # Aucun joueur avec les mêmes informations, vous pouvez ajouter le nouveau joueur
-            if score == True:
-                table.insert(self.dictionnary_player_score())
-            else:
-                table.insert(self.dictionnary_player())
-            print(f"SAVE: {self.name} {self.surname} dans le fichier {filename}")
-        db.close()
 
     def get_name(self):
         return self.name
@@ -61,14 +34,6 @@ class Player:
     def get_id_chess(self):
         return self.id_chess
 
-    def dictionnary_player_score(self):
-        return {"name": self.name, "surname": self.surname,
-                "id_chess": self.id_chess, "score": self.score}
-
-    def dictionnary_player(self):
-        return {"name": self.name, "surname": self.surname, "birthday": self.birthday,
-                "id_chess": self.id_chess}
-
     def set_name(self, name):
         self.name = name
 
@@ -81,12 +46,42 @@ class Player:
     def set_id(self, id_chess):
         self.id_chess = id_chess
 
+    def save_player_to_json(self, filename, table_name, score=True):
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        db = TinyDB(filename)
+        table = db.table(table_name)
+        search = Query()
+        existing_player = table.get(
+            (search.name == self.name) &
+            (search.surname == self.surname) &
+            (search.id_chess == self.id_chess)
+        )
+        if existing_player:
+            print(f"ERROR: {self.name} {self.surname} existe déjà dans le fichier{filename}.")
+        else:
+            if score:
+                table.insert(self.dictionnary_player_score())
+            else:
+                table.insert(self.dictionnary_player())
+            print(f"SAVE: {self.name} {self.surname} dans le fichier {filename}")
+        db.close()
+
+    def dictionnary_player_score(self):
+        return {"name": self.name, "surname": self.surname,
+                "id_chess": self.id_chess, "score": self.score}
+
+    def dictionnary_player(self):
+        return {"name": self.name, "surname": self.surname, "birthday": self.birthday,
+                "id_chess": self.id_chess}
+
     @staticmethod
     def from_tinydb(numero, filename='./data/all_players.json', score=True):
         db = TinyDB(filename)
         player_data = db.get(doc_id=numero)
         if player_data:
-            if score == True:
+            if score:
                 return Player(
                     player_data['name'],
                     player_data['surname'],
@@ -115,10 +110,9 @@ class Player:
         return list_player
 
     @staticmethod
-    def from_tinydb_list_player_tournement(list_player_docs_id, filename='./tournoi/tournaments.json', score=False):
+    def from_tinydb_list_player_tournement(list_player_docs_id, score=False):
         if isinstance(list_player_docs_id, int):
             list_player_docs_id = [list_player_docs_id]
-
         if list_player_docs_id:
             list_player = []
             for doc_id in list_player_docs_id:
@@ -133,8 +127,8 @@ class Player:
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        Recherche = Query()
-        result = db.search((Recherche.name == self.name) & (Recherche.surname == self.surname))
+        search = Query()
+        result = db.search((search.name == self.name) & (search.surname == self.surname))
         if result:
             doc_id = result[0].doc_id
             db.close()
@@ -142,11 +136,3 @@ class Player:
         else:
             db.close()
             return None
-
-    def pair(self):
-        # Méthode pour appairer un joueur
-        self.is_paired = True
-
-    def unpair(self):
-        # Méthode pour désappairer un joueur (par exemple, à la fin d'un round)
-        self.is_paired = False
