@@ -46,14 +46,13 @@ class Player:
     def set_id(self, id_chess):
         self.id_chess = id_chess
 
-    def save_player_to_json(self, filename, table_name, score=True):
+    def save_player_to_json(self, filename, score=True):
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
         db = TinyDB(filename)
-        table = db.table(table_name)
         search = Query()
-        existing_player = table.get(
+        existing_player = db.get(
             (search.name == self.name) &
             (search.surname == self.surname) &
             (search.id_chess == self.id_chess)
@@ -62,9 +61,9 @@ class Player:
             print(f"ERROR: {self.name} {self.surname} existe déjà dans le fichier{filename}.")
         else:
             if score:
-                table.insert(self.dictionnary_player_score())
+                db.insert(self.dictionnary_player_score())
             else:
-                table.insert(self.dictionnary_player())
+                db.insert(self.dictionnary_player())
             print(f"SAVE: {self.name} {self.surname} dans le fichier {filename}")
         db.close()
 

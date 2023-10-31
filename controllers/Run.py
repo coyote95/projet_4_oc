@@ -45,7 +45,7 @@ class Run:
             controller_round.set_date_save_controller(datetime.now().isoformat())
 
             app = controllers.menu_controllers.ApplicationController()
-            app.ChoixJouerleRound(round_tournament)
+            app.choixjouerleround(round_tournament)
 
             creation_pair_match_instance = CreationPairMatch(self.tournament, round_tournament)
             creation_pair_match_instance()
