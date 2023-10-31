@@ -102,38 +102,6 @@ class UpdateScoreRun:
                     players.score += match.score2
 
 
-# class CreationPairMatch:
-#     def __init__(self, tournament, round_game):
-#         self.tournament = tournament
-#         self.round = round_game
-#
-#     def __call__(self, *args, **kwargs):
-#
-#         pairs_history = []
-#         for round_game in self.tournament.list_round:
-#             for match in round_game.matchs:
-#                 pairs_history.append((match.player1, match.player2))
-#
-#         remaining_players = self.tournament.get_remaining_players()
-#
-#         while len(remaining_players) >= 2:
-#             player1 = remaining_players.pop(0)
-#             player2 = None
-#             for other_player in remaining_players:
-#                 if (player1, other_player) not in pairs_history and (
-#                         other_player, player1) not in pairs_history:
-#                     player2 = other_player
-#                     remaining_players.remove(player2)
-#                     new_match = Match(player1, player2, date_save=datetime.now().isoformat())
-#                     self.round.add_match(new_match)
-#                     pairs_history.append((player1, player2))
-#                     break
-#             if player2 is None:
-#                 player2 = remaining_players.pop(0)
-#                 new_match = Match(player1, player2, date_save=datetime.now().isoformat())
-#                 self.round.add_match(new_match)
-#                 pairs_history.append((player1, player2))
-
 class CreationPairMatch:
     def __init__(self, tournament, round_game):
         self.tournament = tournament

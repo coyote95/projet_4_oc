@@ -115,8 +115,6 @@ class Round:
             os.makedirs(directory)
         db = TinyDB(filename)
         search = Query()
-        print(self.name)
-        print(self.numero_round)
         result = db.search((search.name == self.name) & (search.numero_round == self.numero_round) &
                            (search.date_save == self.date_save))
         if result:

@@ -110,7 +110,8 @@ class TournamentView:
             app.player(self.tournament)
 
     def display_score_players(self):
+        print("CLASSEMENT:")
         for personne in range(0, len(self.tournament)):
-            print(self.tournament[personne])
-            print(self.tournament[personne].score)
+            print(f"{self.tournament[personne]} score: {self.tournament[personne].score}")
+
 
