@@ -49,16 +49,8 @@ class Run:
             creation_pair_match_instance = CreationPairMatch(self.tournament, round_tournament)
             creation_pair_match_instance()
 
-            #         ####################code #########################
-
-            for match in controller_round.get_match_controller():
-                controller_match = MatchController(match)
-                controller_match.display_match_controller()
-                app = controllers.menu_controllers.ApplicationController()
-                app.choixgagnantmatch(match)
-                controller_match.save_match_to_json_controller()
-
-            # *********************code***************
+            continuer_round_instance = AskContinuerRoundRun(round_tournament)
+            continuer_round_instance()
 
             controller_tournoi.add_list_tournament_round_controller(round_tournament)
 
@@ -76,6 +68,21 @@ class Run:
         app.start()
 
 
+class AskContinuerRoundRun:
+    def __init__(self, round_game):
+        self.round = round_game
+
+    def __call__(self, *args, **kwargs):
+        controller_round = RoundController(self.round)
+
+        for match in controller_round.get_match_controller():
+            controller_match = MatchController(match)
+            controller_match.display_match_controller()
+            app = controllers.menu_controllers.ApplicationController()
+            app.choixgagnantmatch(match)
+            controller_match.save_match_to_json_controller()
+
+
 class UpdateScoreRun:
     def __init__(self, tournament, round_game):
         self.tournament = tournament
@@ -83,8 +90,11 @@ class UpdateScoreRun:
 
     def __call__(self, *args, **kwargs):
 
-        for match in self.round.matchs:
-            for players in self.tournament.tournament_players:
+        controller_round = RoundController(self.round)
+        contoller_tournament = TournamentController(self.tournament)
+
+        for match in controller_round.get_match_controller():
+            for players in contoller_tournament.get_tournament_players_controller():
                 if match.player1.name == players.name:
                     players.score += match.score1
                 if match.player2.name == players.name:

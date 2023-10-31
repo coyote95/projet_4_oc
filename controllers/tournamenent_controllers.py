@@ -10,6 +10,21 @@ class TournamentController:
         self.model = tournament
         self.view = views.tournament_view.TournamentView(self.model)
 
+    def get_tournament_players_controller(self):
+        return self.model.get_tournament_players()
+
+    def get_name_controller(self):
+        return self.model.get_name()
+
+    def get_actual_round_controller(self):
+        return self.model.get_actual_round()
+
+    def get_round_controller(self):
+        return self.model.get_tournament_rounds()
+
+    def get_remaining_players_controllers(self):
+        return self.model.get_remaining_players()
+
     def display_player_tournament_controler(self):
         self.view.display_players_tournament()
 
@@ -52,17 +67,7 @@ class TournamentController:
         number_round = int(self.view.input_number_round())
         self.model.set_round(number_round)
 
-    def get_name_controller(self):
-        return self.model.get_name()
 
-    def get_actual_round_controller(self):
-        return self.model.get_actual_round()
-
-    def get_round_controller(self):
-        return self.model.get_tournament_rounds()
-
-    def get_remaining_players_controllers(self):
-        return self.model.get_remaining_players()
 
     def input_number_players_controller(self):
         return self.view.input_number_players()
