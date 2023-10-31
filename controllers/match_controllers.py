@@ -12,3 +12,6 @@ class MatchController:
 
     def save_match_to_json_controller(self, filename="./data/matchs.json"):
         self.model.save_match_to_json(filename)
+
+    def random_color_controller(self):
+        self.model.random_color()

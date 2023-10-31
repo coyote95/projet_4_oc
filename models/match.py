@@ -1,4 +1,5 @@
 from tinydb import TinyDB, Query
+import random
 import os
 
 
@@ -28,6 +29,14 @@ class Match:
         return {"date_save": self.date_save, "player1": self.player1.dictionnary_player_score(), "score1": self.score1,
                 "player2": self.player2.dictionnary_player_score(),
                 "score2": self.score2}
+
+    def random_color(self):
+        color = random.choice(["white", "black"])
+        self.player1.color = color
+        if self.player1.color == "white":
+            self.player2.color = "black"
+        else:
+            self.player2.color = "white"
 
     def player1_winner(self):
         self.score1 += 1

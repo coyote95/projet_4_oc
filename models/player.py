@@ -9,7 +9,7 @@ class Player:
         self.birthday = birthday
         self.id_chess = id_chess
         self.score = score
-        self.white_color=
+        self.color = "white"
 
     def __str__(self):
         return (
@@ -70,7 +70,7 @@ class Player:
 
     def dictionnary_player_score(self):
         return {"name": self.name, "surname": self.surname,
-                "id_chess": self.id_chess, "score": self.score}
+                "id_chess": self.id_chess, "score": self.score, "color": self.color}
 
     def dictionnary_player(self):
         return {"name": self.name, "surname": self.surname, "birthday": self.birthday,
