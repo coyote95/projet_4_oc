@@ -19,8 +19,6 @@ class Menu:
         if key == "auto":
             key = str(self._autokey)
             self._autokey += 1
-
-
         self._entries[str(key)] = MenuEntry(option, handler)
 
     def items(self):

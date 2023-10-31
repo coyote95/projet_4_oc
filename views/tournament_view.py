@@ -31,7 +31,15 @@ class TournamentView:
 
     def display_numero_round(self):
         print()
-        print(f'************************Round numero {self.tournament.actual_round}***************\n')
+        print(f'************************ Round numero {self.tournament.actual_round} ***************\n')
+
+    def display_end_tournament(self):
+        print()
+        print(f'************************ Fin du Tournoi ***************\n')
+        self.display_tournament_info()
+        self.display_players_tournament()
+        self.display_round_tournament()
+        print()
 
     @staticmethod
     def input_name():

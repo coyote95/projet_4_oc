@@ -4,9 +4,9 @@ class MatchView:
 
     def display_match(self):
         print("******** Affichage du match ********  ")
-        print(f"Joueur 1:{self.match.player1}(score:{self.match.score1}"
-              f"VS"
-              f"Joueur 2:{self.match.player}(score:{self.match.score2}")
+        print(f"Joueur 1:{self.match.player1}(score:{self.match.score1}) "
+              f"CONTRE "
+              f"Joueur 2:{self.match.player2}(score:{self.match.score2})")
 
     @staticmethod
     def input_name():

@@ -7,7 +7,7 @@ class MatchController:
         self.model = match
         self.view = MatchView(self.model)
 
-    def display_match_controler(self):
+    def display_match_controller(self):
         self.view.display_match()
 
     def save_match_to_json_controller(self, filename="./data/matchs.json"):
