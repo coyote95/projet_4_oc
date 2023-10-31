@@ -10,6 +10,14 @@ class RoundView:
         for match in self.game_round.matchs:
             print(match)
 
+    def display_match_players(self):
+        print("Affichage des matchs")
+        i = 1
+        for item in self.game_round.matchs:
+            print(f"Match {i}:  {item.player1.name} {item.player1.surname} (joueur1)    contre    {item.player2.name} {item.player2.surname} (joueur2) ")
+            i += 1
+        print()
+
     def display_match(self):
         print("Affichage des matchs")
         i = 1

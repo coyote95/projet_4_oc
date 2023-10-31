@@ -17,7 +17,7 @@ class HomeMenuView:
 
     @staticmethod
     def display_message_gagnant():
-        print("Le gagant est:")
+        print("Le gagnant est:")
 
     @staticmethod
     def display_message_liste_tournoi():

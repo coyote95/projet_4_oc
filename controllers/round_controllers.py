@@ -22,6 +22,9 @@ class RoundController:
     def display_match_controller(self):
         self.view.display_match()
 
+    def display_match_players_controller(self):
+        self.view.display_match_players()
+
     def set_numero_controller(self, num):
         self.model.set_numero(num)
 

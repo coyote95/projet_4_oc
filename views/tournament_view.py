@@ -12,8 +12,8 @@ class TournamentView:
 
     def display_players_tournament(self):
         print(f"********     Affichage des participants au tournoi      ****** ")
-        for item in self.tournament.get_tournament_players():
-            print(item)
+        for player in self.tournament.get_tournament_players():
+            print(f"Nom: {player.name}\tPrenom: {player.surname}")
 
     def display_round_tournament(self):
         print(f"********     Affichage des rounds du tournoi    ******** ")

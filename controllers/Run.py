@@ -137,3 +137,5 @@ class CreationPairMatch:
                 new_match = Match(player1, player2, date_save=datetime.now().isoformat())
                 controller_round.add_match_controller(new_match)
                 pairs_history.append((player1, player2))
+
+        controller_round.display_match_players_controller()

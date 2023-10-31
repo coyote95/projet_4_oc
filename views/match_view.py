@@ -3,10 +3,10 @@ class MatchView:
         self.match = match
 
     def display_match(self):
-        print("******** Affichage du match ********  ")
-        print(f"Joueur 1:{self.match.player1} "
-              f"CONTRE "
-              f"Joueur 2:{self.match.player2}")
+        print("*************    Affichage du match    *************")
+        print(f"{self.match.player1.name} {self.match.player1.surname} (Joueur1)"
+              f"   contre   "
+              f"{self.match.player2.name} {self.match.player1.surname} (Joueur2)")
 
     @staticmethod
     def input_name():
