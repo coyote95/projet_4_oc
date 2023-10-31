@@ -13,12 +13,12 @@ class Match:
 
     def __str__(self):
         return (
-            f"{self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})"
+            f"{self.player1} (color:{self.player1.color} score:{self.score1}) CONTRE {self.player2} (color:{self.player2.color} score: {self.score2})"
         )
 
     def __repr__(self):
         return (
-            f"Match: {self.player1} (score:{self.score1}) CONTRE {self.player2} (score: {self.score2})"
+            f"Match: {self.player1} (color:{self.player1.color} score:{self.score1}) CONTRE {self.player2} (color:{self.player2.color} score: {self.score2})"
         )
 
     def save_round_to_json(self, filename="save_match"):
@@ -31,12 +31,12 @@ class Match:
                 "score2": self.score2}
 
     def random_color(self):
-        color = random.choice(["white", "black"])
+        color = random.choice(["blanc", "noir"])
         self.player1.color = color
-        if self.player1.color == "white":
-            self.player2.color = "black"
+        if self.player1.color == "blanc":
+            self.player2.color = "noir"
         else:
-            self.player2.color = "white"
+            self.player2.color = "blanc"
 
     def player1_winner(self):
         self.score1 += 1

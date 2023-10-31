@@ -9,7 +9,7 @@ class Player:
         self.birthday = birthday
         self.id_chess = id_chess
         self.score = score
-        self.color = "white"
+        self.color = "blanc"
 
     def __str__(self):
         return (

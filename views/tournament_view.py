@@ -13,7 +13,7 @@ class TournamentView:
     def display_players_tournament(self):
         print(f"********     Affichage des participants au tournoi      ****** ")
         for player in self.tournament.get_tournament_players():
-            print(f"Nom: {player.name}\tPrenom: {player.surname}")
+            print(f"Nom: {player.name}    Prenom: {player.surname}")
 
     def display_round_tournament(self):
         print(f"********     Affichage des rounds du tournoi    ******** ")
@@ -31,11 +31,11 @@ class TournamentView:
 
     def display_numero_round(self):
         print()
-        print(f'************************ Round numero {self.tournament.actual_round} ***************\n')
+        print(f'************************ Round numero {self.tournament.actual_round} ************************\n')
 
     def display_end_tournament(self):
         print()
-        print(f'************************ Fin du Tournoi ***************\n')
+        print(f'************************ Fin du Tournoi ************************\n')
         self.display_tournament_info()
         self.display_players_tournament()
         self.display_round_tournament()
