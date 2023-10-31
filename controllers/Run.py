@@ -19,6 +19,7 @@ class RunCreationTournoi:
         controller_tournoi.input_number_players_controller()
         controller_tournoi.save_tournament_info_to_json_controller()
         controller_tournoi.save_player_tournament_to_json_controller()
+
         run_instance = Run(self.tournament)
         run_instance()
 

@@ -157,8 +157,20 @@ class Tournament:
         list_tournaments = []
         for doc_id in doc_ids:
             new_tounrament = Tournament.from_tinydb(doc_id.doc_id, filename)
+            new_tounrament.update_score_players()
             list_tournaments.append(new_tounrament)
         return list_tournaments
+
+    def update_score_players(self):
+        for round in self.list_round:
+            for match in round.matchs:
+                for players in self.tournament_players:
+                    if match.player1 == players.name:
+                        players.score += match.score1
+                    if match.player2 == players.name:
+                        players.score += match.score2
+
+
 
     def save_round_tournament_to_json(self, filename):
         list_round = []
@@ -174,7 +186,7 @@ class Tournament:
         if result:
             doc_id = result[0].doc_id
             db.update({'list_doc_id_rounds': list_round}, doc_ids=[doc_id])
-            db.update({'actual_round': self.actual_round})
+            db.update({'actual_round': self.actual_round}, doc_ids=[doc_id])
         else:
             print("ERROR: Le tournoi n'existe pas!")
         db.close()
