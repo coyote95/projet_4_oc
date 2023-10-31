@@ -19,8 +19,8 @@ class TournamentController:
     def get_actual_round_controller(self):
         return self.model.get_actual_round()
 
-    def get_round_controller(self):
-        return self.model.get_tournament_rounds()
+    def get_list_rounds_controller(self):
+        return self.model.get_list_rounds()
 
     def get_remaining_players_controllers(self):
         return self.model.get_remaining_players()
@@ -85,6 +85,5 @@ class TournamentController:
         self.model.sort_players_by_score()
 
     def score_player_tournament_controller(self):
-        for personne in range(0, len(self.model)):
-            print(self.model[personne])
-            print(self.model[personne].score)
+        self.model.sort_players_by_score()
+        self.view.display_score_players()

@@ -125,7 +125,7 @@ class MenuPrincipalListPlayersController:
 
 class QuitController:
     def __call__(self, *args, **kwargs):
-        print("dans le controleur de fin")
+        print("Fin du programme")
         sys.exit()
 
 

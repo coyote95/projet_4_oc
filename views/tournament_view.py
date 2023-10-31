@@ -17,7 +17,7 @@ class TournamentView:
 
     def display_round_tournament(self):
         print(f"********     Affichage des rounds du tournoi    ******** ")
-        for item in self.tournament.get_tournament_rounds():
+        for item in self.tournament.get_list_rounds():
             print(item)
 
     def display_tournament_info(self):
@@ -108,3 +108,9 @@ class TournamentView:
             print(f"Player {tentative + 1}")
             app = controllers.menu_controllers.ApplicationController()
             app.player(self.tournament)
+
+    def display_score_players(self):
+        for personne in range(0, len(self.tournament)):
+            print(self.tournament[personne])
+            print(self.tournament[personne].score)
+
