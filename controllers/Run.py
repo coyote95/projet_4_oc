@@ -30,8 +30,8 @@ class Run:
     def __call__(self, *args, **kwargs):
         controller_tournoi = TournamentController(self.tournament)
 
-        controller_tournoi.display_tournament_info_controler()
-        controller_tournoi.display_player_tournament_controler()
+        controller_tournoi.display_tournament_info_controller()
+        controller_tournoi.display_player_tournament_controller()
 
         for tour in range(self.tournament.get_numbers_round() - self.tournament.get_actual_round()):
             controller_tournoi.sort_players_by_score_controller()

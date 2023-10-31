@@ -16,7 +16,7 @@ class RoundController:
     def add_match_controller(self, match):
         self.model.add_match(match)
 
-    def display_round_controler(self):
+    def display_round_controller(self):
         self.view.display_round()
 
     def display_match_controller(self):

@@ -25,10 +25,10 @@ class TournamentController:
     def get_remaining_players_controllers(self):
         return self.model.get_remaining_players()
 
-    def display_player_tournament_controler(self):
+    def display_player_tournament_controller(self):
         self.view.display_players_tournament()
 
-    def display_tournament_info_controler(self):
+    def display_tournament_info_controller(self):
         self.view.display_tournament_info()
 
     def display_actual_numero_round_controller(self):
