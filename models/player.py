@@ -59,21 +59,25 @@ class Player:
             (search.id_chess == self.id_chess)
         )
         if existing_player:
-            print(f"ERROR: {self.name} {self.surname} existe déjà dans le fichier{filename}.")
+            print(f"ERROR: {self.name} {self.surname} "
+                  f"existe déjà dans le fichier{filename}.")
         else:
             if score:
                 db.insert(self.dictionnary_player_score())
             else:
                 db.insert(self.dictionnary_player())
-            print(f"SAVE: {self.name} {self.surname} dans le fichier {filename}")
+            print(
+                f"SAVE: {self.name} {self.surname} dans le fichier {filename}")
         db.close()
 
     def dictionnary_player_score(self):
         return {"name": self.name, "surname": self.surname,
-                "id_chess": self.id_chess, "score": self.score, "color": self.color}
+                "id_chess": self.id_chess, "score": self.score,
+                "color": self.color}
 
     def dictionnary_player(self):
-        return {"name": self.name, "surname": self.surname, "birthday": self.birthday,
+        return {"name": self.name, "surname": self.surname,
+                "birthday": self.birthday,
                 "id_chess": self.id_chess}
 
     @staticmethod
@@ -116,7 +120,10 @@ class Player:
         if list_player_docs_id:
             list_player = []
             for doc_id in list_player_docs_id:
-                new_player = Player.from_tinydb(doc_id, filename='./data/all_players.json ', score=score)
+                new_player = Player.from_tinydb(doc_id,
+                                                filename='./data/all_players'
+                                                         '.json ',
+                                                score=score)
                 list_player.append(new_player)
             return list_player
         else:
@@ -128,7 +135,8 @@ class Player:
             os.makedirs(directory)
         db = TinyDB(filename)
         search = Query()
-        result = db.search((search.name == self.name) & (search.surname == self.surname))
+        result = db.search(
+            (search.name == self.name) & (search.surname == self.surname))
         if result:
             doc_id = result[0].doc_id
             db.close()

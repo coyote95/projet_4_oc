@@ -3,7 +3,7 @@ import views.tournament_view
 
 class TournamentController:
 
-    def __getitem__(self, choice):  # tournament[0]
+    def __getitem__(self, choice):
         return self.model[choice]
 
     def __init__(self, tournament):
@@ -67,18 +67,23 @@ class TournamentController:
         number_round = int(self.view.input_number_round())
         self.model.set_round(number_round)
 
-
-
     def input_number_players_controller(self):
         return self.view.input_number_players()
 
-    def save_player_tournament_to_json_controller(self, filename="./data/tournaments.json"):
+    def save_player_tournament_to_json_controller(self,
+                                                  filename="./data/"
+                                                           "tournaments.json"):
         self.model.save_player_tournament_to_json(filename)
 
-    def save_tournament_info_to_json_controller(self, filename="./data/tournaments.json"):
+    def save_tournament_info_to_json_controller(self,
+                                                filename="./data/"
+                                                         "tournaments.json"):
         self.model.save_tournament_info_to_json(filename)
 
-    def save_round_tournament_to_json_controller(self, filename="./data/tournaments.json"):
+    def save_round_tournament_to_json_controller(self,
+                                                 filename="./data/"
+                                                          "tournaments"
+                                                          ".json"):
         self.model.save_round_tournament_to_json(filename)
 
     def sort_players_by_score_controller(self):

@@ -6,7 +6,8 @@ class PlayerController:
         self.model = player
         self.view = PlayerView()
 
-    def save_player_controller(self, filename="./data/all_players.json", score=True):
+    def save_player_controller(self, filename="./data/all_players.json",
+                               score=True):
         self.model.save_player_to_json(filename, score)
 
     def display_db(self, filename):

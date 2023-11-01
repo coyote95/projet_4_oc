@@ -11,17 +11,17 @@ class TournamentView:
         self.display_round_tournament()
 
     def display_players_tournament(self):
-        print(f"********     Affichage des participants au tournoi      ****** ")
+        print("*******     Affichage des participants au tournoi    *******")
         for player in self.tournament.get_tournament_players():
             print(f"Nom: {player.name}    Prenom: {player.surname}")
 
     def display_round_tournament(self):
-        print(f"********     Affichage des rounds du tournoi    ******** ")
+        print("********     Affichage des rounds du tournoi    ******** ")
         for item in self.tournament.get_list_rounds():
             print(item)
 
     def display_tournament_info(self):
-        print(f"***************     Tournoi     *********\n"
+        print("***************     Tournoi     *********\n"
               f"Nom: {self.tournament.name}: \n"
               f"Place: {self.tournament.place}\n"
               f"Date de debut: {self.tournament.date_end}\n"
@@ -31,11 +31,12 @@ class TournamentView:
 
     def display_numero_round(self):
         print()
-        print(f'************************ Round numero {self.tournament.actual_round} ************************\n')
+        print(f'************************ Round numero'
+              f' {self.tournament.actual_round} ************************\n')
 
     def display_end_tournament(self):
         print()
-        print(f'************************ Fin du Tournoi ************************\n')
+        print('********************* Fin du Tournoi *********************\n')
         self.display_tournament_info()
         self.display_players_tournament()
         self.display_round_tournament()
@@ -66,7 +67,8 @@ class TournamentView:
                     print(
                         "La date saisie est invalide")
             except ValueError:
-                print("Format invalide. Assurez-vous de séparer la date par des tirets (dd-mm-yyyy).")
+                print("Format invalide. Assurez-vous de séparer la date par "
+                      "des tirets (dd-mm-yyyy).")
 
     @staticmethod
     def input_date_end():
@@ -80,26 +82,24 @@ class TournamentView:
                 else:
                     print("La date saisie est invalide")
             except ValueError:
-                print("Format invalide. Assurez-vous de séparer la date par des tirets (dd-mm-yyyy).")
+                print("Format invalide. Assurez-vous de séparer la date par "
+                      "des tirets (dd-mm-yyyy).")
 
     @staticmethod
     def input_number_round():
         print("Nombre de round:")
         while True:
             try:
-                number_round = input(">>")
-                test = int(number_round)
-                break
+                number_round = int(input(">>"))
+                return number_round
             except ValueError:
                 print("L'entrée n'est pas un entier.")
-        return number_round
 
     def input_number_players(self):
         while True:
             print("Nombre de joueurs au tournoi:")
             try:
-                nombre_participant = input(">>")
-                test = int(nombre_participant)
+                nombre_participant = int(input(">>"))
                 break
             except ValueError:
                 print("L'entrée n'est pas un entier.")
@@ -112,6 +112,6 @@ class TournamentView:
     def display_score_players(self):
         print("CLASSEMENT:")
         for personne in range(0, len(self.tournament)):
-            print(f"{self.tournament[personne]} score: {self.tournament[personne].score}")
-
-
+            print(f"{self.tournament[personne]} "
+                  f"score:"
+                  f" {self.tournament[personne].score}")

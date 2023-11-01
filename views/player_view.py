@@ -44,7 +44,8 @@ class PlayerView:
                     print(
                         "La date saisie est invalide")
             except ValueError:
-                print("Format invalide. Assurez-vous de séparer la date par des tirets  (dd-mm-yyyy).")
+                print("Format invalide. Assurez-vous de séparer la date par "
+                      "des tirets  (dd-mm-yyyy).")
 
     @staticmethod
     def input_id():

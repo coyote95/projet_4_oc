@@ -13,12 +13,17 @@ class Match:
 
     def __str__(self):
         return (
-            f"{self.player1} (color:{self.player1.color} score:{self.score1}) CONTRE {self.player2} (color:{self.player2.color} score: {self.score2})"
+            f"{self.player1} (score:{self.score1}) "
+            f"CONTRE "
+            f"{self.player2} (score: {self.score2})"
         )
 
     def __repr__(self):
         return (
-            f"Match: {self.player1} (color:{self.player1.color} score:{self.score1}) CONTRE {self.player2} (color:{self.player2.color} score: {self.score2})"
+            f"Match: "
+            f"{self.player1} (score:{self.score1}) "
+            f"CONTRE "
+            f"{self.player2} (score: {self.score2})"
         )
 
     def save_round_to_json(self, filename="save_match"):
@@ -26,7 +31,9 @@ class Match:
         db.insert(self.dictionnary_match())
 
     def dictionnary_match(self):
-        return {"date_save": self.date_save, "player1": self.player1.dictionnary_player_score(), "score1": self.score1,
+        return {"date_save": self.date_save,
+                "player1": self.player1.dictionnary_player_score(),
+                "score1": self.score1,
                 "player2": self.player2.dictionnary_player_score(),
                 "score2": self.score2}
 
@@ -56,9 +63,10 @@ class Match:
             print(f"le joueur gagant est:{winning_player}")
             self.player2_winner()
         elif winning_player == "execo":
-            print(f"Match nul!!")
+            print("Match nul!!")
             self.draw_match()
-        print(f"Nouveau score: {self.player1} (score:{self.score1}) / {self.player2} (score: {self.score2})\n ")
+        print(f"Nouveau score: {self.player1} (score:{self.score1})"
+              f" / {self.player2} (score: {self.score2})\n ")
 
     @staticmethod
     def from_tinydb_list_match_round(list_matchs_docs_id):
@@ -67,7 +75,8 @@ class Match:
         if list_matchs_docs_id:
             list_matchs = []
             for doc_id in list_matchs_docs_id:
-                new_match = Match.from_tinydb(doc_id, filename='./data/matchs.json ')
+                new_match = Match.from_tinydb(doc_id,
+                                              filename='./data/matchs.json')
                 list_matchs.append(new_match)
             return list_matchs
         else:
