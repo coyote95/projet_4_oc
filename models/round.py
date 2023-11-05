@@ -80,6 +80,7 @@ class Round:
             db.update({"list_doc_id_matchs": list_matchs},
                       doc_ids=[doc_id])
         else:
+            print("DEBUG")
             print("ERROR: Le tournoi n'existe pas!")
         db.close()
 

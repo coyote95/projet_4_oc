@@ -57,16 +57,12 @@ class Match:
 
     def winner(self, winning_player):
         if winning_player == self.player1:
-            print(f"le joueur gagant est:{winning_player}")
             self.player1_winner()
         elif winning_player == self.player2:
-            print(f"le joueur gagant est:{winning_player}")
             self.player2_winner()
         elif winning_player == "execo":
-            print("Match nul!!")
             self.draw_match()
-        print(f"Nouveau score: {self.player1} (score:{self.score1})"
-              f" / {self.player2} (score: {self.score2})\n ")
+
 
     @staticmethod
     def from_tinydb_list_match_round(list_matchs_docs_id):

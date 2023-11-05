@@ -13,10 +13,10 @@ class PlayerView:
 
     @staticmethod
     def display_player(player):
-        print(f"Nom:{player.get_name()}\t"
-              f"Prenom:{player.get_surname()}\t"
-              f"Date de naissance:{player.get_birthday()}\t"
-              f"ID_chess:{player.get_id_chess()}\t"
+        print(f"Nom:{player.get_name()}    "
+              f"Prenom:{player.get_surname()}    "
+              f"Date de naissance:{player.get_birthday()}    "
+              f"ID_chess:{player.get_id_chess()}"
               )
 
     @staticmethod

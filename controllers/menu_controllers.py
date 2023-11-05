@@ -1,3 +1,4 @@
+import controllers.player_controllers
 from models.player import Player
 from models.tournament import Tournament
 from models.menu import Menu
@@ -5,6 +6,7 @@ from views.menu_view import HomeMenuView
 from views.tournament_view import TournamentView
 from controllers.player_controllers import PlayerController
 from controllers.Run import Run, RunCreationTournoi
+from controllers.match_controllers import MatchController
 import sys
 
 
@@ -22,13 +24,13 @@ class ApplicationController:
 
     def choixgagnantmatch(self, match):
         self.match = match
-        self.controller = MenuChoixgagnantPlayerController(self.match)
+        self.controller = MenuChoiceWinnerPlayerController(self.match)
         while self.controller:
             self.controller = self.controller()
 
     def choixjouerleround(self, game_round):
         self.round = game_round
-        self.controller = MenuChoixJouerleRound(self.round)
+        self.controller = MenuChoicePlayRound(self.round)
         while self.controller:
             self.controller = self.controller()
 
@@ -103,7 +105,6 @@ class MenuReprendreTournamentController:
 
 
 class MenuPrincipalListPlayersController:
-
     def __init__(self):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)
@@ -112,10 +113,14 @@ class MenuPrincipalListPlayersController:
         self.view.display_message_list_players()
         list_player = Player.from_tinydb_all("./data/all_players.json",
                                              False)
-        i = 1
-        for player in list_player:
-            print(f"{i}: {player}")
-            i += 1
+
+        sorted_players = sorted(list_player,
+                                key=lambda player_class: player_class.name)
+        for player in sorted_players:
+            player_controller = \
+                controllers.player_controllers.PlayerController(player)
+            player_controller.display_player_controller()
+
         self.menu.add("r", "Retour", HomeMenuController())
         self.menu.add("q", "Quitter", QuitController())
         user_choice = self.view.get_user_choice()
@@ -209,29 +214,32 @@ class ManuelPlayer:
         self.tournament.add_tournament_player(player)
 
 
-class MenuChoixgagnantPlayerController:
+class MenuChoiceWinnerPlayerController:
     def __init__(self, match):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)
         self.match = match
 
     def __call__(self, *args, **kwargs):
+        match_controller = MatchController(self.match)
         self.view.display_message_gagnant()
         self.menu.add("auto",
                       f"Joueur1: {self.match.player1.name}"
                       f" {self.match.player1.surname}",
-                      lambda: self.match.winner(self.match.player1))
+                      lambda: match_controller.winner_controller(
+                          self.match.player1))
         self.menu.add("auto",
                       f"Joueur2: {self.match.player2.name}"
                       f" {self.match.player2.surname}",
-                      lambda: self.match.winner(self.match.player2))
+                      lambda: match_controller.winner_controller(
+                          self.match.player2))
         self.menu.add("auto", "match null",
-                      lambda: self.match.winner("execo"))
+                      lambda: match_controller.winner_controller("execo"))
         user_choice = self.view.get_user_choice()
         return user_choice.handler
 
 
-class MenuChoixJouerleRound:
+class MenuChoicePlayRound:
     def __init__(self, game_round):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)

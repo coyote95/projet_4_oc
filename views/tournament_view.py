@@ -12,7 +12,9 @@ class TournamentView:
 
     def display_players_tournament(self):
         print("*******     Affichage des participants au tournoi    *******")
-        for player in self.tournament.get_tournament_players():
+        sorted_players = sorted(self.tournament.get_tournament_players(),
+                                key=lambda player_class: player_class.name)
+        for player in sorted_players:
             print(f"Nom: {player.name}    Prenom: {player.surname}")
 
     def display_round_tournament(self):

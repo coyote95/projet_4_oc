@@ -170,8 +170,8 @@ class Tournament:
         return list_tournaments
 
     def update_score_players(self):
-        for round in self.list_round:
-            for match in round.matchs:
+        for game_round in self.list_round:
+            for match in game_round.matchs:
                 for players in self.tournament_players:
                     if match.player1 == players.name:
                         players.score += match.score1
@@ -197,6 +197,7 @@ class Tournament:
             db.update({'actual_round': self.actual_round},
                       doc_ids=[doc_id])
         else:
+            print("DEBUG")
             print("ERROR: Le tournoi n'existe pas!")
         db.close()
 

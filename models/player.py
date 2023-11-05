@@ -59,6 +59,7 @@ class Player:
             (search.id_chess == self.id_chess)
         )
         if existing_player:
+            print("DEBUG")
             print(f"ERROR: {self.name} {self.surname} "
                   f"existe déjà dans le fichier{filename}.")
         else:
@@ -66,6 +67,7 @@ class Player:
                 db.insert(self.dictionnary_player_score())
             else:
                 db.insert(self.dictionnary_player())
+            print("DEBUG")
             print(
                 f"SAVE: {self.name} {self.surname} dans le fichier {filename}")
         db.close()
