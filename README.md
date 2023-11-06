@@ -1,6 +1,6 @@
 # Projet 4 OpenClassrooms: Develop a software program in Python
 
-Creating a chess tournament manager that allows creating a new tournament, resuming a tournament, and viewing registered players and tournaments.
+Creating a chess tournament manager with en MVC architecture that allows creating a new tournament, resuming a tournament, and viewing registered players and tournaments.
 
 ## Installation
 
