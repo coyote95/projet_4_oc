@@ -1,13 +1,14 @@
+import sys
+
 import controllers.player_controllers
-from models.player import Player
-from models.tournament import Tournament
-from models.menu import Menu
-from views.menu_view import HomeMenuView
-from views.tournament_view import TournamentView
+from controllers.match_controllers import MatchController
 from controllers.player_controllers import PlayerController
 from controllers.Run import Run, RunCreationTournoi
-from controllers.match_controllers import MatchController
-import sys
+from models.menu import Menu
+from models.player import Player
+from models.tournament import Tournament
+from views.menu_view import HomeMenuView
+from views.tournament_view import TournamentView
 
 
 class ApplicationController:
@@ -50,14 +51,12 @@ class HomeMenuController:
     def __call__(self, *args, **kwargs):
         self.view.display_message_accueil()
         # 1.construire un menu
-        self.menu.add("auto", "Création nouveau tournoi",
-                      RunCreationTournoi())
-        self.menu.add("auto", "Reprendre tournoi",
-                      MenuReprendreTournamentController())
-        self.menu.add("auto", "Résultat ancien tournoi",
-                      MenulisteTournamentController())
-        self.menu.add("auto", "Liste des joueurs",
-                      MenuPrincipalListPlayersController())
+        self.menu.add("auto", "Création nouveau tournoi", RunCreationTournoi())
+        self.menu.add("auto", "Reprendre tournoi", MenuReprendreTournamentController())
+        self.menu.add(
+            "auto", "Résultat ancien tournoi", MenulisteTournamentController()
+        )
+        self.menu.add("auto", "Liste des joueurs", MenuPrincipalListPlayersController())
         self.menu.add("q", "Quitter", QuitController())
         user_choice = self.view.get_user_choice()
         return user_choice.handler
@@ -71,10 +70,14 @@ class PlayerMenuController:
 
     def __call__(self, *args, **kwargs):
         # 1.construire un menu
-        self.menu.add("auto", "Ajouter joueur depuis la liste",
-                      MenulistePlayerController(self.tournament))
-        self.menu.add("auto", "Ajouter joueur manuellement",
-                      ManuelPlayer(self.tournament))
+        self.menu.add(
+            "auto",
+            "Ajouter joueur depuis la liste",
+            MenulistePlayerController(self.tournament),
+        )
+        self.menu.add(
+            "auto", "Ajouter joueur manuellement", ManuelPlayer(self.tournament)
+        )
         user_choice = self.view.get_user_choice()
         return user_choice.handler
 
@@ -87,15 +90,15 @@ class MenuReprendreTournamentController:
     def __call__(self, *args, **kwargs):
         self.view.display_message_reprendre_tournoi()
 
-        list_tournaments = Tournament.from_tinydb_all("./data/tournaments"
-                                                      ".json")
+        list_tournaments = Tournament.from_tinydb_all("./data/tournaments" ".json")
 
         for tournament in list_tournaments:
-            if not (tournament.get_numbers_round() ==
-                    tournament.get_actual_round()):
-                self.menu.add("auto", f"Nom: {tournament.get_name()}"
-                                      f" Place: {tournament.get_place()}",
-                              Run(tournament))
+            if not (tournament.get_numbers_round() == tournament.get_actual_round()):
+                self.menu.add(
+                    "auto",
+                    f"Nom: {tournament.get_name()}" f" Place: {tournament.get_place()}",
+                    Run(tournament),
+                )
 
         self.menu.add("r", "Retour", HomeMenuController())
         self.menu.add("q", "Quitter", QuitController())
@@ -111,14 +114,11 @@ class MenuPrincipalListPlayersController:
 
     def __call__(self, *args, **kwargs):
         self.view.display_message_list_players()
-        list_player = Player.from_tinydb_all("./data/all_players.json",
-                                             False)
+        list_player = Player.from_tinydb_all("./data/all_players.json", False)
 
-        sorted_players = sorted(list_player,
-                                key=lambda player_class: player_class.name)
+        sorted_players = sorted(list_player, key=lambda player_class: player_class.name)
         for player in sorted_players:
-            player_controller = \
-                controllers.player_controllers.PlayerController(player)
+            player_controller = controllers.player_controllers.PlayerController(player)
             player_controller.display_player_controller()
 
         self.menu.add("r", "Retour", HomeMenuController())
@@ -146,11 +146,9 @@ class MenulistePlayerController:
 
     def __call__(self, *args, **kwargs):
         self.view.display_message_list_players()
-        list_player = Player.from_tinydb_all(
-            "./data/all_players.json", False)
+        list_player = Player.from_tinydb_all("./data/all_players.json", False)
         for player in list_player:
-            self.menu.add("auto", f"{player}",
-                          Addplayer(player, self.tournament))
+            self.menu.add("auto", f"{player}", Addplayer(player, self.tournament))
         user_choice = self.view.get_user_choice()
         print(user_choice)
         return user_choice.handler
@@ -163,12 +161,13 @@ class MenulisteTournamentController:
 
     def __call__(self, *args, **kwargs):
         self.view.display_message_liste_tournoi()
-        list_tournaments = Tournament.from_tinydb_all(
-            "./data/tournaments.json")
+        list_tournaments = Tournament.from_tinydb_all("./data/tournaments.json")
         for tournament in list_tournaments:
-            self.menu.add("auto", f"Nom: {tournament.get_name()}"
-                                  f" Place: {tournament.get_place()}",
-                          MenuInfoTournamentReturnController(tournament))
+            self.menu.add(
+                "auto",
+                f"Nom: {tournament.get_name()}" f" Place: {tournament.get_place()}",
+                MenuInfoTournamentReturnController(tournament),
+            )
         self.menu.add("r", "Retour", HomeMenuController())
         self.menu.add("q", "Quitter", QuitController())
         user_choice = self.view.get_user_choice()
@@ -209,8 +208,8 @@ class ManuelPlayer:
         player = Player(None, None, None, None)
         PlayerController(player).creation_player()
         PlayerController(player).save_player_controller(
-            filename="./data/all_players.json",
-            score=False)
+            filename="./data/all_players.json", score=False
+        )
         self.tournament.add_tournament_player(player)
 
 
@@ -223,18 +222,19 @@ class MenuChoiceWinnerPlayerController:
     def __call__(self, *args, **kwargs):
         match_controller = MatchController(self.match)
         self.view.display_message_gagnant()
-        self.menu.add("auto",
-                      f"Joueur1: {self.match.player1.name}"
-                      f" {self.match.player1.surname}",
-                      lambda: match_controller.winner_controller(
-                          self.match.player1))
-        self.menu.add("auto",
-                      f"Joueur2: {self.match.player2.name}"
-                      f" {self.match.player2.surname}",
-                      lambda: match_controller.winner_controller(
-                          self.match.player2))
-        self.menu.add("auto", "match null",
-                      lambda: match_controller.winner_controller("execo"))
+        self.menu.add(
+            "auto",
+            f"Joueur1: {self.match.player1.name}" f" {self.match.player1.surname}",
+            lambda: match_controller.winner_controller(self.match.player1),
+        )
+        self.menu.add(
+            "auto",
+            f"Joueur2: {self.match.player2.name}" f" {self.match.player2.surname}",
+            lambda: match_controller.winner_controller(self.match.player2),
+        )
+        self.menu.add(
+            "auto", "match null", lambda: match_controller.winner_controller("execo")
+        )
         user_choice = self.view.get_user_choice()
         return user_choice.handler
 

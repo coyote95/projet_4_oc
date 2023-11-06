@@ -2,7 +2,6 @@ from tinydb import TinyDB
 
 
 class PlayerView:
-
     @staticmethod
     def view_player_bd(filename):
         db = TinyDB(filename)
@@ -13,11 +12,12 @@ class PlayerView:
 
     @staticmethod
     def display_player(player):
-        print(f"Nom:{player.get_name()}    "
-              f"Prenom:{player.get_surname()}    "
-              f"Date de naissance:{player.get_birthday()}    "
-              f"ID_chess:{player.get_id_chess()}"
-              )
+        print(
+            f"Nom:{player.get_name()}    "
+            f"Prenom:{player.get_surname()}    "
+            f"Date de naissance:{player.get_birthday()}    "
+            f"ID_chess:{player.get_id_chess()}"
+        )
 
     @staticmethod
     def input_name():
@@ -37,15 +37,16 @@ class PlayerView:
             print("Date d'anniversaire: dd-mm-yyyy")
             birthday = input(">>")
             try:
-                jour, mois, annee = map(int, birthday.split('-'))
+                jour, mois, annee = map(int, birthday.split("-"))
                 if 1 <= jour <= 31 and 1 <= mois <= 12 and 1900 <= annee:
                     return birthday
                 else:
-                    print(
-                        "La date saisie est invalide")
+                    print("La date saisie est invalide")
             except ValueError:
-                print("Format invalide. Assurez-vous de séparer la date par "
-                      "des tirets  (dd-mm-yyyy).")
+                print(
+                    "Format invalide. Assurez-vous de séparer la date par "
+                    "des tirets  (dd-mm-yyyy)."
+                )
 
     @staticmethod
     def input_id():

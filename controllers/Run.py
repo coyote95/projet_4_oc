@@ -1,18 +1,17 @@
-import controllers.menu_controllers
-from models.tournament import Tournament
-from models.round import Round
-from models.match import Match
-from controllers.tournamenent_controllers import TournamentController
-from controllers.round_controllers import RoundController
-from controllers.match_controllers import MatchController
-
 from datetime import datetime
+
+import controllers.menu_controllers
+from controllers.match_controllers import MatchController
+from controllers.round_controllers import RoundController
+from controllers.tournamenent_controllers import TournamentController
+from models.match import Match
+from models.round import Round
+from models.tournament import Tournament
 
 
 class RunCreationTournoi:
     def __init__(self):
-        self.tournament = Tournament(None, None, None,
-                                     None)
+        self.tournament = Tournament(None, None, None, None)
 
     def __call__(self, *args, **kwargs):
         controller_tournoi = TournamentController(self.tournament)
@@ -35,33 +34,35 @@ class Run:
         controller_tournoi.display_tournament_info_controller()
         controller_tournoi.display_player_tournament_controller()
 
-        for tour in range(self.tournament.get_numbers_round() -
-                          self.tournament.get_actual_round()):
+        for tour in range(
+            self.tournament.get_numbers_round() - self.tournament.get_actual_round()
+        ):
             controller_tournoi.sort_players_by_score_controller()
 
             controller_tournoi.increment_actual_round_controller()
             controller_tournoi.display_actual_numero_round_controller()
 
             round_tournament = Round(
-                name="Round " + controller_tournoi.get_name_controller())
+                name="Round " + controller_tournoi.get_name_controller()
+            )
             controller_round = RoundController(round_tournament)
             controller_round.set_numero_controller(
-                controller_tournoi.get_actual_round_controller())
-            controller_round.set_date_save_controller(
-                datetime.now().isoformat())
+                controller_tournoi.get_actual_round_controller()
+            )
+            controller_round.set_date_save_controller(datetime.now().isoformat())
 
             app = controllers.menu_controllers.ApplicationController()
             app.choixjouerleround(round_tournament)
 
-            creation_pair_match_instance = CreationPairMatch(self.tournament,
-                                                             round_tournament)
+            creation_pair_match_instance = CreationPairMatch(
+                self.tournament, round_tournament
+            )
             creation_pair_match_instance()
 
             continuer_round_instance = AskContinuerRoundRun(round_tournament)
             continuer_round_instance()
 
-            controller_tournoi.add_list_tournament_round_controller(
-                round_tournament)
+            controller_tournoi.add_list_tournament_round_controller(round_tournament)
 
             score_instance = UpdateScoreRun(self.tournament, round_tournament)
             score_instance()
@@ -98,13 +99,11 @@ class UpdateScoreRun:
         self.round = round_game
 
     def __call__(self, *args, **kwargs):
-
         controller_round = RoundController(self.round)
         contoller_tournament = TournamentController(self.tournament)
 
         for match in controller_round.get_match_controller():
-            for players in (
-                    contoller_tournament.get_tournament_players_controller()):
+            for players in contoller_tournament.get_tournament_players_controller():
                 if match.player1.name == players.name:
                     players.score += match.score1
                 if match.player2.name == players.name:
@@ -117,7 +116,6 @@ class CreationPairMatch:
         self.round = round_game
 
     def __call__(self, *args, **kwargs):
-
         controller_round = RoundController(self.round)
         contoller_tournament = TournamentController(self.tournament)
 
@@ -126,27 +124,30 @@ class CreationPairMatch:
             for match in round_game.matchs:
                 pairs_history.append((match.player1, match.player2))
 
-        remaining_players =\
-            contoller_tournament.get_remaining_players_controllers()
+        remaining_players = contoller_tournament.get_remaining_players_controllers()
 
         while len(remaining_players) >= 2:
             player1 = remaining_players.pop(0)
             player2 = None
             for other_player in remaining_players:
                 if (player1, other_player) not in pairs_history and (
-                        other_player, player1) not in pairs_history:
+                    other_player,
+                    player1,
+                ) not in pairs_history:
                     player2 = other_player
                     remaining_players.remove(player2)
-                    new_match = Match(player1, player2,
-                                      date_save=datetime.now().isoformat())
+                    new_match = Match(
+                        player1, player2, date_save=datetime.now().isoformat()
+                    )
                     new_match.random_color()
                     controller_round.add_match_controller(new_match)
                     pairs_history.append((player1, player2))
                     break
             if player2 is None:
                 player2 = remaining_players.pop(0)
-                new_match = Match(player1, player2,
-                                  date_save=datetime.now().isoformat())
+                new_match = Match(
+                    player1, player2, date_save=datetime.now().isoformat()
+                )
                 new_match.random_color()
                 controller_round.add_match_controller(new_match)
                 pairs_history.append((player1, player2))

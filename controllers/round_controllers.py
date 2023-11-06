@@ -2,7 +2,6 @@ from views.round_view import RoundView
 
 
 class RoundController:
-
     def __init__(self, round_game):
         self.model = round_game
         self.view = RoundView(self.model)
@@ -34,6 +33,5 @@ class RoundController:
     def save_round_to_json_controller(self, filename="./data/rounds.json"):
         self.model.save_round_to_json(filename)
 
-    def save_match_round_to_json_controller(self,
-                                            filename="./data/rounds.json"):
+    def save_match_round_to_json_controller(self, filename="./data/rounds.json"):
         self.model.save_match_round_to_json(filename)

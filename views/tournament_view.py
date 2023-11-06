@@ -12,8 +12,10 @@ class TournamentView:
 
     def display_players_tournament(self):
         print("*******     Affichage des participants au tournoi    *******")
-        sorted_players = sorted(self.tournament.get_tournament_players(),
-                                key=lambda player_class: player_class.name)
+        sorted_players = sorted(
+            self.tournament.get_tournament_players(),
+            key=lambda player_class: player_class.name,
+        )
         for player in sorted_players:
             print(f"Nom: {player.name}    Prenom: {player.surname}")
 
@@ -23,22 +25,25 @@ class TournamentView:
             print(item)
 
     def display_tournament_info(self):
-        print("***************     Tournoi     *********\n"
-              f"Nom: {self.tournament.name}: \n"
-              f"Place: {self.tournament.place}\n"
-              f"Date de debut: {self.tournament.date_end}\n"
-              f"Date de fin: {self.tournament.date_end}\n"
-              f"Nombre de round total:{self.tournament.numbers_round}"
-              )
+        print(
+            "***************     Tournoi     *********\n"
+            f"Nom: {self.tournament.name}: \n"
+            f"Place: {self.tournament.place}\n"
+            f"Date de debut: {self.tournament.date_start}\n"
+            f"Date de fin: {self.tournament.date_end}\n"
+            f"Nombre de round total:{self.tournament.numbers_round}"
+        )
 
     def display_numero_round(self):
         print()
-        print(f'************************ Round numero'
-              f' {self.tournament.actual_round} ************************\n')
+        print(
+            f"************************ Round numero"
+            f" {self.tournament.actual_round} ************************\n"
+        )
 
     def display_end_tournament(self):
         print()
-        print('********************* Fin du Tournoi *********************\n')
+        print("********************* Fin du Tournoi *********************\n")
         self.display_tournament_info()
         self.display_players_tournament()
         self.display_round_tournament()
@@ -62,15 +67,16 @@ class TournamentView:
             print("Date de debut du tournoi (dd-mm-yyyy):")
             start_date = input(">>")
             try:
-                jour, mois, annee = map(int, start_date.split('-'))
+                jour, mois, annee = map(int, start_date.split("-"))
                 if 1 <= jour <= 31 and 1 <= mois <= 12 and 1900 <= annee:
                     return start_date
                 else:
-                    print(
-                        "La date saisie est invalide")
+                    print("La date saisie est invalide")
             except ValueError:
-                print("Format invalide. Assurez-vous de séparer la date par "
-                      "des tirets (dd-mm-yyyy).")
+                print(
+                    "Format invalide. Assurez-vous de séparer la date par "
+                    "des tirets (dd-mm-yyyy)."
+                )
 
     @staticmethod
     def input_date_end():
@@ -78,14 +84,16 @@ class TournamentView:
             print("Date de fin du tournoi (dd-mm-yyyy):")
             end_date = input(">>")
             try:
-                jour, mois, annee = map(int, end_date.split('-'))
+                jour, mois, annee = map(int, end_date.split("-"))
                 if 1 <= jour <= 31 and 1 <= mois <= 12 and 1900 <= annee:
                     return end_date
                 else:
                     print("La date saisie est invalide")
             except ValueError:
-                print("Format invalide. Assurez-vous de séparer la date par "
-                      "des tirets (dd-mm-yyyy).")
+                print(
+                    "Format invalide. Assurez-vous de séparer la date par "
+                    "des tirets (dd-mm-yyyy)."
+                )
 
     @staticmethod
     def input_number_round():
@@ -114,6 +122,8 @@ class TournamentView:
     def display_score_players(self):
         print("CLASSEMENT:")
         for personne in range(0, len(self.tournament)):
-            print(f"{self.tournament[personne]} "
-                  f"score:"
-                  f" {self.tournament[personne].score}")
+            print(
+                f"{self.tournament[personne]} "
+                f"score:"
+                f" {self.tournament[personne].score}"
+            )

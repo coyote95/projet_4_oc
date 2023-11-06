@@ -1,13 +1,23 @@
-from tinydb import TinyDB, Query
+import os
+
+from tinydb import Query, TinyDB
+
 from models.player import Player
 from models.round import Round
-import os
 
 
 class Tournament:
-    def __init__(self, name, place, date_start, date_end, numbers_round=4,
-                 actual_round=0, list_players=None,
-                 list_round=None):
+    def __init__(
+        self,
+        name,
+        place,
+        date_start,
+        date_end,
+        numbers_round=4,
+        actual_round=0,
+        list_players=None,
+        list_round=None,
+    ):
         if list_players is None:
             list_players = []
         if list_round is None:
@@ -106,12 +116,10 @@ class Tournament:
             os.makedirs(directory)
         db = TinyDB(filename)
         search = Query()
-        result = db.search((search.name == self.name) &
-                           (search.place == self.place))
+        result = db.search((search.name == self.name) & (search.place == self.place))
         if result:
             doc_id = result[0].doc_id
-            db.update({'list_doc_id_players': list_player},
-                      doc_ids=[doc_id])
+            db.update({"list_doc_id_players": list_player}, doc_ids=[doc_id])
         else:
             print("ERROR: Le tournoi n'existe pas!")
         db.close()
@@ -122,8 +130,7 @@ class Tournament:
             os.makedirs(directory)
         db = TinyDB(filename)
         search = Query()
-        result = db.search((search.name == self.name) &
-                           (search.place == self.place))
+        result = db.search((search.name == self.name) & (search.place == self.place))
         if result:
             doc_id = result[0].doc_id
             db.update(self.dictionnary_tournament(), doc_ids=[doc_id])
@@ -132,34 +139,41 @@ class Tournament:
         db.close()
 
     def dictionnary_tournament(self):
-        return {"name": self.name, "place": self.place,
-                "date_start": self.date_start, "date_end": self.date_end,
-                "actual_round": self.actual_round,
-                "number_round": self.numbers_round,
-                "list_doc_id_players": None, "list_doc_id_rounds": None}
+        return {
+            "name": self.name,
+            "place": self.place,
+            "date_start": self.date_start,
+            "date_end": self.date_end,
+            "actual_round": self.actual_round,
+            "number_round": self.numbers_round,
+            "list_doc_id_players": None,
+            "list_doc_id_rounds": None,
+        }
 
     @staticmethod
-    def from_tinydb(numero, filename='./tournoi/tournaments.json'):
+    def from_tinydb(numero, filename="./tournoi/tournaments.json"):
         db = TinyDB(filename)
         tournement_data = db.get(doc_id=numero)
         if tournement_data:
             return Tournament(
-                tournement_data['name'],
-                tournement_data['place'],
-                tournement_data['date_start'],
-                tournement_data['date_end'],
-                tournement_data['number_round'],
-                tournement_data['actual_round'],
+                tournement_data["name"],
+                tournement_data["place"],
+                tournement_data["date_start"],
+                tournement_data["date_end"],
+                tournement_data["number_round"],
+                tournement_data["actual_round"],
                 Player.from_tinydb_list_player_tournement(
-                    tournement_data["list_doc_id_players"]),
+                    tournement_data["list_doc_id_players"]
+                ),
                 Round.from_tinydb_list_round_tournement(
-                    tournement_data["list_doc_id_rounds"])
+                    tournement_data["list_doc_id_rounds"]
+                ),
             )
         else:
             return None
 
     @staticmethod
-    def from_tinydb_all(filename='./tournoi/tournaments.json'):
+    def from_tinydb_all(filename="./tournoi/tournaments.json"):
         db = TinyDB(filename)
         doc_ids = db.all()
         list_tournaments = []
@@ -188,14 +202,11 @@ class Tournament:
             os.makedirs(directory)
         db = TinyDB(filename)
         search = Query()
-        result = db.search((search.name == self.name) &
-                           (search.place == self.place))
+        result = db.search((search.name == self.name) & (search.place == self.place))
         if result:
             doc_id = result[0].doc_id
-            db.update({'list_doc_id_rounds': list_round},
-                      doc_ids=[doc_id])
-            db.update({'actual_round': self.actual_round},
-                      doc_ids=[doc_id])
+            db.update({"list_doc_id_rounds": list_round}, doc_ids=[doc_id])
+            db.update({"actual_round": self.actual_round}, doc_ids=[doc_id])
         else:
             print("DEBUG")
             print("ERROR: Le tournoi n'existe pas!")
@@ -203,9 +214,13 @@ class Tournament:
 
     def sort_players_by_score(self):
         for personne in range(0, len(self.tournament_players)):
-            self.set_tournament_players(sorted(self.tournament_players,
-                                               key=lambda player: player.score,
-                                               reverse=True))
+            self.set_tournament_players(
+                sorted(
+                    self.tournament_players,
+                    key=lambda player: player.score,
+                    reverse=True,
+                )
+            )
 
     def get_remaining_players(self):
         remaining_players = [player for player in self.tournament_players]
