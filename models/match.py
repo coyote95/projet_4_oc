@@ -63,7 +63,6 @@ class Match:
         elif winning_player == "execo":
             self.draw_match()
 
-
     @staticmethod
     def from_tinydb_list_match_round(list_matchs_docs_id):
         if isinstance(list_matchs_docs_id, int):

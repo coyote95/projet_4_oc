@@ -16,6 +16,6 @@ class MatchController:
     def random_color_controller(self):
         self.model.random_color()
 
-    def winner_controller(self,winning_player):
+    def winner_controller(self, winning_player):
         self.model.winner(winning_player)
         self.view.display_winner(winning_player)
