@@ -3,6 +3,13 @@ class HomeMenuView:
         self.menu = menu
 
     def _display_menu(self):
+        """
+        Display the menu options to the user.
+        This method iterates through the menu items and prints the available options to the user,
+         along with their corresponding keys.
+        Returns:
+            None
+        """
         for key, entry in self.menu.items():
             print(f"{key}: {entry.option}")
 
@@ -36,12 +43,16 @@ class HomeMenuView:
         print("*****  Reprendre tournoi  ******")
 
     def get_user_choice(self):
+        """
+        Get the user's choice from the menu.
+        This method displays the menu to the user, prompts them to make a choice,
+        and validates the choice.
+        Returns:
+            callable or None: The selected menu option, which is a callable function,
+             or None if the choice is invalid.
+        """
         while True:
-            # afficher le menu à l'utilisateur
             self._display_menu()
-            # demander à l'utilisateur de faire un choix
             choice = input(">> ")
-            # valider le choix de l'utilisateur
             if choice in self.menu:
-                # retourner le choix de l'utilisateur
                 return self.menu[choice]
