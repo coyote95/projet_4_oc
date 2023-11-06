@@ -106,6 +106,16 @@ class Tournament:
         self.actual_round += 1
 
     def save_player_tournament_to_json(self, filename):
+        """
+        Save the player tournament data, including a list of player document IDs, to a TinyDB database.
+
+        Parameters:
+        - filename: The path to the TinyDB database file where the player tournament data will be saved.
+
+        This method creates or updates a record in the TinyDB database for the tournament,
+        including the list of document IDs of the players associated with the tournament.
+        The record is identified based on the tournament name and place.
+        """
         list_player = []
         for player in self.tournament_players:
             if isinstance(player, Player):
@@ -125,6 +135,17 @@ class Tournament:
         db.close()
 
     def save_tournament_info_to_json(self, filename):
+        """
+        Save the tournament information to a TinyDB database.
+
+        Parameters:
+        - filename: The path to the TinyDB database file where the tournament information will be saved.
+
+        This method creates or updates a record in the TinyDB database for the tournament,
+        using the information provided bythe 'dictionnary_tournament' method. The record is identified
+        based on the tournament name and place.
+        """
+
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -152,6 +173,23 @@ class Tournament:
 
     @staticmethod
     def from_tinydb(numero, filename="./tournoi/tournaments.json"):
+        """
+        Create a Tournament object from data in a TinyDB database using its unique document ID.
+
+        Parameters:
+        - numero: An integer representing the unique document ID in the TinyDB database.
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./tournoi/tournaments.json".
+
+        Returns:
+        - A Tournament object created from the data in the TinyDB document with the specified ID,
+         or None if the document is not found.
+
+        This method retrieves tournament data from the TinyDB database using the specified document ID.
+        It then creates a Tournament object based on the retrieved data, including attributes like name, place,
+        start date, end date, number of rounds, actual round,a list of associated player document IDs,
+        and a list of associated round document IDs.
+        If the document is not found, None is returned.
+        """
         db = TinyDB(filename)
         tournement_data = db.get(doc_id=numero)
         if tournement_data:
@@ -174,6 +212,19 @@ class Tournament:
 
     @staticmethod
     def from_tinydb_all(filename="./tournoi/tournaments.json"):
+        """
+        Create a list of Tournament objects from data in all documents in a TinyDB database.
+
+        Parameters:
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./tournoi/tournaments.json".
+        Returns:
+        - A list of Tournament objects created from the data in all documents in the TinyDB database.
+
+        This method retrieves all tournament data from the TinyDB database and creates Tournament objects
+        for each document.
+        It also updates the scores of players associated with each tournament.The created list may include
+         tournament attributes such as name, place, start date, end date, number of rounds, and more.
+        """
         db = TinyDB(filename)
         doc_ids = db.all()
         list_tournaments = []
@@ -193,6 +244,17 @@ class Tournament:
                         players.score += match.score2
 
     def save_round_tournament_to_json(self, filename):
+        """
+        Save the round tournament data, including a list of round document IDs and the actual round number,
+        to a TinyDB database.
+
+        Parameters:
+        - filename: The path to the TinyDB database file where the round tournament data will be saved.
+
+        This method creates or updates a record in the TinyDB database for the tournament,
+        including the list of document IDs of the rounds and the actual round number.
+        The record is identified based on the tournament name and place.
+        """
         list_round = []
         for game_round in self.list_round:
             if isinstance(game_round, Round):

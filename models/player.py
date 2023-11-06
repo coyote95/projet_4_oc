@@ -87,6 +87,19 @@ class Player:
 
     @staticmethod
     def from_tinydb(numero, filename="./data/all_players.json", score=True):
+        """
+        Create a Player object from data in a TinyDB database.
+
+        Parameters:
+        - numero: An integer representing the unique document ID in the TinyDB database.
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./data/all_players.json".
+        - score: (Optional) A boolean indicating whether to include the player's score. Defaults to True.
+
+        Returns:
+        - A Player object created from the data in the TinyDB document with the
+         specified ID, or None if the document is not found.
+
+        """
         db = TinyDB(filename)
         player_data = db.get(doc_id=numero)
         if player_data:
@@ -110,6 +123,17 @@ class Player:
 
     @staticmethod
     def from_tinydb_all(filename="./tournoi/players.json", score=True):
+        """
+        Create a list of Player objects from data in all documents in a TinyDB database.
+
+        Parameters:
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./tournoi/players.json".
+        - score: (Optional) A boolean indicating whether to include the player's score. Defaults to True.
+
+        Returns:
+        - A list of Player objects created from the data in all documents in the TinyDB database,
+         or an empty list if no documents are found.
+        """
         db = TinyDB(filename)
         doc_ids = db.all()
         list_player = []
@@ -120,6 +144,19 @@ class Player:
 
     @staticmethod
     def from_tinydb_list_player_tournement(list_player_docs_id, score=False):
+        """
+        Create a list of Player objects from TinyDB documents based on their IDs for a tournament.
+
+        Parameters:
+        - list_player_docs_id: An integer or a list of integers representing document IDs in the TinyDB database.
+        - score: (Optional) A boolean indicating whether to include the player's score. Defaults to False.
+
+        Returns:
+        - A list of Player objects created from the TinyDB documents with the specified IDs,
+         or None if the input list is empty.
+
+        If a single integer is provided as the input, it is automatically converted into a list with one element.
+        """
         if isinstance(list_player_docs_id, int):
             list_player_docs_id = [list_player_docs_id]
         if list_player_docs_id:
@@ -134,6 +171,20 @@ class Player:
             return None
 
     def find_doc_id_player(self, filename="./data/all_players.json"):
+        """
+        Find the document ID of a player in the TinyDB database based on their name and surname.
+
+        Parameters:
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./data/all_players.json".
+
+        Returns:
+        - The document ID of the player in the TinyDB database with matching name and surname,
+         or None if no matching document is found.
+
+        This method searches for a player in the TinyDB database by matching
+        their name and surname. If a matching document is found, its document ID is returned.
+        If no matching document is found, None is returned.
+        """
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)

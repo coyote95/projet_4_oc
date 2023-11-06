@@ -58,6 +58,17 @@ class Round:
         db.insert(self.dictionnary_round())
 
     def save_match_round_to_json(self, filename):
+        """
+        Save the match round data, including a list of match document IDs, to a TinyDB database.
+
+        Parameters:
+        - filename: The path to the TinyDB database file where the match round data will be saved.
+
+        This method creates or updates a record in the TinyDB database for the tournament, including the
+         list of document IDs of the matches associated with the tournament.
+        If a record for the tournament already exists, it is updated; otherwise, a new record is created.
+        The record is identified based on the tournament name, round number, and date of save.
+        """
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -90,6 +101,16 @@ class Round:
 
     @staticmethod
     def from_tinydb_list_round_tournement(list_round_docs_id):
+        """
+        Create a list of Round objects from TinyDB documents based on their IDs for a tournament.
+
+        Parameters:
+        - list_round_docs_id: A list of integers representing document IDs in the TinyDB database.
+
+        Returns:
+        - A list of Round objects created from the TinyDB documents with the specified IDs,
+         or None if the input list is empty.
+        """
         if list_round_docs_id:
             list_round = []
             for doc_id in list_round_docs_id:
@@ -101,6 +122,22 @@ class Round:
 
     @staticmethod
     def from_tinydb(numero, filename="./data/rounds.json"):
+        """
+        Create a Round object from data in a TinyDB database using its unique document ID.
+
+        Parameters:
+        - numero: An integer representing the unique document ID in the TinyDB database.
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./data/rounds.json".
+
+        Returns:
+        - A Round object created from the data in the TinyDB document with the specified ID, or None if the
+         document is not found.
+
+        This method retrieves round data from the TinyDB database using the specified document ID.
+         It then creates a Round object based on the retrieved data, including attributes like name, round number,
+          date of save, and a list of associated match document IDs.
+        If the document is not found, None is returned.
+        """
         db = TinyDB(filename)
         round_data = db.get(doc_id=numero)
         if round_data:
@@ -114,6 +151,20 @@ class Round:
             return None
 
     def find_doc_id_round(self, filename="./data/rounds.json"):
+        """
+        Find the document ID of a round in the TinyDB database based on its attributes.
+
+        Parameters:
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./data/rounds.json".
+
+        Returns:
+        - The document ID of the round in the TinyDB database with matching attributes, or None if no matching
+         document is found.
+
+        This method searches for a round in the TinyDB database by matching its name, round number, and date of save.
+          If a matching document is found, its document ID is returned.
+        If no matching document is found, None is returned.
+        """
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)

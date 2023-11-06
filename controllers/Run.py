@@ -10,6 +10,13 @@ from models.tournament import Tournament
 
 
 class RunCreationTournoi:
+    """
+    This controller is responsible for creating a new tournament:
+    -add info tournament
+    -add players tournament
+    save players and tournaments in json files
+    """
+
     def __init__(self):
         self.tournament = Tournament(None, None, None, None)
 
@@ -25,6 +32,12 @@ class RunCreationTournoi:
 
 
 class Run:
+    """
+    Controller for running tournament rounds and managing matches.
+    This controller is responsible for running the rounds of a tournament, managing match pairings,
+    and updating scores.
+    """
+
     def __init__(self, tournament):
         self.tournament = tournament
 
@@ -94,6 +107,12 @@ class AskContinuerRoundRun:
 
 
 class UpdateScoreRun:
+    """
+    Update player scores based on match results in the current round.
+    This method iterates through the matches in the current round and updates the scores of players in the
+    tournament accordingly.
+    """
+
     def __init__(self, tournament, round_game):
         self.tournament = tournament
         self.round = round_game
@@ -111,6 +130,12 @@ class UpdateScoreRun:
 
 
 class CreationPairMatch:
+    """
+    Create match pairings in the current round of the tournament.
+    This method generates fair match pairings in the current round, taking into account the players' previous
+    pairings in previous rounds.
+    """
+
     def __init__(self, tournament, round_game):
         self.tournament = tournament
         self.round = round_game

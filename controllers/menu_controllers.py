@@ -50,12 +50,9 @@ class HomeMenuController:
 
     def __call__(self, *args, **kwargs):
         self.view.display_message_accueil()
-        # 1.construire un menu
         self.menu.add("auto", "Création nouveau tournoi", RunCreationTournoi())
         self.menu.add("auto", "Reprendre tournoi", MenuReprendreTournamentController())
-        self.menu.add(
-            "auto", "Résultat ancien tournoi", MenulisteTournamentController()
-        )
+        self.menu.add("auto", "Résultat ancien tournoi", MenuListTournamentController())
         self.menu.add("auto", "Liste des joueurs", MenuPrincipalListPlayersController())
         self.menu.add("q", "Quitter", QuitController())
         user_choice = self.view.get_user_choice()
@@ -69,11 +66,10 @@ class PlayerMenuController:
         self.tournament = tournament
 
     def __call__(self, *args, **kwargs):
-        # 1.construire un menu
         self.menu.add(
             "auto",
             "Ajouter joueur depuis la liste",
-            MenulistePlayerController(self.tournament),
+            MenuChoiceListAddPlayerController(self.tournament),
         )
         self.menu.add(
             "auto", "Ajouter joueur manuellement", ManuelPlayer(self.tournament)
@@ -91,7 +87,7 @@ class MenuReprendreTournamentController:
         self.view.display_message_reprendre_tournoi()
 
         list_tournaments = Tournament.from_tinydb_all("./data/tournaments" ".json")
-
+        # Verify if tournament is finish else display tournament
         for tournament in list_tournaments:
             if not (tournament.get_numbers_round() == tournament.get_actual_round()):
                 self.menu.add(
@@ -138,7 +134,11 @@ class QuitController:
         sys.exit()
 
 
-class MenulistePlayerController:
+class MenuChoiceListAddPlayerController:
+    """
+    Menu for choice add player in tournaments.
+    """
+
     def __init__(self, tournament):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)
@@ -154,7 +154,7 @@ class MenulistePlayerController:
         return user_choice.handler
 
 
-class MenulisteTournamentController:
+class MenuListTournamentController:
     def __init__(self):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)
@@ -240,6 +240,10 @@ class MenuChoiceWinnerPlayerController:
 
 
 class MenuChoicePlayRound:
+    """
+    Menu Choice continu to play round or not
+    """
+
     def __init__(self, game_round):
         self.menu = Menu()
         self.view = HomeMenuView(self.menu)

@@ -68,6 +68,14 @@ class Match:
 
     @staticmethod
     def from_tinydb_list_match_round(list_matchs_docs_id):
+        """
+        Create a list of Match objects from TinyDB documents based on their IDs.
+        Parameters:
+        - list_matchs_docs_id: An integer or a list of integers representing document IDs in the TinyDB database.
+        Returns:
+        - A list of Match objects created from the TinyDB documents, or None if the input list is empty.
+        If a single integer is provided as the input, it is automatically converted into a list with one element.
+        """
         if isinstance(list_matchs_docs_id, int):
             list_matchs_docs_id = [list_matchs_docs_id]
         if list_matchs_docs_id:
@@ -79,21 +87,15 @@ class Match:
         else:
             return None
 
-    @staticmethod
-    def from_tinydb(numero, filename="./data/matchs.json"):
-        db = TinyDB(filename)
-        match_data = db.get(doc_id=numero)
-        if match_data:
-            return Match(
-                match_data["player1"]["name"],
-                match_data["player2"]["name"],
-                match_data["score1"],
-                match_data["score2"],
-            )
-        else:
-            return None
-
     def save_match_to_json(self, filename="./data/matchs.json"):
+        """
+        Create a Match object from a TinyDB document using its unique document ID.
+        Parameters:
+        - numero: An integer representing the unique document ID in the TinyDB database.
+        - filename: (Optional) The path to the TinyDB database file. Defaults to "./data/matchs.json".
+        Returns:
+        - A Match object created from the TinyDB document with the specified ID, or None if the document is not found.
+        """
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -102,6 +104,19 @@ class Match:
         db.close()
 
     def find_doc_id_match(self, filename="./data/matchs.json"):
+        """
+         Find the document ID of a Match object in the TinyDB database based on its attributes.
+         Parameters:
+         - filename: (Optional) The path to the TinyDB database file. Defaults to "./data/matchs.json".
+         Returns:
+         - The document ID of the Match object with matching attributes, or None if no matching document is found.
+
+         This method searches for a Match object in the TinyDB database by matching
+        its attributes, including player names, player surnames, and the date of save.
+         If a matching document is found, its document ID is returned.
+         If no matching document is found, None is returned.
+
+        """
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)
