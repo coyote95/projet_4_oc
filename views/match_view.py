@@ -8,7 +8,7 @@ class MatchView:
             f"{self.match.player1.name} {self.match.player1.surname} "
             f"(Joueur1: {self.match.player1.color})"
             f"   contre   "
-            f"{self.match.player2.name} {self.match.player1.surname} "
+            f"{self.match.player2.name} {self.match.player2.surname} "
             f"(Joueur2: {self.match.player2.color})"
         )
 
