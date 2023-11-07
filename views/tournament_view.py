@@ -27,7 +27,7 @@ class TournamentView:
     def display_tournament_info(self):
         print(
             "***************     Tournoi     *********\n"
-            f"Nom: {self.tournament.name}: \n"
+            f"Nom: {self.tournament.name} \n"
             f"Place: {self.tournament.place}\n"
             f"Date de debut: {self.tournament.date_start}\n"
             f"Date de fin: {self.tournament.date_end}\n"
