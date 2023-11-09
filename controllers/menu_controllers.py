@@ -53,6 +53,7 @@ class HomeMenuController:
         self.menu.add("auto", "Création nouveau tournoi", RunCreationTournoi())
         self.menu.add("auto", "Reprendre tournoi", MenuReprendreTournamentController())
         self.menu.add("auto", "Résultat ancien tournoi", MenuListTournamentController())
+        self.menu.add("auto", "Ajouter joueurs ", MenuAddPlayer)
         self.menu.add("auto", "Liste des joueurs", MenuPrincipalListPlayersController())
         self.menu.add("q", "Quitter", QuitController())
         user_choice = self.view.get_user_choice()
@@ -211,6 +212,24 @@ class ManuelPlayer:
             filename="./data/all_players.json", score=False
         )
         self.tournament.add_tournament_player(player)
+
+
+class MenuAddPlayer:
+    def __init__(self, tournament=None):
+        self.menu = Menu()
+        self.view = HomeMenuView(self.menu)
+
+    def __call__(self, *args, **kwargs):
+        player = Player(None, None, None, None)
+        PlayerController(player).creation_player()
+        PlayerController(player).save_player_controller(
+            filename="./data/all_players.json", score=False
+        )
+        self.menu.add("r", "Retour", HomeMenuController())
+        self.menu.add("q", "Quitter", QuitController())
+        user_choice = self.view.get_user_choice()
+        print(user_choice)
+        return user_choice.handler
 
 
 class MenuChoiceWinnerPlayerController:
